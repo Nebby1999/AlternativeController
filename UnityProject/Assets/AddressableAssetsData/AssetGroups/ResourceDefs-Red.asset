@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ResourceDefs-Red
+  m_EditorClassIdentifier: 
+  m_GroupName: ResourceDefs-Red
+  m_Data:
+    m_SerializedData: []
+  m_GUID: bc350751d6f32c943b38fe081be5d162
+  m_SerializeEntries: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 6477d9c2a480c854da50689a56322cfa, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 58b120997070d5d4fb50c8f167be9e2e, type: 2}
+    - {fileID: 11400000, guid: 14a6e12b382267f4bb8ff268f52bc0b2, type: 2}

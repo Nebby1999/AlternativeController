@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace AC
 {
@@ -79,23 +81,32 @@ namespace AC
         /// <summary>
         /// Initializes the ResourceCatalog.
         /// </summary>
-        internal static void Initialize()
+        internal static CoroutineTask Initialize()
         {
             if (initialized)
-                return;
+                return null;
 
             initialized = true;
+            return new CoroutineTask(C_InitializationCoroutine());
+        }
 
-            //Load all resources
-            ResourceDef[] resources = LoadResourceDefs();
+        private static IEnumerator C_InitializationCoroutine()
+        {
+            int invalidCount = 0;
+
+            var task = Addressables.LoadAssetsAsync<ResourceDef>("ResourceDefs", NameCheck);
+
+            while (!task.IsDone)
+                yield return null;
+
+            ResourceDef[] resources = task.Result.ToArray();
             _resourceDefs = new ResourceDef[resources.Length];
 
-            int invalidCount = 0;
-            for(int i = 0; i < resources.Length; i++)
+            for (int i = 0; i < resources.Length; i++)
             {
                 var resourceDef = resources[i];
 
-                if(string.IsNullOrEmpty(resourceDef.cachedName))
+                if (string.IsNullOrEmpty(resourceDef.cachedName))
                 {
                     Debug.LogWarning("Invalid resourceDef name, using generic name.", resourceDef);
                     resourceDef.cachedName = "RESOURCEDEF_" + invalidCount;
@@ -110,8 +121,17 @@ namespace AC
 
             _onAvailable?.Invoke();
             _onAvailable = null;
-        }
 
+            void NameCheck(ResourceDef def)
+            {
+                if (string.IsNullOrEmpty(def.cachedName))
+                {
+                    Debug.LogWarning("Invalid resourceDef name, using generic name.", def);
+                    def.cachedName = "RESOURCEDEF_" + invalidCount;
+                    invalidCount++;
+                }
+            }
+        }
         //TODO: Decide wether to use Resources folder or Addressables.
         private static ResourceDef[] LoadResourceDefs() => new ResourceDef[0];
     }
