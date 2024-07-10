@@ -78,7 +78,7 @@ MonoBehaviour:
       _internalList:
       - _id: 28682766-2f50-4a9e-b7e0-93efc5150ab1
         _name:
-          _value: New Label Rule
+          _value: ResourceDefs
         _assetGroups:
           _internalList:
           - _id: dfd315d1-cec9-438a-b8d1-13b99b816ebe
@@ -89,6 +89,19 @@ MonoBehaviour:
               - rid: 1946303938783346698
         _labelProviderInternal:
           rid: 1946303938783346697
+      - _id: f28f085b-a23a-4a1d-87c9-f4a241082d9f
+        _name:
+          _value: EntityStateConfigurations
+        _assetGroups:
+          _internalList:
+          - _id: 40dee78d-d801-4088-ba05-3ae44da80141
+            _name:
+              _value: Default Asset Group
+            _filters:
+              _internalList:
+              - rid: 3701319220835909633
+        _labelProviderInternal:
+          rid: 3701319220835909632
     _versionRules:
       _internalList: []
   references:
@@ -147,4 +160,20 @@ MonoBehaviour:
             _fullName: AC.ResourceDef
             _assemblyQualifiedName: AC.ResourceDef, AlternativeController.Runtime,
               Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        _matchWithDerivedTypes: 1
+    - rid: 3701319220835909632
+      type: {class: ConstantLabelProvider, ns: SmartAddresser.Editor.Core.Models.LayoutRules.LabelRules, asm: SmartAddresser.Editor}
+      data:
+        _label: EntityStateConfigurations
+    - rid: 3701319220835909633
+      type: {class: TypeBasedAssetFilter, ns: SmartAddresser.Editor.Core.Models.Shared.AssetGroups.AssetFilterImpl, asm: SmartAddresser.Editor}
+      data:
+        _id: b10d89b5-8b24-494e-9ebb-7d5231d2b6fe
+        _type:
+          _isListMode: 0
+          _values:
+          - _name: StateConfiguration
+            _fullName: Nebula.StateConfiguration
+            _assemblyQualifiedName: Nebula.StateConfiguration, Nebula.Runtime, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
         _matchWithDerivedTypes: 1

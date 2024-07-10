@@ -1,0 +1,16 @@
+{
+    "name": "Nebula.Runtime",
+    "rootNamespace": "Nebula",
+    "references": [
+        "GUID:1cff738fde79d6145a37676af5dab9a8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

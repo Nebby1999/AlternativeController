@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nebula;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace AC
     /// Represents a definition for a Resource
     /// </summary>
     [CreateAssetMenu(fileName = "New ResourceDef", menuName = "AC/ResourceDef")]
-    public class ResourceDef : ACScriptableObject
+    public class ResourceDef : NebulaScriptableObject
     {
         [Tooltip("Name of the Resource")]
         public string resourceName;

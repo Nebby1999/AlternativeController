@@ -16,7 +16,13 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: bc350751d6f32c943b38fe081be5d162
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 900fb9b462516fd4c84ad37325ed2124
+    m_Address: GameAssets/ResourceDefs/Red/Red.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ResourceDefs
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6477d9c2a480c854da50689a56322cfa, type: 2}
   m_SchemaSet:
