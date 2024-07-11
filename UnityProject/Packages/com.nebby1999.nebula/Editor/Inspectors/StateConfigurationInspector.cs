@@ -29,7 +29,7 @@ namespace Nebula.Editor
             stateTypeToConfigPropertyField = new PropertyField();
             stateTypeToConfigPropertyField.bindingPath = stateTypeProperty.propertyPath;
             root.Add(stateTypeToConfigPropertyField);
-            stateTypeToConfigPropertyField.RegisterValueChangeCallback(UpdateFieldCollection);
+            stateTypeToConfigPropertyField.TrackPropertyValue(stateTypeProperty.FindPropertyRelative("_typeName"), UpdateFieldCollection);
 
             serializedFieldCollectionElement = new SerializedFieldCollectionElement();
             serializedFieldCollectionElement.boundProperty = fieldCollectionProperty;
@@ -38,7 +38,7 @@ namespace Nebula.Editor
             return root;
         }
 
-        private void UpdateFieldCollection(SerializedPropertyChangeEvent evt)
+        private void UpdateFieldCollection(SerializedProperty prop)
         {
             serializedFieldCollectionElement.typeBeingSerialized = GetStateType();
         }

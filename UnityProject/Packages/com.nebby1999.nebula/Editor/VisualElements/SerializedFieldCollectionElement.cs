@@ -38,12 +38,31 @@ namespace Nebula.Editor.VisualElements
         public VisualElement container { get; private set; }
         public Foldout staticFieldsFoldout { get; private set; }
         public Foldout instanceFieldsFoldout { get; private set; }
+
+        public VisualElement unrecognizedFieldContainer { get; private set; }
         public Button clearUnrecognizedFieldsButton { get; private set; }
         public Foldout unrecognizedFieldsFoldout { get; private set; }
-        public SerializedProperty boundProperty { get; set; }
+        public SerializedProperty boundProperty
+        {
+            get
+            {
+                return _boundProperty;
+            }
+            set
+            {
+                if(_boundProperty != value)
+                {
+                    _boundProperty = value;
+                    _serializedFieldsProperty = _boundProperty.FindPropertyRelative(nameof(SerializedFieldCollection.serializedFields));
+                }
+            }
+        }
+        private SerializedProperty _boundProperty;
 
+        private SerializedProperty _serializedFieldsProperty; 
         private readonly List<FieldInfo> _serializableStaticFields = new List<FieldInfo>();
         private readonly List<FieldInfo> _serializableInstanceFields = new List<FieldInfo>();
+        private readonly List<KeyValuePair<SerializedProperty, int>> _unrecognizedFields = new List<KeyValuePair<SerializedProperty, int>>();
         public void CheckForTypeBeingSerialized()
         {
             if (typeBeingSerialized == null)
@@ -60,6 +79,8 @@ namespace Nebula.Editor.VisualElements
             PopulateSerializableFields();
 
             UpdateSerializedFieldElements();
+
+            CheckAndDrawUnrecognizedFields();
         }
 
         private void PopulateSerializableFields()
@@ -86,7 +107,6 @@ namespace Nebula.Editor.VisualElements
 
         private void UpdateSerializedFieldElements()
         {
-            var serializedFieldsProperty = boundProperty.FindPropertyRelative(nameof(SerializedFieldCollection.serializedFields));
 
             instanceFieldsFoldout.Clear();
             if(_serializableInstanceFields.Count == 0)
@@ -97,7 +117,7 @@ namespace Nebula.Editor.VisualElements
             {
                 foreach (var fieldInfo in _serializableInstanceFields)
                 {
-                    var control = CreateControl(fieldInfo, GetOrCreateField(serializedFieldsProperty, fieldInfo));
+                    var control = CreateControl(fieldInfo, GetOrCreateField(_serializedFieldsProperty, fieldInfo));
                     instanceFieldsFoldout.Add(control);
                 }
             }
@@ -111,12 +131,55 @@ namespace Nebula.Editor.VisualElements
             {
                 foreach (var fieldInfo in _serializableStaticFields)
                 {
-                    var control = CreateControl(fieldInfo, GetOrCreateField(serializedFieldsProperty, fieldInfo));
+                    var control = CreateControl(fieldInfo, GetOrCreateField(_serializedFieldsProperty, fieldInfo));
                     staticFieldsFoldout.Add(control);
                 }
             }
         }
 
+        private void CheckAndDrawUnrecognizedFields()
+        {
+            unrecognizedFieldsFoldout.Clear();
+            _unrecognizedFields.Clear();
+
+            for(int i = 0; i < _serializedFieldsProperty.arraySize; i++)
+            {
+                var fieldProperty = _serializedFieldsProperty.GetArrayElementAtIndex(i);
+                var name = fieldProperty.FindPropertyRelative(nameof(SerializedField.fieldName)).stringValue;
+                if (!(_serializableStaticFields.Any(el => el.Name == name) || _serializableInstanceFields.Any(el => el.Name == name)))
+                {
+                    _unrecognizedFields.Add(new KeyValuePair<SerializedProperty, int>(fieldProperty, i));
+                }
+            }
+
+            if(_unrecognizedFields.Count <= 0)
+            {
+                unrecognizedFieldContainer.SetDisplay(false);
+                unrecognizedFieldContainer.SetEnabled(false);
+                unrecognizedFieldsFoldout.Clear();
+                return;
+            }
+
+            unrecognizedFieldContainer.SetDisplay(true);
+            unrecognizedFieldContainer.SetEnabled(true);
+
+            foreach(var fieldRow in _unrecognizedFields)
+            {
+                DrawUnrecognizedField(fieldRow.Key);
+            }
+        }
+
+        private void DrawUnrecognizedField(SerializedProperty field)
+        {
+            var name = field.FindPropertyRelative(nameof(SerializedField.fieldName)).stringValue;
+            var valueProperty = field.FindPropertyRelative(nameof(SerializedField.serializedValue));
+
+            PropertyField propertyField = new PropertyField();
+            propertyField.label = ObjectNames.NicifyVariableName(name);
+            propertyField.BindProperty(valueProperty);
+            propertyField.RegisterValueChangeCallback(evt => evt.changedProperty.serializedObject.ApplyModifiedProperties());
+            unrecognizedFieldsFoldout.Add(propertyField);
+        }
         private SerializedProperty GetOrCreateField(SerializedProperty collectionProperty, FieldInfo fieldInfo)
         {
             for(var i = 0; i < collectionProperty.arraySize; i++)
@@ -193,12 +256,50 @@ namespace Nebula.Editor.VisualElements
             }
         }
 
+        private void OnAttached(AttachToPanelEvent evt)
+        {
+            clearUnrecognizedFieldsButton.clicked += ClearUnrecognizedFieldsButton_clicked;
+        }
+
+        private void ClearUnrecognizedFieldsButton_clicked()
+        {
+            foreach(var fieldRow in _unrecognizedFields.OrderByDescending(pair => pair.Value))
+            {
+                _serializedFieldsProperty.DeleteArrayElementAtIndex(fieldRow.Value);
+            }
+            _serializedFieldsProperty.serializedObject.ApplyModifiedProperties();
+            _unrecognizedFields.Clear();
+            unrecognizedFieldsFoldout.Clear();
+
+            unrecognizedFieldContainer.SetDisplay(false);
+            unrecognizedFieldContainer.SetEnabled(false);
+        }
+
+        public SerializedFieldCollectionElement()
+        {
+            VisualElementTemplateFinder.GetTemplateInstance(nameof(SerializedFieldCollectionElement), this, s => s.Contains(Constants.PACKAGE_NAME));
+
+            RegisterCallback<AttachToPanelEvent>(OnAttached);
+
+            helpBox = new HelpBox("No Type is being serialized.", HelpBoxMessageType.Info);
+            Add(helpBox);
+            helpBox.SendToBack();
+
+            container = this.Q<VisualElement>("MainContainer");
+            staticFieldsFoldout = this.Q<Foldout>("StaticFields");
+            instanceFieldsFoldout = this.Q<Foldout>("InstanceFields");
+
+            unrecognizedFieldContainer = this.Q<VisualElement>("UnrecognizedFieldContainer");
+            clearUnrecognizedFieldsButton = this.Q<Button>("ClearUnrecognizedFields");
+            unrecognizedFieldsFoldout = this.Q<Foldout>("UnrecognizedFields");
+        }
+
         #region Controller creation //Move to another class
         private VisualElement CreateStringControl(FieldInfo fieldInfo, SerializedProperty fieldProperty, SerializedProperty stringValue, SerializedValue serializedValue)
         {
             var fieldType = fieldInfo.FieldType;
 
-            if(!CanBuildControlFromType(fieldType))
+            if (!CanBuildControlFromType(fieldType))
             {
                 var unrecognizedField = new PropertyField(fieldProperty);
                 return unrecognizedField;
@@ -208,7 +309,7 @@ namespace Nebula.Editor.VisualElements
             if (fieldType.IsEnum)
             {
                 var flagsAttribute = fieldType.GetCustomAttribute<FlagsAttribute>();
-                var element = flagsAttribute != null ? _enumFlagsControlBuilder(nicifiedName, stringValue, serializedValue, fieldInfo) : _enumControlBuilder(nicifiedName, stringValue,  serializedValue, fieldInfo);
+                var element = flagsAttribute != null ? _enumFlagsControlBuilder(nicifiedName, stringValue, serializedValue, fieldInfo) : _enumControlBuilder(nicifiedName, stringValue, serializedValue, fieldInfo);
 
                 return element;
             }
@@ -387,20 +488,6 @@ namespace Nebula.Editor.VisualElements
                 SetupField(field, sp, sv, fi);
                 return field;
             });
-            /*
-            Add<Vector2>((l) => new Vector2Field { label = l });
-            Add<Vector2Int>((l) => new Vector2IntField { label = l });
-            Add<Vector3>((l) => new Vector3Field { label = l });
-            Add<Vector3Int>((l) => new Vector3IntField { label = l });
-            Add<Vector4>((l) => new Vector4Field { label = l });
-            Add<Rect>((l) => new RectField { label = l });
-            Add<RectInt>((l) => new RectIntField { label = l });
-            Add<char>((l) => new TextField { label = l });
-            Add<Bounds>((l) => new BoundsField { label = l });
-            Add<BoundsInt>((l) => new BoundsIntField { label = l });
-            Add<Quaternion>((l) => new Vector3Field { label = l });
-            Add<AnimationCurve>((l) => new CurveField { label = l });
-            Add<Gradient>((l) => new GradientField { label = l });*/
 
             _enumFlagsControlBuilder = (l, sp, sv, fi) =>
             {
@@ -432,20 +519,5 @@ namespace Nebula.Editor.VisualElements
             });
         }
         #endregion
-
-        public SerializedFieldCollectionElement()
-        {
-            VisualElementTemplateFinder.GetTemplateInstance(nameof(SerializedFieldCollectionElement), this, s => s.Contains(Constants.PACKAGE_NAME));
-
-            helpBox = new HelpBox("No Type is being serialized.", HelpBoxMessageType.Info);
-            Add(helpBox);
-            helpBox.SendToBack();
-
-            container = this.Q<VisualElement>("MainContainer");
-            staticFieldsFoldout = this.Q<Foldout>("StaticFields");
-            instanceFieldsFoldout = this.Q<Foldout>("InstanceFields");
-            clearUnrecognizedFieldsButton = this.Q<Button>("ClearUnrecognizedFields");
-            unrecognizedFieldsFoldout = this.Q<Foldout>("UnrecognizedFields");
-        }
     }
 }

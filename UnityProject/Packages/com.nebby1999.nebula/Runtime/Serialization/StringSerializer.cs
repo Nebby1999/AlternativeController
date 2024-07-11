@@ -145,7 +145,14 @@ namespace Nebula.Serialization
             AddSerializationHandler<LayerMask>(new SerializationHandler
             {
                 deserializer = txt => new LayerMask { value = int.Parse(txt, culture) },
-                serializer = obj => ((int)obj).ToString(culture)
+                serializer = obj =>
+                {
+                    if(obj is int @int)
+                    {
+                        return @int.ToString(culture);
+                    }
+                    return ((LayerMask)obj).value.ToString(culture);
+                }
             });
             AddSerializationHandler<Vector2>(new SerializationHandler
             {
@@ -298,7 +305,14 @@ namespace Nebula.Serialization
             AddSerializationHandler<char>(new SerializationHandler
             {
                 deserializer = txt => char.Parse(txt),
-                serializer = obj => ((string)obj).ToString(culture)
+                serializer = obj =>
+                {
+                    if(obj is string @string)
+                    {
+                        return @string.ToString(culture);
+                    }
+                    return ((char)obj).ToString(culture);
+                }
             });
             AddSerializationHandler<Bounds>(new SerializationHandler
             {
@@ -378,7 +392,13 @@ namespace Nebula.Serialization
                 },
                 serializer = obj =>
                 {
-                    Vector3 euler = (Vector3)obj;
+                    Vector3 euler = Vector3.zero;
+                    if(obj is Quaternion quat)
+                    {
+                        euler = quat.eulerAngles;
+                        return $"{euler.x.ToString(culture)}, {euler.y.ToString(culture)}, {euler.z.ToString(culture)}";
+                    }
+                    euler = (Vector3)obj;
                     return $"{euler.x.ToString(culture)}, {euler.y.ToString(culture)}, {euler.z.ToString(culture)}";
                 }
             });
