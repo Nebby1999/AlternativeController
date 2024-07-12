@@ -43,7 +43,7 @@ namespace AC
 
         }
 
-        private void TrySupplyBases(MineralType mineral)
+        /*private void TrySupplyBases(MineralType mineral)
         {
             for (int i = 0; i < _bases.Length; i++)
             {
@@ -88,6 +88,6 @@ namespace AC
                 return;
             }
             _resources.LoadMaterial(mineral, amount);
-        }
+        }*/
     }
 }
