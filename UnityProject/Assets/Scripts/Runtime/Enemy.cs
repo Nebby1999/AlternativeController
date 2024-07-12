@@ -8,7 +8,7 @@ namespace AC
     [RequireComponent(typeof(Movement))]
     public class Enemy : MonoBehaviour, ILimitable
     {
-        [SerializeField] private MineralType _type;
+        [SerializeField] private ResourceDef _type;
         [SerializeField] private TargetPriorityManager _priority;
         private SpriteRenderer _sprite;
         private Transform _transform;
@@ -52,7 +52,7 @@ namespace AC
             _target = _priority.GetHighestPriorityTarget();
             _movement.Configure(this, _target.localScale.y);
             StartCoroutine(EnableMovement());
-            _sprite.color = _type == MineralType.Black ? Color.black : Color.red;
+            _sprite.color = _type.resourceColor;
         }
         private IEnumerator EnableMovement()
         {

@@ -8,7 +8,7 @@ namespace AC
     [RequireComponent(typeof(SpriteRenderer))]
     public class Base : MonoBehaviour
     {
-        [SerializeField] private MineralType _type;
+        [SerializeField] private ResourceDef _type;
         private SpriteRenderer _sprite;
         private ResourcesManager _resources;
         private void Awake()
@@ -18,11 +18,13 @@ namespace AC
         }
         private void OnEnable()
         {
-            _sprite.color = _type == MineralType.Black ? Color.black : Color.red;
+            _sprite.color = _type.resourceColor;
         }
-        public void TryLoadMineral(MineralType mineral, float amount)
+
+        public void TryLoadMineral(ResourceDef resourceDef, float amount) => TryLoadMineral(resourceDef.resourceIndex, amount);
+        public void TryLoadMineral(ResourceIndex resourceIndex, float amount)
         {
-            _resources.LoadMaterial(mineral, amount);
+            _resources.LoadResource(resourceIndex, amount);
         }
     }
 }

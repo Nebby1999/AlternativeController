@@ -9,12 +9,12 @@ namespace AC
     {
         private readonly ResourcesManager _sender;
         private readonly ResourcesManager _receiver;
-        private readonly MineralType _mineral;
+        private readonly ResourceDef _mineral;
         private readonly BoxInputs _input;
         private readonly float _amount;
         private readonly int _cable;
         private readonly int _delay;
-        public Supply(ResourcesManager sender, ResourcesManager receiver, MineralType mineral, BoxInputs input, float amount, int cable, int delay)
+        public Supply(ResourcesManager sender, ResourcesManager receiver, ResourceDef mineral, BoxInputs input, float amount, int cable, int delay)
         {
             _sender = sender;
             _receiver = receiver;
@@ -38,13 +38,13 @@ namespace AC
                     _cts?.Cancel();
                     return;
                 }
-                if(!_sender.UnloadMineral(_mineral, _amount))
+                if(!_sender.UnloadResource(_mineral, _amount))
                 {
                     Debug.LogWarning($"Desired amount exceeds current value of resources from sender");
                     _cts?.Cancel();
                     return;
                 }
-                _receiver.LoadMaterial(_mineral, _amount);
+                _receiver.LoadResource(_mineral, _amount);
                 Debug.Log($"Delivering {_amount} of {_mineral} into ");
             }
             catch(TaskCanceledException)

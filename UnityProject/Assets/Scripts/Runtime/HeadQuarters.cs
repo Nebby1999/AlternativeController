@@ -25,8 +25,8 @@ namespace AC
         }
         private void FixedUpdate()
         {
-            TrySupplyBases(MineralType.Black);
-            TrySupplyBases(MineralType.Red);
+            //TrySupplyBases(MineralType.Black);
+            //TrySupplyBases(MineralType.Red);
         }
         private void ChangePlayersState()
         {
@@ -35,7 +35,15 @@ namespace AC
                 vehicles[i].IsBattle = _input.GetPlayerSwitch(i);
             }
         }
-        private void TrySupplyBases(MineralType mineral)
+
+        public void TryLoadResource(ResourceDef resource, int amount) => TryLoadResource(resource.resourceIndex, amount);
+
+        public void TryLoadResource(ResourceIndex index, int amount)
+        {
+
+        }
+
+        /*private void TrySupplyBases(MineralType mineral)
         {
             for (int i = 0; i < _bases.Length; i++)
             {
@@ -53,6 +61,6 @@ namespace AC
                 return;
             }
             _resources.LoadMaterial(mineral, amount);
-        }
+        }*/
     }
 }

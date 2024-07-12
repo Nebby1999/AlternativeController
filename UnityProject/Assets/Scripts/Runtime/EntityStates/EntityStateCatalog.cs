@@ -17,7 +17,12 @@ namespace AC
         private static Type[] entityStates = Array.Empty<Type>();
         private static readonly Dictionary<Type, Action<object>> instanceFieldInitializers = new Dictionary<Type, Action<object>>();
 
-        internal static IEnumerator Initialize()
+        internal static CoroutineTask Initialize()
+        {
+            return new CoroutineTask(C_InitializationCoroutine());
+        }
+
+        private static IEnumerator C_InitializationCoroutine()
         {
             var obj = Addressables.LoadAssetsAsync<EntityStateConfiguration>("EntityStateConfigurations", _ => { });
             while (!obj.IsDone)
@@ -30,7 +35,6 @@ namespace AC
                 ApplyStateConfig(config);
             }
         }
-
         private static Type[] LoadEntityStates()
         {
             List<Type> entityStates = new List<Type>();

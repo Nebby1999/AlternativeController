@@ -12,10 +12,13 @@ namespace AC
             _mineralFactory = new MineralFactory(pool);
             _transform = transform;
         }
-        public void TryDecoy(bool canDecoy, MineralType mineral)
+
+        public void TryDecoy(bool canDecoy, ResourceIndex resource)
         {
-            if(!canDecoy) return;
-            _mineralFactory.CreateMineral(mineral, _transform.position, _transform.rotation);
+            if (!canDecoy)
+                return;
+
+            _mineralFactory.CreateMineral(resource, _transform.position, _transform.rotation);
         }
     }
 }

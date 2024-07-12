@@ -61,8 +61,8 @@ namespace AC
         }
         public void ThrowCargo()
         {
-            foreach(MineralType mineral in _cargo.Shipment.ToList())
-                _decoyController.TryDecoy(_cargo.Unload(1), _cargo.LastUnloadedMineral);
+            foreach(ResourceIndex mineral in _cargo.resourceCollectionOrder.ToList())
+                _decoyController.TryDecoy(_cargo.UnloadResource(1), _cargo.lastUnloadedResource);
         }
         public void Harvest(IHarvesteable sender)
         {
@@ -74,7 +74,7 @@ namespace AC
         }
         public void Decoy()
         {
-            _decoyController.TryDecoy(_input.GetActionDown(5) && _cargo.Unload(1), _cargo.LastUnloadedMineral); 
+            _decoyController.TryDecoy(_input.GetActionDown(5) && _cargo.UnloadResource(1), _cargo.lastUnloadedResource); 
         }
         public void Attack()
         {

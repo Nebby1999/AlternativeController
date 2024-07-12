@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AC
@@ -6,47 +7,34 @@ namespace AC
 
     public class ResourcesManager : MonoBehaviour
     {
-        [SerializeField] private Resource _redResource;
-        [SerializeField] private Resource _blackResource;
+        private float[] resources;
 
-        public float BlackResource => _blackResource.Value;
-        public float RedResource => _redResource.Value;
-
-        public bool LoadMaterial(MineralType mineral, float amount)
+        private void Awake()
         {
-            Resource targetResource = GetResourceByType(mineral);
+            resources = new float[ResourceCatalog.resourceCount];
+        }
+        public bool LoadResource(ResourceDef resourceDef, float amount) => LoadResource(resourceDef ? resourceDef.resourceIndex : ResourceIndex.None, amount);
 
-            if (targetResource == null)
-            {
-                Debug.LogError("No Mineral to Load");
+        public bool LoadResource(ResourceIndex resourceIndex, float amount)
+        {
+            if (resourceIndex == ResourceIndex.None)
                 return false;
-            }
-            AddMineral(targetResource, amount);
+
+            int index = (int)resourceIndex;
+            resources[index] += amount;
             return true;
         }
 
-        private Resource GetResourceByType(MineralType mineral)
-        {
-            return mineral == MineralType.Black ? _blackResource : (mineral == MineralType.Red ? _redResource : null);
-        }
+        public bool UnloadResource(ResourceDef resourceDef, float amount) => UnloadResource(resourceDef ? resourceDef.resourceIndex : ResourceIndex.None, amount);
 
-        private void AddMineral(Resource resource, float amount)
+        public bool UnloadResource(ResourceIndex resourceIndex, float amount)
         {
-            resource.Add(amount);
-            Debug.Log("Mineral Loaded: " + resource.Value);
-        }
-
-        public bool UnloadMineral(MineralType mineral, float amount)
-        {
-            Resource targetResource = GetResourceByType(mineral);
-
-            if (targetResource == null || targetResource.Value < amount)
-            {
-                Debug.LogError("No Mineral to Unload");
+            if (resourceIndex == ResourceIndex.None)
                 return false;
-            }
-            targetResource.Substract(amount);
-            Debug.Log("Mineral Unloaded: " + targetResource.Value);
+
+            int index = (int)resourceIndex;
+            resources[index] -= amount;
+
             return true;
         }
     }

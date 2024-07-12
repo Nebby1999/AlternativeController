@@ -4,31 +4,27 @@ using UnityEngine;
 
 namespace AC
 {
-
-    public enum MineralType
-    {
-        Black,
-        Red
-    }
     [RequireComponent(typeof(SpriteRenderer))]
     public class Mineral : PoolObject, IHarvesteable
     {
         private SpriteRenderer _sprite;
-        public MineralType Type => _type;
-        [SerializeField] private MineralType _type;
+        public ResourceDef resourceType => _resourceType;
+        [SerializeField] private ResourceDef _resourceType;
         private void Awake()
         {
             _sprite = GetComponent<SpriteRenderer>();
         }
         private void OnEnable()
         {
-            _sprite.color = _type == MineralType.Black ? Color.black : Color.red;
+            _sprite.color = resourceType.resourceColor;
         }
-        public void Initialize(MineralType type, GameObjectPool pool)
+
+        public void InitializeFromPool(ResourceIndex resourceIndex, GameObjectPool poolThatsInstantiating)
         {
-            _type = type;
-            _pool = pool;
-            _sprite.color = _type == MineralType.Black ? Color.black : Color.red;
+            ResourceDef resourceType = ResourceCatalog.GetResourceDef(resourceIndex);
+            _resourceType = resourceType; ;
+            _sprite.color = resourceType.resourceColor;
+            _pool = poolThatsInstantiating;
         }
         public void Harvest(int amount)
         {

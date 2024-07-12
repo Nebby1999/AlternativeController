@@ -3,7 +3,7 @@ namespace AC
 
     public interface IHarvesteable
     {
-        MineralType Type {get;}
+        ResourceDef resourceType {get;}
         void Harvest(int amount);
     }
 }

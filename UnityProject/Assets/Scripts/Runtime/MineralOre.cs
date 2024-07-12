@@ -9,8 +9,9 @@ namespace AC
     public class MineralOre : MonoBehaviour, IHarvesteable
     {
         private SpriteRenderer _sprite;
-        public MineralType Type => _type;
-        [SerializeField] private MineralType _type;
+
+        public ResourceDef resourceType => _resourceType;
+        [SerializeField] ResourceDef _resourceType;
         [SerializeField, Range(100, 1000)] private int _resources = 100;
         private void Awake()
         {
@@ -18,7 +19,7 @@ namespace AC
         }
         private void OnEnable()
         {
-            _sprite.color = _type == MineralType.Black ? Color.black : Color.red;
+            _sprite.color = _resourceType.resourceColor;
         }
 
 

@@ -32,7 +32,7 @@ namespace AC
                     _cts?.Cancel();
                     return;
                 }
-                if(_cargo.Load(_item.Type, amount)) _item.Harvest(amount);
+                if(_cargo.LoadResource(_item.resourceType, amount)) _item.Harvest(amount);
             }
             catch(TaskCanceledException)
             {

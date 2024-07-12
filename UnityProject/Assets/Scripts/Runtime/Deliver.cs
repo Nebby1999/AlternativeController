@@ -31,9 +31,9 @@ namespace AC
                     _cts?.Cancel();
                     return;
                 }
-                if(!_cargo.Unload(1)) return;
-                _hq.TryLoadMineral(_cargo.LastUnloadedMineral, 1);
-                Debug.Log($"Delivering {_cargo.LastUnloadedMineral} into HQ");
+                if(!_cargo.UnloadResource(1)) return;
+                _hq.TryLoadResource(_cargo.lastUnloadedResource, 1);
+                Debug.Log($"Delivering {_cargo.lastUnloadedResource} into HQ");
             }
             catch(TaskCanceledException)
             {
