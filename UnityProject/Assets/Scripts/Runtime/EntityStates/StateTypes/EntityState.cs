@@ -5,6 +5,10 @@ namespace EntityStates
     public class EntityState : State
     {
         protected new EntityStateMachine outer;
+        public CharacterBody characterBody => outer.componentLocator.characterBody;
+        public HealthComponent healthComponent => outer.componentLocator.healthComponent;
+        public InputBank inputBank => outer.componentLocator.inputBank;
+        public Rigidbody2DCharacterController characterController => outer.componentLocator.rigidbody2DCharacterController;
 
         public override void OnEnter()
         {

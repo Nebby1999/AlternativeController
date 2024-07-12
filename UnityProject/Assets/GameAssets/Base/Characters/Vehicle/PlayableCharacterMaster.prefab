@@ -1,0 +1,168 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7925535655745935037
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6266302408291034359}
+  - component: {fileID: 415587902900605357}
+  - component: {fileID: 3194755207462691312}
+  - component: {fileID: 711768046402884347}
+  m_Layer: 0
+  m_Name: PlayableCharacterMaster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6266302408291034359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7925535655745935037}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.55366534, y: -0.63835996, z: 0.066880584}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &415587902900605357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7925535655745935037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781355c88a3446b4688d7e3a5a7123c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultBodyPrefab: {fileID: 764791405643980591, guid: ce5d995e97313e54ebb37b64883f1703, type: 3}
+  spawnOnStart: 1
+--- !u!114 &3194755207462691312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7925535655745935037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8898a247eeaa8a14abce5110db69801a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &711768046402884347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7925535655745935037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 1cb64424802d83c4cbc0aab8ce930426, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 773f83dd-939c-4194-a07a-0d84fdb41add
+    m_ActionName: HQMap/SwitchToBattleState1[/Keyboard/numpad7]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c1bfa46d-bb4b-492f-9df9-b59cc1ace797
+    m_ActionName: HQMap/SwitchToBattleState2[/Keyboard/numpad9]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4f2ac04e-6e15-4438-950c-eb4444d0046a
+    m_ActionName: HQMap/RedResourceToBase1[/Keyboard/numpad4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4870caf8-d799-4027-96fe-e3229388d20e
+    m_ActionName: HQMap/RedResourceRest[/Keyboard/numpad5]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 62584c5e-ad51-494a-b392-1a3615919049
+    m_ActionName: HQMap/RedResourceToBase2[/Keyboard/numpad6]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: db4f9448-caef-4529-87a3-5c1e784dcf46
+    m_ActionName: HQMap/BlackResourceToBase1[/Keyboard/numpad1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7c982f6a-f67f-48c3-b46b-91d94db8e4f1
+    m_ActionName: HQMap/BlackResourceToRest[/Keyboard/numpad2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a02f2dc0-055c-4e4d-8d62-6ed81e9ecb50
+    m_ActionName: HQMap/BlackResourceToBase2[/Keyboard/numpad3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cadc9f28-2ea5-4aea-842a-82e5b9667888
+    m_ActionName: VehicleMap/Deliver_Shoot[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8a010eab-8a1f-488a-96e6-c47bd77b2835
+    m_ActionName: VehicleMap/Harvest_Shield[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 27d93b74-46df-4424-a6b5-a8309b36a5c9
+    m_ActionName: VehicleMap/Decoy_Stun[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3194755207462691312}
+        m_TargetAssemblyTypeName: AC.PlayableCharacterMaster, AlternativeController.Runtime
+        m_MethodName: OnAccelerate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: aa958129-960e-4cda-bb06-415a9c6f74ea
+    m_ActionName: VehicleMap/Accelerate[/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3194755207462691312}
+        m_TargetAssemblyTypeName: AC.PlayableCharacterMaster, AlternativeController.Runtime
+        m_MethodName: OnRotate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b38a3d55-e717-42a6-98d0-aa63192b8c33
+    m_ActionName: VehicleMap/Rotate[/Keyboard/a,/Keyboard/d]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard
+  m_DefaultActionMap: VehicleMap
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

@@ -12,7 +12,7 @@ namespace AC
     [RequireComponent(typeof(VisualController))]
     [RequireComponent(typeof(ShootController))]
     [RequireComponent(typeof(StunController))]
-    public class Vehicle : StateManager<Vehicle.State, Vehicle>
+    public class Vehicle_OLD : StateManager<Vehicle_OLD.State, Vehicle_OLD>
     {
         [HideInInspector] public enum State
         {
@@ -33,8 +33,8 @@ namespace AC
         protected override void InitializeStates()
         {
             Debug.Log("Initializing States");
-            State<State, Vehicle> harvest = new Harvest(this);
-            State<State, Vehicle> combat = new Combat(this);
+            State<State, Vehicle_OLD> harvest = new Harvest(this);
+            State<State, Vehicle_OLD> combat = new Combat(this);
             States.Add(State.Harvest, harvest);
             States.Add(State.Combat, combat);
             CurrentState = States[State.Harvest];
@@ -68,7 +68,7 @@ namespace AC
         {
             if(_input.GetAction(1)) _vehicleBuffer.QueueCommand(new Collect(_cargo,_input,sender,1));
         }
-        public void Deliver(HeadQuarters hq)
+        public void Deliver(HeadQuarters_OLD hq)
         {
             if(_input.GetAction(0)) _vehicleBuffer.QueueCommand(new Deliver(_cargo, _input, hq, 1));
         }

@@ -7,11 +7,11 @@ namespace AC
 
     [RequireComponent(typeof(BoxInputs))]
     [RequireComponent(typeof(ResourcesManager))]
-    public class HeadQuarters : MonoBehaviour
+    public class HeadQuarters_OLD : MonoBehaviour
     {
         private BoxInputs _input;
         private ResourcesManager _resources;
-        [SerializeField] private Vehicle[] vehicles;
+        [SerializeField] private Vehicle_OLD[] vehicles;
         [SerializeField] private CommandBuffer _hqBuffer;
         [SerializeField] private Base[] _bases;
         private void Awake()

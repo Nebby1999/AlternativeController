@@ -223,22 +223,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Accelerate",
-                    "type": "Button",
+                    "name": "LeftTrack",
+                    "type": "Value",
                     "id": "aa958129-960e-4cda-bb06-415a9c6f74ea",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Integer",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "Rotate",
-                    "type": "Button",
+                    "name": "RightTrack",
+                    "type": "Value",
                     "id": "b38a3d55-e717-42a6-98d0-aa63192b8c33",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Integer",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -265,46 +265,35 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "a0028fee-d4ba-460d-be82-97176e49cbaf",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Accelerate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "1D Axis",
                     "id": "e1c48eb7-6c9d-4098-9ba8-7e4bc341ba07",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotate",
+                    "action": "RightTrack",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "negative",
                     "id": "ce10742a-8e34-4826-94c6-8ea4ce58347f",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Rotate",
+                    "action": "RightTrack",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "positive",
                     "id": "dc6a42e7-67c6-488a-934c-7bfe5b575d37",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Rotate",
+                    "action": "RightTrack",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -318,6 +307,39 @@
                     "action": "Decoy_Stun",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "011d42ba-f6e3-4a68-aea2-6c21eee6aae7",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftTrack",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "51bfe1bd-a0bf-495f-b2b0-06f49d7f4ba6",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "LeftTrack",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "2600c348-7cfd-48b7-829a-20ee384e3950",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "LeftTrack",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

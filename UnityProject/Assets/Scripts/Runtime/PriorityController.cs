@@ -20,7 +20,7 @@ namespace AC
         }
         private void GetObjects()
         {
-            var players = GameObject.FindObjectsOfType<Vehicle>().ToList();
+            var players = GameObject.FindObjectsOfType<Vehicle_OLD>().ToList();
             var resources = GameObject.FindObjectsOfType<MineralOre>().ToList();
             var minerals = GameObject.FindObjectsOfType<Mineral>().ToList();
             foreach (var item in players)

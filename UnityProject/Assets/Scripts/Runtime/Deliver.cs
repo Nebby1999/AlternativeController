@@ -9,9 +9,9 @@ namespace AC
     {
         private readonly Cargo _cargo;
         private readonly MacroKeyboard _input;
-        private readonly HeadQuarters _hq;
+        private readonly HeadQuarters_OLD _hq;
         private readonly int _delay;
-        public Deliver(Cargo cargo, MacroKeyboard input, HeadQuarters hq, int delayInSeconds)
+        public Deliver(Cargo cargo, MacroKeyboard input, HeadQuarters_OLD hq, int delayInSeconds)
         {
             _cargo = cargo;
             _input = input;

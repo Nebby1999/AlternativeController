@@ -9,8 +9,7 @@ namespace Nebula
 {
     public abstract class StateConfiguration : NebulaScriptableObject
     {
-        [SerializableSystemType.RequiredBaseType(typeof(State))]
-        public SerializableSystemType stateTypeToConfig;
+        public abstract SerializableSystemType stateTypeToConfig { get; }
         public SerializedFieldCollection fieldCollection;
 
         [ContextMenu("Set name to targetType name")]

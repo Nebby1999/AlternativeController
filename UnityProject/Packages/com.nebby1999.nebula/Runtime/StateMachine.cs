@@ -39,8 +39,8 @@ namespace Nebula
                 if (value == null)
                     return;
 
-                _currentState.ModifyNextState(value);
-                _currentState.OnExit();
+                _currentState?.ModifyNextState(value);
+                _currentState?.OnExit();
                 _currentState = value;
                 _currentState.OnEnter();
             }
