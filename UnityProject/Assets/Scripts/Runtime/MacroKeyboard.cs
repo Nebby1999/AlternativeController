@@ -11,7 +11,21 @@ namespace AC
 
         public int GetRotation()
         {
-            return Input.GetKeyDown(_actions[4]) ? 1 : Input.GetKeyDown(_actions[3]) ? -1 : 0;
+            if(Input.GetKeyDown(_actions[4]))
+            {
+                return 1;
+            }
+            else
+            {
+                if(Input.GetKeyDown(_actions[3]))
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
         }
         public bool GetActionDown(int index)
         {

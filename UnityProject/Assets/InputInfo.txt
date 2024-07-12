@@ -1,0 +1,19 @@
+Box Inputs (Used for HQ):
+	- Player Switches:
+		0. Joystick Button 10 //Toggle between attack and collect mode for base 1
+		1. Joystick Button 8 //Toggle between attack and collect mode for base 2
+	- Cables
+		0. I //Supply black resource to base black
+		1. Joystick Button 1 //Cable rest position
+		2. P //supply red resource to base black
+		3. J //supply black resource to base red
+		4. Joystick Button 4 //Cable rest position
+		5. L //supply red resource to base red
+
+Macro Keyboard (Used for base vehicles):
+	0. Q //HARVEST: Deliver to HQ - COMBAT: Shoot
+	1. W //HARVEST: Harvest resource - COMBAT: Enable/Disable shield (If shield enable, disable movement too)
+	2. E //Move forwards (Also controls visual feedback class)
+	3. R //Rotate negatively
+	4. T //Rotate positively
+	5. Y //HARVEST: Deploy Decoy - COMBAT: Stun

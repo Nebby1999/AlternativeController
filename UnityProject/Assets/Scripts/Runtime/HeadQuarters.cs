@@ -43,13 +43,40 @@ namespace AC
 
         }
 
-        /*private void TrySupplyBases(MineralType mineral)
+        private void TrySupplyBases(MineralType mineral)
         {
             for (int i = 0; i < _bases.Length; i++)
             {
-                bool input = mineral == MineralType.Black ? (i == 0 ? _input.GetCableInput(0) : _input.GetCableInput(3)) : i == 1 ? _input.GetCableInput(5) : _input.GetCableInput(2);
-                Debug.Log(input);
-                if(input && _resources.UnloadMineral(mineral, 0.04f)) _bases[i].TryLoadMineral(mineral, 0.04f);
+                bool input = false;
+                if(mineral == MineralType.Black)
+                {
+                    //Base is "Black" base
+                    if(i == 0)
+                    {
+                        input = _input.GetCableInput(0);
+                    }
+                    //Current base is red base
+                    else
+                    {
+                        input = _input.GetCableInput(3);
+                    }
+                }
+                else //mineral is "Red"
+                {
+                    //Base is "Red" base
+                    if (i == 1)
+                    {
+                        input = _input.GetCableInput(5);
+                    }
+                    //Base is "Black" base
+                    else
+                    {
+                        input = _input.GetCableInput(2);
+                    }
+                }
+
+                if(input && _resources.UnloadResource(mineral, 0.04f)) 
+                    _bases[i].TryLoadMineral(mineral, 0.04f);
             }
         }
         public void TryLoadMineral(MineralType mineral, int amount)
@@ -61,6 +88,6 @@ namespace AC
                 return;
             }
             _resources.LoadMaterial(mineral, amount);
-        }*/
+        }
     }
 }
