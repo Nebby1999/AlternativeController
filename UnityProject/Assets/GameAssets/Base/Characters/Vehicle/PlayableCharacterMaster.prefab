@@ -133,7 +133,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3194755207462691312}
         m_TargetAssemblyTypeName: AC.PlayableCharacterMaster, AlternativeController.Runtime
-        m_MethodName: OnAccelerate
+        m_MethodName: OnLeftTrack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3194755207462691312}
         m_TargetAssemblyTypeName: AC.PlayableCharacterMaster, AlternativeController.Runtime
-        m_MethodName: OnRotate
+        m_MethodName: OnRightTrack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

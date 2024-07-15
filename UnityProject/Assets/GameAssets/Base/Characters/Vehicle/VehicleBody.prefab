@@ -315,7 +315,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1398dae3b7f1e6746a403324ddaf2d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseRotationSpeed: 10
+  _serializedMovementStrategy:
+    _typeName: AC.TankMovementStrategy, AlternativeController.Runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  baseRotationSpeed: 22.5
 --- !u!58 &3751073749869226778
 CircleCollider2D:
   m_ObjectHideFlags: 0

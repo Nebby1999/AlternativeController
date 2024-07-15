@@ -10,21 +10,20 @@ namespace AC
 
         public int rotationInput { get; private set; }
 
-        private float _rawAccelerateInput;
-        private float _rawRotationInput;
+        private float _rawLeftTrackInput;
+        private float _rawRightTrackInput;
         private void Update()
         {
-            movementVector = new Vector2(0, Mathf.RoundToInt(_rawAccelerateInput));
-            rotationInput = Mathf.RoundToInt(_rawRotationInput);
+            movementVector = new Vector2(Mathf.RoundToInt(_rawLeftTrackInput), Mathf.RoundToInt(_rawRightTrackInput));
         }
 
-        public void OnRotate(InputAction.CallbackContext context)
+        public void OnRightTrack(InputAction.CallbackContext context)
         {
-            _rawRotationInput = context.ReadValue<float>();
+            _rawRightTrackInput = context.ReadValue<float>();
         }
-        public void OnAccelerate(InputAction.CallbackContext context)
+        public void OnLeftTrack(InputAction.CallbackContext context)
         {
-            _rawAccelerateInput = context.ReadValue<float>();
+            _rawLeftTrackInput = context.ReadValue<float>();
         }
     }
 }
