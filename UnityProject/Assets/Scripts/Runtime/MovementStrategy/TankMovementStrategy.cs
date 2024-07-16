@@ -35,18 +35,19 @@ namespace AC
 
             if (_leftTrackInput == -_rightTrackInput)
             {
-                // Both inputs are negative opposites
+                // Both inputs are negative opposites, rotate in place
                 return _leftTrackInput > _rightTrackInput ? 1 : (_leftTrackInput < _rightTrackInput ? -1 : 0);
             }
 
+            //Multiplying by 2 is a hacky way to make sure that the rotation speed feels "Correct" by making it rotate on one of the sides.
             if (_leftTrackInput != 0 && _rightTrackInput == 0)
             {
-                return 0.5f;  // Only left input is active
+                return 1 * 2;  // Only left input is active.
             }
 
             if (_rightTrackInput != 0 && _leftTrackInput == 0)
             {
-                return -0.5f;  // Only right input is active
+                return -1f * 2;  // Only right input is active
             }
 
             return 0;  // Default case, should theoretically never be reached
