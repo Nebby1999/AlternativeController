@@ -12,6 +12,7 @@ namespace AC
         private SerializableSystemType _serializedMovementStrategy = new SerializableSystemType(typeof(GenericMovementStrategy));
 
         public float baseRotationSpeed;
+        public float drag;
         public int rotationInput { get; set; }
         public Vector2 movementDirection { get; set; }
         public Vector2 velocity { get; set; }
@@ -34,9 +35,14 @@ namespace AC
             var movementStrategyOutput = _movementStrategy.PerformStrategy(transform, movementDirection, rotationInput);
 
             var rotationQuaternion = Quaternion.AngleAxis(rotation, Vector3.forward);
-            var movementDirectionRotation = rotationQuaternion * movementStrategyOutput.movement;
-            velocity = movementDirectionRotation * movementSpeed;
-            rotation -= movementStrategyOutput.rotation * (baseRotationSpeed * movementSpeed) * Time.fixedDeltaTime;
+            Vector3 movementVector = movementStrategyOutput.movement;
+            Vector3 movementDirectionRotation = rotationQuaternion * movementVector;
+            Vector3 finalMovementVector = movementDirectionRotation * movementSpeed;
+            velocity = Vector3.MoveTowards(velocity, finalMovementVector, drag);
+
+            var rotationSpeed = movementStrategyOutput.rotation * (baseRotationSpeed * movementSpeed) * Time.fixedDeltaTime;
+            rotation = Mathf.MoveTowardsAngle(rotation, rotation - rotationSpeed, float.PositiveInfinity);
+            //rotation -= movementStrategyOutput.rotation * (baseRotationSpeed * movementSpeed) * Time.fixedDeltaTime;
         }
 
         public void UpdateVelocity(ref Vector2 currentVelocity)

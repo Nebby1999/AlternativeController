@@ -1,28 +1,110 @@
+using System;
 using UnityEngine;
 
 namespace AC
 {
     public class CharacterBody : MonoBehaviour, IMaxHealthProvider
     {
-        public float maxHp => _hp;
-        [SerializeField] private float _hp;
+        public float maxHp { get; private set; }
+        [SerializeField] private float _baseHp;
 
-        public float movementSpeed => _movementSpeed;
-        [SerializeField] private float _movementSpeed;
+        public float movementSpeed { get; private set; }
+        [SerializeField] private float _baseMovementSpeed;
 
-        public float attackSpeed => _attackSpeed;
-        [SerializeField] private float _attackSpeed;
+        public float attackSpeed { get; private set; }
+        [SerializeField] private float _baseAttackSpeed;
 
-        public float damage => _damage;
-        [SerializeField] private float _damage;
+        public float damage { get; private set; }
+        [SerializeField] private float _baseDamage;
 
         public HealthComponent healthComponent { get; private set; }
         public InputBank inputBank { get; private set; }
+        private IBodyStatModifier[] _statModifiers = Array.Empty<IBodyStatModifier>();
+        private bool _statsDirty;
 
         private void Awake()
         {
             healthComponent = GetComponent<HealthComponent>();
             inputBank = GetComponent<InputBank>();
+            _statModifiers = GetComponents<IBodyStatModifier>();
         }
+
+        private void Start()
+        {
+            RecalculateStats();
+        }
+
+        private void RecalculateStats()
+        {
+            var args = new StatModifierArgs();
+            for(int i = 0; i < _statModifiers.Length; i++)
+            {
+                var modifier = _statModifiers[i];
+                modifier.PreStatRecalculation(this);
+                modifier.GetStatCoefficients(args, this);
+            }
+
+            float baseStat = _baseHp + args.baseHealthAdd;
+            float finalStat = baseStat * args.healthMultAdd;
+            maxHp = finalStat;
+
+            baseStat = _baseMovementSpeed + args.baseMovementSpeedAdd;
+            finalStat = baseStat * args.movementSpeedMultAdd;
+            movementSpeed = finalStat;
+
+            baseStat = _baseAttackSpeed + args.baseAttackSpeedAdd;
+            finalStat = baseStat * args.attackSpeedMultAdd;
+            attackSpeed = finalStat;
+
+            baseStat = _baseDamage + args.baseDamageAdd;
+            finalStat = baseStat * args.damageMultAdd;
+            damage = finalStat;
+
+            for(int i = 0; i < _statModifiers.Length; i++)
+            {
+                _statModifiers[i].PostStatRecalculation(this);
+            }
+
+            Debug.Log($"Final Stats for {this}:\n" +
+                $"maxHP={maxHp}\n" +
+                $"movementSpeed={movementSpeed}\n" +
+                $"attackSpeed={attackSpeed}\n" +
+                $"damage={damage}");
+        }
+
+        public void SetStatsDirty() => _statsDirty = true;
+
+        private void FixedUpdate()
+        {
+            if(_statsDirty)
+            {
+                _statsDirty = false;
+                RecalculateStats();
+            }
+        }
+    }
+
+    public interface IBodyStatModifier
+    {
+        public void PreStatRecalculation(CharacterBody body);
+
+        public void PostStatRecalculation(CharacterBody body);
+
+        public void GetStatCoefficients(StatModifierArgs args, CharacterBody body);
+    }
+
+    public class StatModifierArgs
+    {
+        public float baseHealthAdd = 0;
+        public float healthMultAdd = 1;
+
+        public float baseMovementSpeedAdd = 0;
+        public float movementSpeedMultAdd = 1;
+
+        public float baseAttackSpeedAdd = 0;
+        public float attackSpeedMultAdd = 1;
+
+        public float baseDamageAdd = 0;
+        public float damageMultAdd = 1;
     }
 }

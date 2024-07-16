@@ -211,9 +211,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8159444189343407251}
   - component: {fileID: 764791405643980591}
+  - component: {fileID: -3408229559311716181}
   - component: {fileID: 3231339071351050255}
   - component: {fileID: 4209377387247550763}
   - component: {fileID: 697716576412428574}
+  - component: {fileID: -7737793587595966679}
   - component: {fileID: 3521817021754544474}
   - component: {fileID: 3751073749869226778}
   - component: {fileID: 9006256157419457275}
@@ -253,10 +255,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd07143e8fe1704391668e7174fa4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hp: 10
-  _movementSpeed: 7
-  _attackSpeed: 1
-  _damage: 1
+  _baseHp: 10
+  _baseMovementSpeed: 7
+  _baseAttackSpeed: 1
+  _baseDamage: 2
+--- !u!114 &-3408229559311716181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088358815382963849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 284e24931d127c54b9c1063f6aa9fe36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHeat: 50
 --- !u!114 &3231339071351050255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,6 +318,25 @@ MonoBehaviour:
   _mainStateType:
     _typeName: EntityStates.GenericCharacterMain, AlternativeController.Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &-7737793587595966679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088358815382963849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969a1e46eaac569409b9eee372bd70a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateMachineName: Weapon
+  _initialStateType:
+    _typeName: EntityStates.Idle, AlternativeController.Runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  _mainStateType:
+    _typeName: EntityStates.Idle, AlternativeController.Runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &3521817021754544474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,6 +353,7 @@ MonoBehaviour:
     _typeName: AC.TankMovementStrategy, AlternativeController.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   baseRotationSpeed: 22.5
+  drag: 0.5
 --- !u!58 &3751073749869226778
 CircleCollider2D:
   m_ObjectHideFlags: 0

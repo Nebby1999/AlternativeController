@@ -4,7 +4,7 @@ namespace AC
 {
     public class HealthComponent : MonoBehaviour
     {
-        [SerializeField] private float _defaultMaxHealth;
+        [SerializeField, Tooltip("Value that's used as max health when the game object doesnt have a component that implements IMaxHealthProvider")] private float _defaultMaxHealth;
         private IMaxHealthProvider _maxHealthProvider;
 
         public float maxHealth
@@ -22,6 +22,11 @@ namespace AC
         private void Awake()
         {
             _maxHealthProvider = GetComponent<IMaxHealthProvider>();
+        }
+
+        private void Start()
+        {
+            currentHealth = _maxHealthProvider?.maxHp ?? _defaultMaxHealth;
         }
     }
 
