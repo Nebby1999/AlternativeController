@@ -18,9 +18,11 @@ namespace Nebula
         public static event Action OnLateUpdate;
         public static event Action OnShutdown;
 
+#if ADDRESSABLES
         [SerializeField] private AssetReferenceScene _gameLoadingSceneName;
         [SerializeField] private AssetReferenceScene _loadingFinishedScene;
         [SerializeField] private AssetReferenceScene _inbetweenScenesLoadingScene;
+#endif
 
         protected virtual void Awake()
         {
@@ -81,7 +83,7 @@ namespace Nebula
             }
 
             //Special loading logic should happen only on runtime, so we're ommiting this when loading from the editor.
-            //By ommiting this, we can load any scene and theoretically have entity states and the like running properly.
+            //By ommiting this, we can load any scene and theoretically have entity states and the like running properly. 
 #if UNITY_EDITOR
             asyncOp = Addressables.LoadSceneAsync(address);
             while (!asyncOp.IsDone)

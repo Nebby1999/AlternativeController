@@ -1,4 +1,5 @@
 using AC;
+using UnityEngine;
 
 namespace EntityStates
 {
@@ -18,6 +19,16 @@ namespace EntityStates
             {
                 characterController.movementDirection = moveVector;
                 characterController.rotationInput = rotationInput;
+            }
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            if(hasCharacterController)
+            {
+                characterController.movementDirection = Vector2.zero;
+                characterController.rotationInput = 0;
             }
         }
     }

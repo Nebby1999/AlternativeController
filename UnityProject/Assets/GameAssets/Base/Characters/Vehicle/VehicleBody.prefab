@@ -216,6 +216,8 @@ GameObject:
   - component: {fileID: 4209377387247550763}
   - component: {fileID: 697716576412428574}
   - component: {fileID: -7737793587595966679}
+  - component: {fileID: 8161240643958933157}
+  - component: {fileID: 2020080388466058219}
   - component: {fileID: 3521817021754544474}
   - component: {fileID: 3751073749869226778}
   - component: {fileID: 9006256157419457275}
@@ -272,6 +274,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHeat: 50
+  _stateMachinesToStun:
+  - {fileID: 697716576412428574}
+  - {fileID: -7737793587595966679}
 --- !u!114 &3231339071351050255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +342,33 @@ MonoBehaviour:
   _mainStateType:
     _typeName: EntityStates.Idle, AlternativeController.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &8161240643958933157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088358815382963849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be99bb74d3dc6f4ba13104e248649fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _primary: {fileID: 2020080388466058219}
+--- !u!114 &2020080388466058219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088358815382963849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd3756f5f7f42314996ffdcd34618b1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  genericSkillName: Laser
+  _defaultSkill: {fileID: 11400000, guid: 316ec4b1ba862454d9e2bb4e20cee849, type: 2}
 --- !u!114 &3521817021754544474
 MonoBehaviour:
   m_ObjectHideFlags: 0

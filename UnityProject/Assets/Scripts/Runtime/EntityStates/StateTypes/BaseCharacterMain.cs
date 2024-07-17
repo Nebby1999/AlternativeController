@@ -5,7 +5,6 @@ namespace EntityStates
 {
     public class BaseCharacterMain : BaseCharacterState
     {
-        public bool hasInputBank { get; private set; }
         public bool hasCharacterController { get; private set; }
 
         protected Vector2 moveVector;
@@ -14,7 +13,6 @@ namespace EntityStates
         public override void OnEnter()
         {
             base.OnEnter();
-            hasInputBank = inputBank;
             hasCharacterController = characterController;
         }
 
@@ -29,7 +27,19 @@ namespace EntityStates
 
         protected virtual void ProcessInputs()
         {
+            if(hasSkillManager)
+            {
+                HandleSkill(skillManager.Primary, ref inputBank.primaryButton);
+            }
             moveVector = Vector2.zero;
+        }
+
+        private void HandleSkill(GenericSkill skill, ref InputBank.Button button)
+        {
+            if(button.down && skill)
+            {
+                skill.ExecuteSkillIfReady();
+            }
         }
     }
 }

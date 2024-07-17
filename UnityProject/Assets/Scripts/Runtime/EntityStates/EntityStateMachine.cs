@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 namespace AC
 {
@@ -29,18 +30,26 @@ namespace AC
             return EntityStateCatalog.InstantiateState(stateType);
         }
 
+        public bool CanInterruptState(InterruptPriority priority)
+        {
+            EntityState state = (EntityState)(newState ?? currentState);
+            return state.GetMinimumInterruptPriority() <= priority;
+        }
+
         public readonly struct CommonComponentLocator
         {
             public readonly CharacterBody characterBody;
             public readonly HealthComponent healthComponent;
             public readonly InputBank inputBank;
             public readonly Rigidbody2DCharacterController rigidbody2DCharacterController;
+            public readonly SkillManager skillManager;
             public CommonComponentLocator(GameObject gameObject)
             {
                 characterBody = gameObject.GetComponent<CharacterBody>();
                 healthComponent = gameObject.GetComponent<HealthComponent>();
                 inputBank = gameObject.GetComponent<InputBank>();
                 rigidbody2DCharacterController = gameObject.GetComponent<Rigidbody2DCharacterController>();
+                skillManager = gameObject.GetComponent<SkillManager>();
             }
         }
     }

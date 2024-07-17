@@ -26,7 +26,7 @@ namespace AC
 
         public CoroutineTask(IEnumerator internalCoroutine)
         {
-
+            _internalCoroutine = internalCoroutine;
         }
     }
 

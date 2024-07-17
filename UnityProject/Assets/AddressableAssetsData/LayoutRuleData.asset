@@ -59,7 +59,7 @@ MonoBehaviour:
               _internalList:
               - rid: 1946303938783346693
         _addressProviderInternal:
-          rid: 1946303938783346695
+          rid: 3701319378813059072
       - _id: 2b6e111c-92a9-421e-9b70-786b66fb9c5c
         _addressableGroup: {fileID: 11400000, guid: fae59c4d93d5af649a24c87f787b7a96, type: 2}
         _control:
@@ -73,7 +73,35 @@ MonoBehaviour:
               _internalList:
               - rid: 1946303938783346694
         _addressProviderInternal:
-          rid: 1946303938783346696
+          rid: 3701319378813059073
+      - _id: 3025dc91-ffc6-455d-a87f-b66bc7e6c32e
+        _addressableGroup: {fileID: 11400000, guid: 99b00eccad32b034786326247ae2518a, type: 2}
+        _control:
+          _value: 1
+        _assetGroups:
+          _internalList:
+          - _id: a0602364-dd87-4aef-b17c-389e871f9ba3
+            _name:
+              _value: Default Asset Group
+            _filters:
+              _internalList:
+              - rid: 3701319378813059075
+        _addressProviderInternal:
+          rid: 3701319378813059076
+      - _id: 07ce3869-f4f9-450d-a02e-5f2c16adc99d
+        _addressableGroup: {fileID: 11400000, guid: b7bf2aa9c78e6e74ca37dac295a02ae9, type: 2}
+        _control:
+          _value: 1
+        _assetGroups:
+          _internalList:
+          - _id: fd2e80b1-3b43-4114-b8eb-8c2f0dadae86
+            _name:
+              _value: Default Asset Group
+            _filters:
+              _internalList:
+              - rid: 3701319378813059078
+        _addressProviderInternal:
+          rid: 3701319378813059077
     _labelRules:
       _internalList:
       - _id: 28682766-2f50-4a9e-b7e0-93efc5150ab1
@@ -139,12 +167,6 @@ MonoBehaviour:
           _isListMode: 0
           _values:
           - {fileID: 102900000, guid: b1dbea9220968034f89ad1c1b4d5d2d3, type: 3}
-    - rid: 1946303938783346695
-      type: {class: SimplifiedAssetPath, ns: AC.Editor.SmartAddresser.AddressProviders, asm: AlternativeController.Editor}
-      data: 
-    - rid: 1946303938783346696
-      type: {class: SimplifiedAssetPath, ns: AC.Editor.SmartAddresser.AddressProviders, asm: AlternativeController.Editor}
-      data: 
     - rid: 1946303938783346697
       type: {class: ConstantLabelProvider, ns: SmartAddresser.Editor.Core.Models.LayoutRules.LabelRules, asm: SmartAddresser.Editor}
       data:
@@ -177,3 +199,37 @@ MonoBehaviour:
             _assemblyQualifiedName: Nebula.StateConfiguration, Nebula.Runtime, Version=0.0.0.0,
               Culture=neutral, PublicKeyToken=null
         _matchWithDerivedTypes: 1
+    - rid: 3701319378813059072
+      type: {class: SimplifiedAssetPath, ns: Nebula.Editor.SmartAddresser.AddressProviders, asm: Nebula.Editor.SmartAddresser}
+      data: 
+    - rid: 3701319378813059073
+      type: {class: SimplifiedAssetPath, ns: Nebula.Editor.SmartAddresser.AddressProviders, asm: Nebula.Editor.SmartAddresser}
+      data: 
+    - rid: 3701319378813059075
+      type: {class: ObjectBasedAssetFilter, ns: SmartAddresser.Editor.Core.Models.Shared.AssetGroups.AssetFilterImpl, asm: SmartAddresser.Editor}
+      data:
+        _id: 8e9235c1-0ea4-4682-b944-a8a1bc072d4a
+        _folderTargetingMode: 0
+        _object:
+          _isListMode: 0
+          _values:
+          - {fileID: 102900000, guid: 348df100b8e4e01408ac1cc58a48c694, type: 3}
+    - rid: 3701319378813059076
+      type: {class: SimplifiedAssetPath, ns: Nebula.Editor.SmartAddresser.AddressProviders, asm: Nebula.Editor.SmartAddresser}
+      data: 
+    - rid: 3701319378813059077
+      type: {class: AssetPathBasedAddressProvider, ns: SmartAddresser.Editor.Core.Models.LayoutRules.AddressRules, asm: SmartAddresser.Editor}
+      data:
+        _source: 0
+        _replaceWithRegex: 0
+        _pattern: 
+        _replacement: 
+    - rid: 3701319378813059078
+      type: {class: ObjectBasedAssetFilter, ns: SmartAddresser.Editor.Core.Models.Shared.AssetGroups.AssetFilterImpl, asm: SmartAddresser.Editor}
+      data:
+        _id: 42308800-e17a-45d0-93f2-b6cf61dab12d
+        _folderTargetingMode: 0
+        _object:
+          _isListMode: 0
+          _values:
+          - {fileID: 102900000, guid: aba5dbe8596c944449cfe7721efcf809, type: 3}

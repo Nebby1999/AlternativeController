@@ -13,13 +13,5 @@ namespace Nebula.Editor
                 serializedObject.ApplyModifiedProperties();
             }
         }
-
-        protected virtual void OnDestroy()
-        {
-            if(serializedObject != null && serializedObject.hasModifiedProperties)
-            {
-                serializedObject.ApplyModifiedProperties();
-            }
-        }
     }
 }

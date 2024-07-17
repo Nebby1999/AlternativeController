@@ -122,7 +122,19 @@ MonoBehaviour:
     m_ActionId: cadc9f28-2ea5-4aea-842a-82e5b9667888
     m_ActionName: VehicleMap/Deliver_Shoot[/Keyboard/q]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3194755207462691312}
+        m_TargetAssemblyTypeName: AC.PlayableCharacterMaster, AlternativeController.Runtime
+        m_MethodName: OnPrimary
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 8a010eab-8a1f-488a-96e6-c47bd77b2835
     m_ActionName: VehicleMap/Harvest_Shield[/Keyboard/e]
   - m_PersistentCalls:

@@ -9,7 +9,8 @@ namespace AC
     [CreateAssetMenu(fileName = "New EntityStateConfiguration", menuName = "AC/EntityStateConfiguration")]
     public class EntityStateConfiguration : StateConfiguration
     {
-        public override SerializableSystemType stateTypeToConfig => stateTypeToConfig;
+        public override SerializableSystemType stateTypeToConfig => _stateTypeToConfig;
+        [SerializableSystemType.RequiredBaseType(typeof(EntityState))]
         [SerializeField] private SerializableSystemType _stateTypeToConfig;
         public override State InstantiateState()
         {

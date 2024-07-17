@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: bc350751d6f32c943b38fe081be5d162
   m_SerializeEntries:
   - m_GUID: 900fb9b462516fd4c84ad37325ed2124
-    m_Address: GameAssets/ResourceDefs/Red/Red.asset
+    m_Address: GameAssets/Base/ResourceDefs/Red/Red.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ResourceDefs

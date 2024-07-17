@@ -10,8 +10,11 @@ namespace AC
 
         public int rotationInput { get; private set; }
 
+        public bool primaryInput => _rawPrimaryInput;
+
         private float _rawLeftTrackInput;
         private float _rawRightTrackInput;
+        private bool _rawPrimaryInput;
         private void Update()
         {
             movementVector = new Vector2(Mathf.RoundToInt(_rawLeftTrackInput), Mathf.RoundToInt(_rawRightTrackInput));
@@ -21,9 +24,15 @@ namespace AC
         {
             _rawRightTrackInput = context.ReadValue<float>();
         }
+
         public void OnLeftTrack(InputAction.CallbackContext context)
         {
             _rawLeftTrackInput = context.ReadValue<float>();
+        }
+
+        public void OnPrimary(InputAction.CallbackContext context)
+        {
+            _rawPrimaryInput = context.ReadValueAsButton();
         }
     }
 }

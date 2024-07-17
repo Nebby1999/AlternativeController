@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 250cfdf9096c9ce43bda7253ceffe88d
   m_SerializeEntries:
   - m_GUID: cdbe683088e70ed438e3a156071beab7
-    m_Address: GameAssets/ResourceDefs/Black/Black.asset
+    m_Address: GameAssets/Base/ResourceDefs/Black/Black.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ResourceDefs

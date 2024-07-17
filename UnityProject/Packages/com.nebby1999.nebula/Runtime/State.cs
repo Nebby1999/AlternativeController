@@ -142,17 +142,17 @@ namespace EntityStates
 
         protected void Log(object message, [CallerMemberName] string memberName = "")
         {
-            Debug.Log($"[{stateName}.{memberName}]: {message} Type=\"{fullStateName}\"");
+            Debug.Log($"[{stateName}.{memberName}]: {message} (Type=\"{fullStateName}\")");
         }
 
         protected void LogWarning(object message, [CallerMemberName] string memberName = "")
         {
-            Debug.LogWarning($"[{stateName}.{memberName}]: {message} Type=\"{fullStateName}\"");
+            Debug.LogWarning($"[{stateName}.{memberName}]: {message} (Type=\"{fullStateName}\")");
         }
 
         protected void LogError(object message, [CallerMemberName] string memberName = "")
         {
-            Debug.LogError($"[{stateName}.{memberName}]: {message} Type=\"{fullStateName}\"");
+            Debug.LogError($"[{stateName}.{memberName}]: {message} (Type=\"{fullStateName}\")");
         }
 
         protected abstract void Initialize();

@@ -9,6 +9,7 @@ namespace EntityStates
         public HealthComponent healthComponent => outer.componentLocator.healthComponent;
         public InputBank inputBank => outer.componentLocator.inputBank;
         public Rigidbody2DCharacterController characterController => outer.componentLocator.rigidbody2DCharacterController;
+        public SkillManager skillManager => outer.componentLocator.skillManager;
 
         public override void OnEnter()
         {
@@ -19,6 +20,11 @@ namespace EntityStates
         protected override void Initialize()
         {
             EntityStateCatalog.InitializeStateField(this);
+        }
+
+        public virtual InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.Any;
         }
     }
 }

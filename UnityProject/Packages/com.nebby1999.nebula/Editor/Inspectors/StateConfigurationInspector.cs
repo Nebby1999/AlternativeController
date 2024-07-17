@@ -19,9 +19,11 @@ namespace Nebula.Editor
 
         private void OnEnable()
         {
-            stateTypeProperty = serializedObject.FindProperty(nameof(StateConfiguration.stateTypeToConfig));
+            stateTypeProperty = serializedObject.FindProperty(GetStateTypeToConfigPropertyName());
             fieldCollectionProperty = serializedObject.FindProperty(nameof(StateConfiguration.fieldCollection));
         }
+
+        protected abstract string GetStateTypeToConfigPropertyName();
 
         public override VisualElement CreateInspectorGUI()
         {
