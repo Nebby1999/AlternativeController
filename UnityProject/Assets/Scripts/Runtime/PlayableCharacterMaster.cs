@@ -12,9 +12,12 @@ namespace AC
 
         public bool primaryInput => _rawPrimaryInput;
 
+        public bool secondaryInput => _rawSecondaryInput;
+
         private float _rawLeftTrackInput;
         private float _rawRightTrackInput;
         private bool _rawPrimaryInput;
+        private bool _rawSecondaryInput;
         private void Update()
         {
             movementVector = new Vector2(Mathf.RoundToInt(_rawLeftTrackInput), Mathf.RoundToInt(_rawRightTrackInput));
@@ -33,6 +36,11 @@ namespace AC
         public void OnPrimary(InputAction.CallbackContext context)
         {
             _rawPrimaryInput = context.ReadValueAsButton();
+        }
+
+        public void OnSecondary(InputAction.CallbackContext context)
+        {
+            _rawSecondaryInput = context.ReadValueAsButton();
         }
     }
 }

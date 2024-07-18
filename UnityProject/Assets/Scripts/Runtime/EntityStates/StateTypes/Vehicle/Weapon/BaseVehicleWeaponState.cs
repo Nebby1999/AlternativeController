@@ -1,12 +1,13 @@
 using AC;
-using System.Diagnostics;
+using EntityStates.Vehicle;
 using UnityEngine;
 
-namespace EntityStates.Vehicle.Weapon
+namespace EntityStates
 {
-    public class MiningState : VehicleState, ISkillState
+    public class BaseVehicleWeaponState : VehicleState, ISkillState
     {
-        public static float heatGainedPerSecond;
+        [SerializeField]
+        protected float heatGainedPerSecond;
 
         public GenericSkill activatorSkillSlot { get; set; }
 
@@ -16,16 +17,6 @@ namespace EntityStates.Vehicle.Weapon
         {
             base.OnEnter();
             _assignedSlot = hasSkillManager ? skillManager.FindSkillSlot(activatorSkillSlot) : SkillSlot.None;
-        }
-
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-            if(!vehicle.isOverHeated)
-                vehicle.AddHeat(heatGainedPerSecond * Time.fixedDeltaTime);
-
-            if (!IsSkillDown())
-                outer.SetNextStateToMain();
         }
 
         public virtual bool IsSkillDown()
@@ -42,11 +33,6 @@ namespace EntityStates.Vehicle.Weapon
                 default:
                     return false;
             }
-        }
-
-        public override InterruptPriority GetMinimumInterruptPriority()
-        {
-            return InterruptPriority.Skill;
         }
     }
 }

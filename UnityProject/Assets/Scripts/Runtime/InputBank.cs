@@ -7,6 +7,7 @@ namespace AC
         public Vector2 movementInput;
         public int rotationInput;
         public Button primaryButton;
+        public Button secondaryButton;
 
         public struct Button
         {

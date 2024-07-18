@@ -17,7 +17,23 @@ MonoBehaviour:
     - fieldName: heatGainedPerSecond
       serializedValue:
         objectReferenceValue: {fileID: 0}
+        stringValue: 2
+    - fieldName: secondsPerTick
+      serializedValue:
+        objectReferenceValue: {fileID: 0}
+        stringValue: 0.5
+    - fieldName: resourceMinedPerTick
+      serializedValue:
+        objectReferenceValue: {fileID: 0}
         stringValue: 1
+    - fieldName: searchRadius
+      serializedValue:
+        objectReferenceValue: {fileID: 0}
+        stringValue: 2
+    - fieldName: searchMask
+      serializedValue:
+        objectReferenceValue: {fileID: 0}
+        stringValue: 8
   _stateTypeToConfig:
     _typeName: EntityStates.Vehicle.Weapon.MiningState, AlternativeController.Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

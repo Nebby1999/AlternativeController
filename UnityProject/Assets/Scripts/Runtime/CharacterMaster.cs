@@ -78,6 +78,7 @@ namespace AC
                 bodyInputBank.movementInput = characterInputProvider.movementVector;
                 bodyInputBank.rotationInput = characterInputProvider.rotationInput;
                 bodyInputBank.primaryButton.PushState(characterInputProvider.primaryInput);
+                bodyInputBank.secondaryButton.PushState(characterInputProvider.secondaryInput);
             }
         }
     }
@@ -89,5 +90,7 @@ namespace AC
         int rotationInput { get; }
     
         bool primaryInput { get; }
+
+        bool secondaryInput { get; }
     }
 }

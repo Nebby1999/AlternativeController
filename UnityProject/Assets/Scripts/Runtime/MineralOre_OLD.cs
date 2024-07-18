@@ -6,7 +6,7 @@ namespace AC
 {
 
     [RequireComponent(typeof(SpriteRenderer))]
-    public class MineralOre : MonoBehaviour, IHarvesteable
+    public class MineralOre_OLD : MonoBehaviour, IHarvesteable_OLD
     {
         private SpriteRenderer _sprite;
 

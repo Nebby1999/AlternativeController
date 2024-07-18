@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace AC
         /// Obtain the total amount of ResourceDefs currently stored in the catalog.
         /// </summary>
         public static int resourceCount => _resourceDefs.Length;
+        public static ReadOnlyCollection<ResourceDef> resourceDefs;
         private static ResourceDef[] _resourceDefs = Array.Empty<ResourceDef>();
         //A dictionary to store the ResourceIndex and to be able to find them using just the name of the resource.
         private static Dictionary<string, ResourceIndex> _resourceNameToIndex = new Dictionary<string, ResourceIndex>(StringComparer.OrdinalIgnoreCase);
@@ -119,6 +121,7 @@ namespace AC
                 _resourceNameToIndex.Add(resourceDef.cachedName, newIndex);
             }
 
+            resourceDefs = new ReadOnlyCollection<ResourceDef>(_resourceDefs);
             _onAvailable?.Invoke();
             _onAvailable = null;
 

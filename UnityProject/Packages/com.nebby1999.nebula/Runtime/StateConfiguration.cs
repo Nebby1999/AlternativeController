@@ -93,20 +93,22 @@ namespace Nebula
                 return null;
             }
 
+            SerializedField[] serializedFields = fieldCollection.serializedFields;
             List<(FieldInfo, object)> fieldValuePair = new List<(FieldInfo, object)>();
-            foreach (SerializedField serializedField in fieldCollection.serializedFields)
+            for(int i = 0; i < serializedFields.Length; i++)
             {
+                ref SerializedField reference = ref serializedFields[i];
                 try
                 {
-                    FieldInfo field = _targetType.GetField(serializedField.fieldName);
-                    if (field != null && ShouldSerializeField(field))
+                    FieldInfo field = _targetType.GetField(reference.fieldName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+                    if(!(field == null) && FieldPassesFilter(field))
                     {
-                        fieldValuePair.Add((field, serializedField.serializedValue.GetValue(field)));
+                        fieldValuePair.Add((field, reference.serializedValue.GetValue(field)));
                     }
                 }
-                catch (Exception e)
+                catch(Exception msg)
                 {
-                    Debug.LogError(e);
+                    Debug.LogError(msg);
                 }
             }
 
@@ -114,12 +116,9 @@ namespace Nebula
                 return null;
 
             return InitializeObject;
-            bool ShouldSerializeField(FieldInfo field)
+            bool FieldPassesFilter(FieldInfo field)
             {
-                var hasSerializeField = field.GetCustomAttribute<SerializeField>() != null;
-                var hasHideInInspector = field.GetCustomAttribute<NonSerializedAttribute>() != null;
-
-                return hasSerializeField && !hasHideInInspector;
+                return field.GetCustomAttribute<SerializeField>() != null;
             }
 
             void InitializeObject(object obj)

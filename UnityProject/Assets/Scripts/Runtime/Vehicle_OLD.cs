@@ -64,7 +64,7 @@ namespace AC
             foreach(ResourceIndex mineral in _cargo.resourceCollectionOrder.ToList())
                 _decoyController.TryDecoy(_cargo.UnloadResource(1), _cargo.lastUnloadedResource);
         }
-        public void Harvest(IHarvesteable sender)
+        public void Harvest(IHarvesteable_OLD sender)
         {
             if(_input.GetAction(1)) _vehicleBuffer.QueueCommand(new Collect(_cargo,_input,sender,1));
         }

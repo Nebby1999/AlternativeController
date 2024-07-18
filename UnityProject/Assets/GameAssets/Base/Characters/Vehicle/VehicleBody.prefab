@@ -273,10 +273,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284e24931d127c54b9c1063f6aa9fe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skillReplacements:
+  - slotToReplace: 1
+    skillNameWhenSlotIsNone: 
+    combatSkillDef: {fileID: 11400000, guid: 52849e528caee184f8b79832e979db90, type: 2}
+    harvestSkillDef: {fileID: 11400000, guid: 316ec4b1ba862454d9e2bb4e20cee849, type: 2}
   _maxHeat: 50
+  _passiveHeatDissipation: 1
   _stateMachinesToStun:
   - {fileID: 697716576412428574}
   - {fileID: -7737793587595966679}
+  printHeatOnScreen: 0
 --- !u!114 &3231339071351050255
 MonoBehaviour:
   m_ObjectHideFlags: 0

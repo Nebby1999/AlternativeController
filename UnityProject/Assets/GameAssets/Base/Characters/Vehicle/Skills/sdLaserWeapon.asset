@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff6203aca13ad1499e2e46f504c1b98, type: 3}
+  m_Name: sdLaserWeapon
+  m_EditorClassIdentifier: 
+  baseCooldown: 0
+  beginCooldownOnStateEnd: 0
+  requiredStock: 0
+  entityStateMachineName: Weapon
+  stateType:
+    _typeName: EntityStates.Vehicle.Weapon.LaserWeaponState, AlternativeController.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  interruptStrength: 0

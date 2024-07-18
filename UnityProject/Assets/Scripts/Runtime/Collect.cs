@@ -9,9 +9,9 @@ namespace AC
     {
         private readonly Cargo _cargo;
         private readonly MacroKeyboard _input;
-        private readonly IHarvesteable _item;
+        private readonly IHarvesteable_OLD _item;
         private readonly int _delay;
-        public Collect(Cargo cargo, MacroKeyboard input, IHarvesteable item, int delayInSeconds)
+        public Collect(Cargo cargo, MacroKeyboard input, IHarvesteable_OLD item, int delayInSeconds)
         {
             _cargo = cargo;
             _input = input;

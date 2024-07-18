@@ -5,7 +5,7 @@ using UnityEngine;
 namespace AC
 {
     [RequireComponent(typeof(SpriteRenderer))]
-    public class Mineral : PoolObject, IHarvesteable
+    public class Mineral : PoolObject, IHarvesteable_OLD
     {
         private SpriteRenderer _sprite;
         public ResourceDef resourceType => _resourceType;

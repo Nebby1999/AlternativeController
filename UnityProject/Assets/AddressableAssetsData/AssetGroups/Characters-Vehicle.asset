@@ -44,6 +44,17 @@ MonoBehaviour:
     m_SerializedLabels:
     - EntityStateConfigurations
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 52849e528caee184f8b79832e979db90
+    m_Address: GameAssets/Base/Characters/Vehicle/Skills/sdLaserWeapon.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b7c66f3a4bdb314e847767a8645d454
+    m_Address: GameAssets/Base/Characters/Vehicle/Skills/EntityStates.Vehicle.Weapon.LaserWeaponState.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EntityStateConfigurations
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6477d9c2a480c854da50689a56322cfa, type: 2}
   m_SchemaSet:

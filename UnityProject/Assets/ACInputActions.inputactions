@@ -196,7 +196,7 @@
             "id": "50dd9d08-ff15-48b7-8b42-1f89518d302e",
             "actions": [
                 {
-                    "name": "Deliver_Shoot",
+                    "name": "Deliver_Decoy",
                     "type": "Button",
                     "id": "cadc9f28-2ea5-4aea-842a-82e5b9667888",
                     "expectedControlType": "Button",
@@ -205,7 +205,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Harvest_Shield",
+                    "name": "Harvest_Shoot",
                     "type": "Button",
                     "id": "8a010eab-8a1f-488a-96e6-c47bd77b2835",
                     "expectedControlType": "Button",
@@ -249,7 +249,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Deliver_Shoot",
+                    "action": "Deliver_Decoy",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -260,7 +260,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Harvest_Shield",
+                    "action": "Harvest_Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

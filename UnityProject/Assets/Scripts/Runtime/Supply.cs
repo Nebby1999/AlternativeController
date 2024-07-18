@@ -11,10 +11,10 @@ namespace AC
         private readonly ResourcesManager _receiver;
         private readonly ResourceDef _mineral;
         private readonly BoxInputs _input;
-        private readonly float _amount;
+        private readonly int _amount;
         private readonly int _cable;
         private readonly int _delay;
-        public Supply(ResourcesManager sender, ResourcesManager receiver, ResourceDef mineral, BoxInputs input, float amount, int cable, int delay)
+        public Supply(ResourcesManager sender, ResourcesManager receiver, ResourceDef mineral, BoxInputs input, int amount, int cable, int delay)
         {
             _sender = sender;
             _receiver = receiver;

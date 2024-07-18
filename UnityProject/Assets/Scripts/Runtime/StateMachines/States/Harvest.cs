@@ -33,7 +33,7 @@ namespace States
 
         public override void OnTriggerStay(Collider other)
         {
-            if(other.TryGetComponent<IHarvesteable>(out IHarvesteable loadeable)) Context.Harvest(loadeable);
+            if(other.TryGetComponent<IHarvesteable_OLD>(out IHarvesteable_OLD loadeable)) Context.Harvest(loadeable);
             if(other.TryGetComponent<HeadQuarters_OLD>(out HeadQuarters_OLD hq)) Context.Deliver(hq);
         }
 

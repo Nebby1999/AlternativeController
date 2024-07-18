@@ -9,7 +9,7 @@ namespace AC
     public class Cargo
     {
         private readonly int _maxCapacity;
-        public int[] mineralCount;
+        private int[] _mineralCount;
         public Queue<ResourceIndex> resourceCollectionOrder { get; private set; }
         public ResourceIndex lastUnloadedResource { get; private set; }
         public int totalCargoHeld => resourceCollectionOrder.Count;
@@ -19,6 +19,7 @@ namespace AC
         public Cargo(int totalCapacity)
         {
             resourceCollectionOrder = new Queue<ResourceIndex>(totalCapacity);
+            _mineralCount = new int[ResourceCatalog.resourceCount];
             _maxCapacity = totalCapacity;
         }
 
@@ -29,8 +30,8 @@ namespace AC
 
             var resourceIndex = resource.resourceIndex;
             var indexAsInt = (int)resourceIndex;
-            mineralCount[indexAsInt] += amount;
-            for(int i = 0; i < amount; i++)
+            _mineralCount[indexAsInt] += amount;
+            for (int i = 0; i < amount; i++)
             {
                 resourceCollectionOrder.Enqueue(resourceIndex);
             }
@@ -42,12 +43,15 @@ namespace AC
             if (isEmpty)
                 return false;
 
-            for(int i = 0; i < amount; i++)
+            for (int i = 0; i < amount; i++)
             {
                 lastUnloadedResource = resourceCollectionOrder.Dequeue();
-                mineralCount[(int)lastUnloadedResource]--;
+                _mineralCount[(int)lastUnloadedResource]--;
             }
             return true;
         }
+
+        public int GetResourceCount(ResourceDef def) => def ? GetResourceCount(def.resourceIndex) : 0;
+        public int GetResourceCount(ResourceIndex index) => _mineralCount[(int)index];
     }
 }
