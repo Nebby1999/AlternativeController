@@ -1,0 +1,6 @@
+.nebula-override_style {
+}
+
+.nebula-override_style .unity-toggle__input {
+    flex-direction: row-reverse;
+}

@@ -30,6 +30,7 @@ namespace EntityStates
             if(hasSkillManager)
             {
                 HandleSkill(skillManager.Primary, ref inputBank.primaryButton);
+                HandleSkill(skillManager.Secondary, ref inputBank.secondaryButton);
             }
             moveVector = Vector2.zero;
         }

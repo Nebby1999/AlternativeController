@@ -5,10 +5,11 @@ using System.Linq;
 using System.Xml;
 using Unity.Collections;
 using UnityEngine;
+using static AC.CircleSearch;
 
 namespace AC
 {
-    public class SphereSearch
+    public class CircleSearch
     {
         public float radius;
         public Vector3 origin;
@@ -17,7 +18,7 @@ namespace AC
 
         private List<Collider2D> _colliders = new List<Collider2D>();
         private List<Candidate> _candidates;
-        public SphereSearch FindCandidates()
+        public CircleSearch FindCandidates()
         {
             _candidates = new List<Candidate>();
             var contactFilter = new ContactFilter2D
@@ -35,12 +36,13 @@ namespace AC
                     collider = collider,
                     distanceSqr = (origin - collider.transform.position).sqrMagnitude,
                     position = collider.transform.position,
+                    colliderHurtbox = collider.GetComponent<HurtBox>()
                 });
             }
             return this;
         }
 
-        public SphereSearch FilterCandidatesByLOS(LayerMask obstacleMask)
+        public CircleSearch FilterCandidatesByLOS(LayerMask obstacleMask)
         {
             ThrowIfCandidateListNull();
             for(int i = _candidates.Count - 1; i >= 0; i--)
@@ -55,7 +57,39 @@ namespace AC
             return this;
         }
 
-        public SphereSearch FilterBy(Func<Candidate, bool> predicate)
+        public CircleSearch FilterCandidatesByDistinctHealthComponent()
+        {
+            if (_candidates == null)
+                throw new NullReferenceException("Candidate List not made, call FindCandidates first.");
+
+            List<HealthComponent> distinct = new List<HealthComponent>();
+            for (int i = _candidates.Count - 1; i >= 0; i--)
+            {
+                var candidate = _candidates[i];
+                if (!candidate.colliderHurtbox)
+                {
+                    _candidates.RemoveAt(i);
+                    continue;
+                }
+
+                var healthComponent = candidate.colliderHurtbox.healthComponent;
+                if (!healthComponent)
+                {
+                    _candidates.RemoveAt(i);
+                    continue;
+                }
+
+                if (distinct.Contains(healthComponent))
+                {
+                    _candidates.RemoveAt(i);
+                    continue;
+                }
+                distinct.Add(healthComponent);
+            }
+            return this;
+        }
+
+        public CircleSearch FilterBy(Func<Candidate, bool> predicate)
         {
             ThrowIfCandidateListNull();
             for (int i = _candidates.Count - 1; i >= 0; i--)
@@ -69,14 +103,14 @@ namespace AC
             return this;
         }
 
-        public SphereSearch OrderByDistance()
+        public CircleSearch OrderByDistance()
         {
             ThrowIfCandidateListNull();
             _candidates = _candidates.OrderBy(k => k.distanceSqr).ToList();
             return this;
         }
 
-        public SphereSearch GetResults(out List<Candidate> results)
+        public CircleSearch GetResults(out List<Candidate> results)
         {
             ThrowIfCandidateListNull();
             results = new List<Candidate>();
@@ -94,7 +128,7 @@ namespace AC
                 throw new NullReferenceException("Candidate List not made, call FindCandidates first.");
         }
 
-        public SphereSearch FirstOrDefault(out Candidate candidate)
+        public CircleSearch FirstOrDefault(out Candidate candidate)
         {
             candidate = _candidates.FirstOrDefault();
             return this;
@@ -105,6 +139,7 @@ namespace AC
             public Collider2D collider;
             public Vector3 position;
             public float distanceSqr;
+            public HurtBox colliderHurtbox;
         }
     }
 }

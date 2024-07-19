@@ -11,13 +11,13 @@ namespace EntityStates.Vehicle.Weapon
         public static float searchRadius;
         public static LayerMask searchMask;
 
-        private SphereSearch _sphereSearch;
+        private CircleSearch _sphereSearch;
         private float _stopwatch;
 
         public override void OnEnter()
         {
             base.OnEnter();
-            _sphereSearch = new SphereSearch();
+            _sphereSearch = new CircleSearch();
             _sphereSearch.radius = searchRadius;
             _sphereSearch.candidateMask = searchMask;
             _sphereSearch.useTriggers = false;
