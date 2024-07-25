@@ -27,9 +27,10 @@ namespace Nebula.Editor
         [Serializable]
         public struct LayerIndexData
         {
+            public bool is2D;
             public CommonMask[] commonMaskSelector;
             public string filePath;
-            public string @namespace;
+            public string nameSpace;
 
             [Serializable]
             public struct CommonMask

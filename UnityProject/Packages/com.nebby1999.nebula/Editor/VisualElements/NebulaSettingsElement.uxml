@@ -6,8 +6,18 @@
     <ui:VisualElement name="Center" style="flex-grow: 1;">
         <ui:VisualElement name="LayerIndexGeneratorRoot" style="flex-grow: 0; flex-direction: row; align-items: center; justify-content: space-between; width: auto;">
             <ui:Foldout text="Layer Index Code Generator" name="LayerIndexFoldout" value="true" style="-unity-font-style: bold-and-italic; flex-grow: 1;">
-                <ui:Toggle label="Enable Layer Index Generation" name="EnableLayerIndexGeneration" class="nebula-override_style" style="-unity-font-style: normal;" />
-                <ui:VisualElement name="Contents" style="flex-grow: 1;" />
+                <ui:VisualElement name="LayerIndexFodloutContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.05); -unity-font-style: normal;">
+                    <ui:Toggle label="Enable Layer Index Generation" name="EnableLayerIndexGeneration" binding-path="createLayerIndexStruct" class="nebula-override_style" />
+                    <ui:VisualElement name="LayerIndexContents" style="flex-grow: 1;">
+                        <ui:Toggle label="Use Physics2D" name="Is2D" binding-path="layerIndexData.is2D" class="nebula-override_style" />
+                        <uie:PropertyField name="CommonMaskSelector" binding-path="layerIndexData.commonMaskSelector" />
+                        <ui:VisualElement name="FilePathContainer" style="flex-grow: 1; flex-direction: row;">
+                            <ui:TextField picking-mode="Ignore" label="File Path" name="FilePath" auto-correction="false" binding-path="layerIndexData.filePath" value="NOT BOUND" style="flex-grow: 1; flex-wrap: wrap;" />
+                            <ui:Button text="..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="SelectFolderButton" />
+                        </ui:VisualElement>
+                        <ui:TextField picking-mode="Ignore" label="Namespace" name="Namespace" binding-path="layerIndexData.nameSpace" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
             </ui:Foldout>
             <ui:Button text="Re-Generate Struct" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RegenerateLayerIndexStructButton" style="flex-shrink: 0; max-width: 150px; flex-grow: 1; align-items: auto; justify-content: flex-start; align-self: flex-start;" />
         </ui:VisualElement>

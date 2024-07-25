@@ -1,5 +1,6 @@
 using Microsoft.CSharp;
 using System;
+using System.Linq;
 
 namespace Nebula.Editor
 {
@@ -20,6 +21,19 @@ namespace Nebula.Editor
                 + "//     the code is regenerated.\n"
                 + "// </auto-generated>\n"
                 + "//------------------------------------------------------------------------------\n";
+        }
+
+        public string MakeIdentifier(string identifier)
+        {
+            return _codeProvider.CreateValidIdentifier(identifier).Replace(" ", "");
+        }
+
+        public string MakeIdentifierPascalCase(string identifier)
+        {
+            string camelCase = MakeIdentifier(identifier);
+            char[] chars = camelCase.ToCharArray();
+            chars[0] = char.ToLowerInvariant(chars[0]);
+            return new string(chars);
         }
 
         public void Dispose()

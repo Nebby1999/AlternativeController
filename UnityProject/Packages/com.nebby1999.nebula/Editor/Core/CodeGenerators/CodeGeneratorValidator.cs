@@ -13,7 +13,7 @@ namespace Nebula.Editor
     {
         public struct ValidationData
         {
-            public StringBuilder code;
+            public Writer code;
             public string desiredOutputPath;
         }
         public static bool Validate(ValidationData data)
