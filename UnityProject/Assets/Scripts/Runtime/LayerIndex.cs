@@ -23,6 +23,7 @@ namespace AC
         public static readonly LayerIndex mapElements = GetLayerIndex("MapElements");
         public static readonly LayerIndex water = GetLayerIndex("Water");
         public static readonly LayerIndex uI = GetLayerIndex("UI");
+        public static readonly LayerIndex entityPrecise = GetLayerIndex("EntityPrecise");
         private static readonly LayerMask[] _collisionMasks = CalculateCollisionMasks();
         public int intVal { get; private set; }
         public LayerMask mask => (intVal >= 0) ? (1 << intVal) : intVal;
@@ -55,14 +56,6 @@ namespace AC
         private LayerIndex(int val)
         {
             intVal = val;
-        }
-        public static class CommonMasks
-        {
-            private const string TESTMASK_COMMENT = @"This is a Test";
-            ///<summary>
-            ///This is a Test
-            ///</summary>
-            public static readonly LayerMask testMask = 9;
         }
     }
 }

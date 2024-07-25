@@ -16,6 +16,18 @@ namespace Nebula.Editor
             Save(false);
         }
 
+        [MenuItem("Tools/Nebula/Generate Layer Index")]
+        private static void MenuItem_GenerateLayerIndexStruct()
+        {
+            instance.GenerateLayerIndexStruct();
+        }
+
+        [MenuItem("Tools/Nebula/Generate Layer Index", true)]
+        private static bool MenuItemValidate_GenerateLayerIndexStruct()
+        {
+            return instance.createLayerIndexStruct;
+        }
+
         internal void GenerateLayerIndexStruct()
         {
             if (createLayerIndexStruct)

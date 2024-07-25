@@ -20,16 +20,13 @@ namespace EntityStates.Vehicle.Weapon
             _hitscanAttack = new HitscanAttack
             {
                 attacker = gameObject,
-                origin = transform.position,
                 hitscanCount = 1,
-                direction = transform.up,
                 hitscanRadius = laserRadius,
                 distance = laserDistance,
-                hitMask = LayerMask.GetMask("EntityPrecise"),
-                stopperMask = LayerMask.GetMask("StopperMask"),
                 minAngleSpread = 0,
                 maxAngleSpread = 0,
-                baseDamage = damageStat * damageCoefficient
+                damage = damageStat * damageCoefficient,
+                falloffCalculation = HitscanAttack.BuckshotFalloffCalculation
             };
         }
         public override void FixedUpdate()
@@ -42,6 +39,8 @@ namespace EntityStates.Vehicle.Weapon
             if(_tickStopwatch > timeBetweenTicks)
             {
                 _tickStopwatch -= timeBetweenTicks;
+                _hitscanAttack.origin = transform.position;
+                _hitscanAttack.direction = transform.up;
                 _hitscanAttack.Fire();
             }
             if (!IsSkillDown())

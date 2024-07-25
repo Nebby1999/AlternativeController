@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7244654441059462108}
   - component: {fileID: 7782137999766639320}
   - component: {fileID: 8650445740744778964}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MainHurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _serializedMovementStrategy:
-    _typeName: AC.GenericMovementStrategy, AlternativeController.Runtime, Version=0.0.0.0,
+    _typeName: AC.TankMovementStrategy, AlternativeController.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   baseRotationSpeed: 22.5
   drag: 0.5

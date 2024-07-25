@@ -18,6 +18,22 @@ MonoBehaviour:
       serializedValue:
         objectReferenceValue: {fileID: 0}
         stringValue: 3
+    - fieldName: timeBetweenTicks
+      serializedValue:
+        objectReferenceValue: {fileID: 0}
+        stringValue: 0.1
+    - fieldName: laserRadius
+      serializedValue:
+        objectReferenceValue: {fileID: 0}
+        stringValue: 1
+    - fieldName: laserDistance
+      serializedValue:
+        objectReferenceValue: {fileID: 0}
+        stringValue: 10
+    - fieldName: damageCoefficient
+      serializedValue:
+        objectReferenceValue: {fileID: 0}
+        stringValue: 1
   _stateTypeToConfig:
     _typeName: EntityStates.Vehicle.Weapon.LaserWeaponState, AlternativeController.Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

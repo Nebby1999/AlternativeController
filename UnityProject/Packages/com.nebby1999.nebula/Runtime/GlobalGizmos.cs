@@ -8,7 +8,7 @@ namespace Nebula
     {
         protected override bool destroyIfDuplicate => true;
         private static List<DrawRequest> _drawRequests = new List<DrawRequest>();
-        private static List<int> _finishedRequests;
+        private static List<int> _finishedRequests = new List<int>();
 
         public static void EnqueueGizmoDrawing(Action action, int drawCalls = 60)
         {

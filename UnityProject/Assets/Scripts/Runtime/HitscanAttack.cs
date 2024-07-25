@@ -14,11 +14,11 @@ namespace EntityStates
         public Vector2 direction;
         public float hitscanRadius;
         public float distance;
-        public LayerMask hitMask;
-        public LayerMask stopperMask;
+        public LayerMask hitMask = defaultHitMask;
+        public LayerMask stopperMask = defaultHitMask;
         public float minAngleSpread;
         public float maxAngleSpread;
-        public float baseDamage;
+        public float damage;
         public Xoroshiro128Plus rng;
 
         public FalloffCalculateDelegate falloffCalculation = DefaultFalloffCalculation;
@@ -103,12 +103,33 @@ namespace EntityStates
 
         public static bool DefaultHitCallback(HitscanAttack attack, ref Hit hit)
         {
-            return false;
+            if (hit.entityObject && hit.entityObject == attack.attacker)
+                return false;
+
+            if (!hit.hurtBox || !hit.hurtBox.healthComponent)
+                return false;
+
+            var healthComponent = hit.hurtBox.healthComponent;
+            var falloffFactor = attack.falloffCalculation(hit.distance);
+            healthComponent.TakeDamage(attack.damage * falloffFactor);
+            return true;
         }
 
+        /// <summary>
+        /// Delegate to calculate a falloff damage, which is used to increase/decrease damage depending on the distance.
+        /// </summary>
+        /// <param name="distance"></param>
+        /// <returns>A modifier applied to the final damage</returns>
         public delegate float FalloffCalculateDelegate(float distance);
+        /// <summary>
+        /// Delegate that handles the Hit behaviour of the bullet attack
+        /// </summary>
+        /// <param name="attack">The bullet attack that called the callback</param>
+        /// <param name="hit">The hit being processed</param>
+        /// <returns>True if the hit processing should stop, false otherwise.</returns>
         public delegate bool HitCallback(HitscanAttack attack, ref Hit hit);
-    
+
+        private static LayerMask defaultHitMask = LayerIndex.mapElements.mask | LayerIndex.entityPrecise.mask;
         public struct Hit
         {
             public Vector2 direction;

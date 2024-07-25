@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace AC
@@ -19,6 +20,19 @@ namespace AC
 
         public bool isAlive => currentHealth > 0;
 
+        internal void TakeDamage(float dmg)
+        {
+            Debug.Log(this + " Takes " + dmg + " Damage!");
+            currentHealth -= dmg;
+        }
+
+        private void FixedUpdate()
+        {
+            if (!isAlive)
+            {
+                Destroy(gameObject);
+            }
+        }
         private void Awake()
         {
             _maxHealthProvider = GetComponent<IMaxHealthProvider>();

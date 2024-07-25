@@ -34,5 +34,10 @@ namespace EntityStates
                     return false;
             }
         }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.Skill;
+        }
     }
 }
