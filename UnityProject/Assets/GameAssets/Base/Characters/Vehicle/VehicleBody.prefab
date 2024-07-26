@@ -409,7 +409,7 @@ MonoBehaviour:
     skillNameWhenSlotIsNone: 
     combatSkillDef: {fileID: 11400000, guid: 52849e528caee184f8b79832e979db90, type: 2}
     harvestSkillDef: {fileID: 11400000, guid: 316ec4b1ba862454d9e2bb4e20cee849, type: 2}
-  _maxHeat: 50
+  _maxHeat: 25
   _passiveHeatDissipation: 1
   _stateMachinesToStun:
   - {fileID: 697716576412428574}

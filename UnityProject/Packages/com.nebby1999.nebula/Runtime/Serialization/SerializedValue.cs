@@ -27,13 +27,13 @@ namespace Nebula.Serialization
                 if(objectReferenceValue != null)
                 {
                     Type type = objectReferenceValue.GetType();
-                    if (fieldType.IsAssignableFrom(type))
+                    if (!fieldType.IsAssignableFrom(type))
                     {
                         if (type == typeof(UnityEngine.Object))
                         {
                             return null;
                         }
-                        throw new Exception($"Value \"{objectReferenceValue}\" of type \"{type}\" is not suitable for field \"{fieldType.Name} {fieldInfo.DeclaringType.Name}\"");
+                        throw new Exception($"Value \"{objectReferenceValue}\" of type \"{type}\" is not suitable for field \"{fieldInfo.DeclaringType.Name}.{fieldInfo.Name}\"");
                     }
                 }
                 return objectReferenceValue;

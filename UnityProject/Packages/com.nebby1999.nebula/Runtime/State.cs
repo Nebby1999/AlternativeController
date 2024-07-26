@@ -8,36 +8,28 @@ namespace EntityStates
     public abstract class State
     {
         public readonly string stateName;
-
         public readonly string fullStateName;
-
         public StateMachine outer;
-
         public GameObject gameObject => outer.gameObject;
-
         public Transform transform => outer.transform;
-
         public float fixedAge { get; protected set; }
-
         public float age { get; protected set; }
-
         public virtual void OnEnter() { }
-        
         public virtual void OnExit() { }
-        
         public virtual void FixedUpdate()
         {
             fixedAge += Time.fixedDeltaTime;
         }
-
         public virtual void Update()
         {
             age += Time.deltaTime;
         }
-
         public virtual void ModifyNextState(State nextState) { }
-
         protected void Destroy(UnityEngine.Object obj) => UnityEngine.Object.Destroy(obj);
+        protected T Instantiate<T>(T obj) where T : UnityEngine.Object => UnityEngine.Object.Instantiate(obj);
+        protected T Instantiate<T>(T obj, Transform parent) where T : UnityEngine.Object => UnityEngine.Object.Instantiate(obj, parent);
+        protected T Instantiate<T>(T obj, Vector3 position, Quaternion rotation) where T : UnityEngine.Object => UnityEngine.Object.Instantiate(obj, position, rotation);
+        protected T Instantiate<T>(T obj, Vector3 position, Quaternion rotation, Transform parent) where T : UnityEngine.Object => UnityEngine.Object.Instantiate(obj, position, rotation, parent);
 
         protected T GetComponent<T>() => outer.GetComponent<T>();
 

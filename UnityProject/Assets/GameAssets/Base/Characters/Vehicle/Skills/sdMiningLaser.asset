@@ -15,7 +15,7 @@ MonoBehaviour:
   baseCooldown: 0
   beginCooldownOnStateEnd: 0
   requiredStock: 0
-  entityStateMachineName: Weapon
+  entityStateMachineName: Body
   stateType:
     _typeName: EntityStates.Vehicle.Weapon.MiningState, AlternativeController.Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

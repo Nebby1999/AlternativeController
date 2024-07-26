@@ -1,57 +1,93 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace AC
 {
-    [Serializable]
-    public class Cargo
+    [RequireComponent(typeof(HingeJoint2D))]
+    public class Cargo : MonoBehaviour
     {
-        private readonly int _maxCapacity;
-        private int[] _mineralCount;
-        public Queue<ResourceIndex> resourceCollectionOrder { get; private set; }
-        public ResourceIndex lastUnloadedResource { get; private set; }
-        public int totalCargoHeld => resourceCollectionOrder.Count;
-        public bool isFull => totalCargoHeld >= _maxCapacity;
-        public bool isEmpty => totalCargoHeld < 1;
-
-        public Cargo(int totalCapacity)
+        public HingeJoint2D hingeJoint2D { get; private set; }
+        public new Rigidbody2D rigidbody2D { get; private set; }
+        public Vehicle connectedVehicle
         {
-            resourceCollectionOrder = new Queue<ResourceIndex>(totalCapacity);
-            _mineralCount = new int[ResourceCatalog.resourceCount];
-            _maxCapacity = totalCapacity;
-        }
-
-        public bool LoadResource(ResourceDef resource, int amount)
-        {
-            if (isFull)
-                return false;
-
-            var resourceIndex = resource.resourceIndex;
-            var indexAsInt = (int)resourceIndex;
-            _mineralCount[indexAsInt] += amount;
-            for (int i = 0; i < amount; i++)
+            get => _connectedVehicle;
+            private set
             {
-                resourceCollectionOrder.Enqueue(resourceIndex);
+                if(_connectedVehicle != value)
+                {
+                    _connectedVehicle = value;
+                    isConnected = value;
+                    OnVehicleConnectedChange();
+                }
             }
-            return true;
         }
+        private Vehicle _connectedVehicle;
 
-        public bool UnloadResource(int amount)
+        public bool isConnected { get; private set; }
+        private Vehicle _lastConnectedVehicle;
+        private void Awake()
         {
-            if (isEmpty)
-                return false;
-
-            for (int i = 0; i < amount; i++)
-            {
-                lastUnloadedResource = resourceCollectionOrder.Dequeue();
-                _mineralCount[(int)lastUnloadedResource]--;
-            }
-            return true;
+            hingeJoint2D = GetComponent<HingeJoint2D>();
+            rigidbody2D = GetComponent<Rigidbody2D>();
+            isConnected = false;
         }
 
-        public int GetResourceCount(ResourceDef def) => def ? GetResourceCount(def.resourceIndex) : 0;
-        public int GetResourceCount(ResourceIndex index) => _mineralCount[(int)index];
+        private void Start()
+        {
+            OnVehicleConnectedChange();
+        }
+
+        private void OnVehicleConnectedChange()
+        {
+            rigidbody2D.bodyType = isConnected ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
+            hingeJoint2D.enabled = isConnected;
+            hingeJoint2D.connectedBody = isConnected ? connectedVehicle.GetComponent<Rigidbody2D>() : null;
+
+            if (isConnected)
+                connectedVehicle.connectedCargo = this;
+        }
+
+        public void DetachCargo()
+        {
+            connectedVehicle.connectedCargo = null;
+            connectedVehicle = null;
+        }
+
+        private void OnJointBreak2D(Joint2D joint)
+        {
+            DetachCargo();
+        }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            if (isConnected)
+                return;
+
+            var t = collision.transform;
+
+            var dotProduct = Vector3.Dot(t.up, transform.up);
+            if (dotProduct < 0.75)
+                return;
+
+            if(collision.TryGetComponent<Vehicle>(out var vehicle) && !vehicle.isInCombatMode)
+            {
+                connectedVehicle = vehicle;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if(collision.TryGetComponent<Vehicle>(out var vehicle))
+            {
+                if(!connectedVehicle && vehicle == _lastConnectedVehicle)
+                {
+                    _lastConnectedVehicle = null;
+                }
+            }
+        }
     }
 }

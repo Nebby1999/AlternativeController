@@ -34,6 +34,10 @@ MonoBehaviour:
       serializedValue:
         objectReferenceValue: {fileID: 0}
         stringValue: 1
+    - fieldName: laserEffect
+      serializedValue:
+        objectReferenceValue: {fileID: 1202613484773526956, guid: 937e5aad0d095374da66bc1a8e936e29, type: 3}
+        stringValue: 
   _stateTypeToConfig:
     _typeName: EntityStates.Vehicle.Weapon.LaserWeaponState, AlternativeController.Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

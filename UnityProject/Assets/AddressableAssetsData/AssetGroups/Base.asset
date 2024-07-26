@@ -10,20 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Scenes
+  m_Name: Base
   m_EditorClassIdentifier: 
-  m_GroupName: Scenes
+  m_GroupName: Base
   m_Data:
     m_SerializedData: []
-  m_GUID: 224e1be5bfe84f3469657c3000d8655e
+  m_GUID: 38d57f1579129144caabd5fb166afa3c
   m_SerializeEntries:
-  - m_GUID: 8c9cfa26abfee488c85f1582747f6a02
-    m_Address: SampleScene.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4d717b8b1669d7b43a7a3408c5213c27
-    m_Address: LoadingScene.unity
+  - m_GUID: ea433dd610bbf0744b3bef51319b21b3
+    m_Address: GameAssets/Base/ACApplication.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -31,5 +26,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 6477d9c2a480c854da50689a56322cfa, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: fc1c7f4c6faab5446af2da68ed2b74b3, type: 2}
-    - {fileID: 11400000, guid: e4a1373f614829f448e83f4fc37d9905, type: 2}
+    - {fileID: 11400000, guid: 276315a4319db9f4297396b4214dd27d, type: 2}
+    - {fileID: 11400000, guid: e227a2e99653c994b9fb2846d499af42, type: 2}

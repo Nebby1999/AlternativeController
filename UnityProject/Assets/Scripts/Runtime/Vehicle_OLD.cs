@@ -27,7 +27,7 @@ namespace AC
         private Movement _movementController;
         private MacroKeyboard _input;
         [SerializeField] private CommandBuffer _vehicleBuffer;
-        [SerializeField] private Cargo _cargo;
+        [SerializeField] private Cargo_OLD _cargo;
         [SerializeField] private GameObjectPool _decoyPool;
         public bool IsBattle;
         protected override void InitializeStates()
@@ -48,7 +48,7 @@ namespace AC
             _shootController = GetComponent<ShootController>();
             _shieldController = GetComponent<Shield>();
             _stunController = GetComponent<StunController>();
-            _cargo = new Cargo(10);
+            _cargo = new Cargo_OLD(10);
             _decoyController = new DecoyController(_decoyPool, transform);
         }
         protected override void Update()

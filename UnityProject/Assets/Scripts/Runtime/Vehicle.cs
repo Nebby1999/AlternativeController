@@ -15,7 +15,26 @@ namespace AC
         [SerializeField] private float _maxHeat;
         [SerializeField] private float _passiveHeatDissipation;
         [SerializeField] private EntityStateMachine[] _stateMachinesToStun = Array.Empty<EntityStateMachine>();
-        [NonSerialized] private Cargo _cargo;
+        public Cargo connectedCargo
+        {
+            get => _connectedCargo;
+            set
+            {
+                if(!_connectedCargo)
+                {
+                    _connectedCargo = value;
+                    characterBody.SetStatsDirty();
+                    return;
+                }
+
+                if (value && value.connectedVehicle != this)
+                    return;
+
+                _connectedCargo = value;
+                characterBody.SetStatsDirty();
+            }
+        }
+        private Cargo _connectedCargo;
         public CharacterBody characterBody { get; private set; }
         public SkillManager skillManager { get; private set; }
         public bool isInCombatMode
@@ -38,7 +57,6 @@ namespace AC
         {
             characterBody = GetComponent<CharacterBody>();
             skillManager = GetComponent<SkillManager>();
-            _cargo ??= new Cargo(10);
             _maxHeat = _maxHeat == 0 ? 10 : _maxHeat;
 #if DEBUG
             _cachedGUIStyle = new GUIStyle
@@ -72,11 +90,11 @@ namespace AC
 
         public bool TryHarvest(IHarvestable harvesteable, int desiredHarvestCount)
         {
-            if (_cargo.LoadResource(harvesteable.resourceType, desiredHarvestCount))
+            /*if (connectedCargo.LoadResource(harvesteable.resourceType, desiredHarvestCount))
             {
                 harvesteable.Harvest(desiredHarvestCount);
                 return true;
-            }
+            }*/
             return false;
         }
 
@@ -111,6 +129,13 @@ namespace AC
 
                 genericSkill.skillDef = isInCombatMode ? replacement.combatSkillDef : replacement.harvestSkillDef;
             }
+
+            if(connectedCargo)
+            {
+                connectedCargo.DetachCargo();
+            }
+
+            characterBody.SetStatsDirty();
         }
 
         public void PreStatRecalculation(CharacterBody body) { }
@@ -122,6 +147,10 @@ namespace AC
             if (!isInCombatMode)
             {
                 args.movementSpeedMultAdd -= 0.2f;
+                if(connectedCargo)
+                {
+                    args.movementSpeedMultAdd -= 0.2f;
+                }
             }
         }
 
@@ -152,14 +181,14 @@ namespace AC
                 GUILayout.Label("Heat: " + heat, _cachedGUIStyle);
             }
 
-            if(printCargoContentsOnScreen)
+            /*if(printCargoContentsOnScreen)
             {
-                GUILayout.Label("Total Cargo: " + _cargo.totalCargoHeld, _cachedGUIStyle);
+                GUILayout.Label("Total Cargo: " + connectedCargo.totalCargoHeld, _cachedGUIStyle);
                 foreach(ResourceDef def in ResourceCatalog.resourceDefs)
                 {
-                    GUILayout.Label($"{def.cachedName} count: " + _cargo.GetResourceCount(def), _cachedGUIStyle);
+                    GUILayout.Label($"{def.cachedName} count: " + connectedCargo.GetResourceCount(def), _cachedGUIStyle);
                 }
-            }
+            }*/
         }
 #endif
 
