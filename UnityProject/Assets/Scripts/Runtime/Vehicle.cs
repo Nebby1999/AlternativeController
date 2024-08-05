@@ -90,11 +90,11 @@ namespace AC
 
         public bool TryHarvest(IHarvestable harvesteable, int desiredHarvestCount)
         {
-            /*if (connectedCargo.LoadResource(harvesteable.resourceType, desiredHarvestCount))
+            if(connectedCargo && connectedCargo.LoadResource(harvesteable.resourceType, desiredHarvestCount))
             {
                 harvesteable.Harvest(desiredHarvestCount);
                 return true;
-            }*/
+            }
             return false;
         }
 
@@ -181,14 +181,14 @@ namespace AC
                 GUILayout.Label("Heat: " + heat, _cachedGUIStyle);
             }
 
-            /*if(printCargoContentsOnScreen)
+            if(printCargoContentsOnScreen)
             {
                 GUILayout.Label("Total Cargo: " + connectedCargo.totalCargoHeld, _cachedGUIStyle);
                 foreach(ResourceDef def in ResourceCatalog.resourceDefs)
                 {
                     GUILayout.Label($"{def.cachedName} count: " + connectedCargo.GetResourceCount(def), _cachedGUIStyle);
                 }
-            }*/
+            }
         }
 #endif
 
