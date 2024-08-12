@@ -3,22 +3,14 @@ using Nebula;
 
 namespace EntityStates
 {
-    public class HeatStunState : EntityState
+    public class HeatStunState : GenericStunState
     {
-        public static float stunDuration;
-
+        public static float heatStunDuration;
         public override void OnEnter()
         {
+            stunDuration = heatStunDuration;
             base.OnEnter();
             Log("Stunned from Overheat!");
-        }
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-            if(fixedAge > stunDuration)
-            {
-                outer.SetNextStateToMain();
-            }
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()

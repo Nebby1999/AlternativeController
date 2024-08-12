@@ -40,21 +40,22 @@ namespace AC
         public bool isEmpty => totalCargoHeld <= 0;
 
         private Vehicle _lastConnectedVehicle;
+        public bool LoadResource(ResourceDef resource, int amount) => LoadResource(resource.resourceIndex, amount);
 
-        public bool LoadResource(ResourceDef resource, int amount)
+        public bool LoadResource(ResourceIndex index, int amount)
         {
-            if (isFull)
+            if (index == ResourceIndex.None || isFull)
                 return false;
 
-            var resourceIndex = resource.resourceIndex;
-            var indexAsInt = (int)resourceIndex;
+            var indexAsInt = (int)index;
             _mineralCount[indexAsInt] += amount;
             for (int i = 0; i < amount; i++)
             {
-                resourceCollectionOrder.Enqueue(resourceIndex);
+                resourceCollectionOrder.Enqueue(index);
             }
             return true;
         }
+
 
         public bool UnloadResource(int amount)
         {
@@ -77,6 +78,7 @@ namespace AC
             hingeJoint2D = GetComponent<HingeJoint2D>();
             rigidbody2D = GetComponent<Rigidbody2D>();
             isConnected = false;
+            resourceCollectionOrder = new Queue<ResourceIndex>(_maxCapacity);
         }
 
         private void Start()

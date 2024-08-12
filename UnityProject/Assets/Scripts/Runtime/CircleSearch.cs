@@ -15,6 +15,7 @@ namespace AC
         public Vector3 origin;
         public LayerMask candidateMask;
         public bool useTriggers;
+        public GameObject searcher;
 
         private List<Collider2D> _colliders = new List<Collider2D>();
         private List<Candidate> _candidates;
@@ -107,6 +108,20 @@ namespace AC
         {
             ThrowIfCandidateListNull();
             _candidates = _candidates.OrderBy(k => k.distanceSqr).ToList();
+            return this;
+        }
+
+        public CircleSearch FilterSearcher()
+        {
+            ThrowIfCandidateListNull();
+            for(int i = _candidates.Count - 1; i >= 0; i--)
+            {
+                var candidate = _candidates[i];
+                if(candidate.colliderHurtbox && candidate.colliderHurtbox.healthComponent.gameObject == searcher)
+                {
+                    _candidates.RemoveAt(i);
+                }
+            }
             return this;
         }
 

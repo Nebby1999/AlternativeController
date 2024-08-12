@@ -196,7 +196,7 @@
             "id": "50dd9d08-ff15-48b7-8b42-1f89518d302e",
             "actions": [
                 {
-                    "name": "Deliver_Decoy",
+                    "name": "DissipateHeat",
                     "type": "Button",
                     "id": "cadc9f28-2ea5-4aea-842a-82e5b9667888",
                     "expectedControlType": "Button",
@@ -249,7 +249,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Deliver_Decoy",
+                    "action": "DissipateHeat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

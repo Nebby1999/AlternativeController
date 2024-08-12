@@ -20,10 +20,16 @@ namespace AC
 
         public bool isAlive => currentHealth > 0;
 
-        internal void TakeDamage(float dmg)
+        internal void TakeDamage(DamageInfo damageInfo)
         {
+            var dmg = damageInfo.damage;
             Debug.Log(this + " Takes " + dmg + " Damage!");
             currentHealth -= dmg;
+
+            if(damageInfo.isStunning)
+            {
+                //Stun
+            }
         }
 
         private void FixedUpdate()

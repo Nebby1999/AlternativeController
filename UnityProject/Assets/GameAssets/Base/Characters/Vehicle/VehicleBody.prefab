@@ -84,6 +84,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2592750135142841738
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 175262947001310262}
+  m_Layer: 0
+  m_Name: RightTrackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &175262947001310262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2592750135142841738}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5344392773243815945}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3420392631966418277
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,6 +197,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthComponent: {fileID: 3231339071351050255}
   _isBullseye: 1
+--- !u!1 &3991869635129861358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1012000568634970355}
+  m_Layer: 0
+  m_Name: LeftTrackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1012000568634970355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3991869635129861358}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5344392773243815945}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6674512041302017894
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +293,8 @@ Transform:
   - {fileID: 7244654441059462108}
   - {fileID: 2391033851410049379}
   - {fileID: 3654584693754562343}
+  - {fileID: 1012000568634970355}
+  - {fileID: 175262947001310262}
   m_Father: {fileID: 8910682005493086818}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9159141660489447586
@@ -346,9 +410,9 @@ GameObject:
   - component: {fileID: 3231339071351050255}
   - component: {fileID: 4209377387247550763}
   - component: {fileID: 697716576412428574}
-  - component: {fileID: -7737793587595966679}
   - component: {fileID: 8161240643958933157}
   - component: {fileID: 2020080388466058219}
+  - component: {fileID: 8020326324665776954}
   - component: {fileID: 3521817021754544474}
   - component: {fileID: 3751073749869226778}
   - component: {fileID: 9006256157419457275}
@@ -404,6 +468,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284e24931d127c54b9c1063f6aa9fe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftTrackTransformPoint: {fileID: 1012000568634970355}
+  rightTrackTransformPoint: {fileID: 175262947001310262}
   _skillReplacements:
   - slotToReplace: 1
     skillNameWhenSlotIsNone: 
@@ -413,7 +479,7 @@ MonoBehaviour:
   _passiveHeatDissipation: 1
   _stateMachinesToStun:
   - {fileID: 697716576412428574}
-  - {fileID: -7737793587595966679}
+  - {fileID: 0}
   printHeatOnScreen: 0
   printCargoContentsOnScreen: 0
 --- !u!114 &3231339071351050255
@@ -462,25 +528,6 @@ MonoBehaviour:
   _mainStateType:
     _typeName: EntityStates.GenericCharacterMain, AlternativeController.Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!114 &-7737793587595966679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9088358815382963849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 969a1e46eaac569409b9eee372bd70a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stateMachineName: Weapon
-  _initialStateType:
-    _typeName: EntityStates.Idle, AlternativeController.Runtime, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  _mainStateType:
-    _typeName: EntityStates.Idle, AlternativeController.Runtime, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &8161240643958933157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,7 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _primary: {fileID: 2020080388466058219}
-  _secondary: {fileID: 0}
+  _secondary: {fileID: 8020326324665776954}
 --- !u!114 &2020080388466058219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,6 +556,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   genericSkillName: Laser
   _defaultSkill: {fileID: 11400000, guid: 316ec4b1ba862454d9e2bb4e20cee849, type: 2}
+--- !u!114 &8020326324665776954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088358815382963849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd3756f5f7f42314996ffdcd34618b1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  genericSkillName: ReleaseHeat
+  _defaultSkill: {fileID: 11400000, guid: fffbdf82148331740b3aeab3a7443450, type: 2}
 --- !u!114 &3521817021754544474
 MonoBehaviour:
   m_ObjectHideFlags: 0

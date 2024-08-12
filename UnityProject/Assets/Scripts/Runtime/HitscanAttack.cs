@@ -111,7 +111,14 @@ namespace EntityStates
 
             var healthComponent = hit.hurtBox.healthComponent;
             var falloffFactor = attack.falloffCalculation(hit.distance);
-            healthComponent.TakeDamage(attack.damage * falloffFactor);
+
+            DamageInfo damageInfo = new DamageInfo
+            {
+                attackerObject = attack.attacker,
+                attackerBody = attack.attacker.GetComponent<CharacterBody>(),
+                damage = attack.damage * falloffFactor
+            };
+            healthComponent.TakeDamage(damageInfo);
             return true;
         }
 

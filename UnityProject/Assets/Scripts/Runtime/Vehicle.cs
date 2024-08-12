@@ -11,6 +11,8 @@ namespace AC
         public float heat { get; private set; }
         public float maxHeat => _maxHeat;
         public bool isOverHeated { get; private set; } = false;
+        public Transform leftTrackTransformPoint;
+        public Transform rightTrackTransformPoint;
         [SerializeField] private VehicleSkillReplacement[] _skillReplacements = Array.Empty<VehicleSkillReplacement>();
         [SerializeField] private float _maxHeat;
         [SerializeField] private float _passiveHeatDissipation;
@@ -51,7 +53,7 @@ namespace AC
         }
         private bool _isInCombatMode;
 
-        private float overheatHeatDissipation => maxHeat / HeatStunState.stunDuration;
+        private float overheatHeatDissipation => maxHeat / HeatStunState.heatStunDuration;
 
         private void Awake()
         {

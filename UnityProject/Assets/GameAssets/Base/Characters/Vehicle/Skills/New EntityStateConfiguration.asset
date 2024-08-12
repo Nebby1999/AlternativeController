@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c180da40b31674db6b530e04da3d8b, type: 3}
   m_Name: New EntityStateConfiguration
   m_EditorClassIdentifier: 
-  stateTypeToConfig:
-    _typeName: EntityStates.StateConfigurationTest, Nebula.Runtime, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   fieldCollection:
     serializedFields:
-    - fieldName: testLayerMask
+    - fieldName: minStunRange
       serializedValue:
         objectReferenceValue: {fileID: 0}
-        stringValue: 1
-    - fieldName: testChar
+        stringValue: 0.1
+    - fieldName: maxStunRange
       serializedValue:
         objectReferenceValue: {fileID: 0}
-        stringValue: 
-    - fieldName: testQuaternion
+        stringValue: 5
+    - fieldName: baseDuration
       serializedValue:
         objectReferenceValue: {fileID: 0}
-        stringValue: 2.64, 55.38, 4.14
+        stringValue: 0.5
+  _stateTypeToConfig:
+    _typeName: EntityStates.Vehicle.HeatRelease, AlternativeController.Runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
