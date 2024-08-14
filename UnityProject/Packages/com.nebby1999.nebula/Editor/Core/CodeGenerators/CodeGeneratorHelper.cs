@@ -23,14 +23,14 @@ namespace Nebula.Editor
                 + "//------------------------------------------------------------------------------\n";
         }
 
-        public string MakeIdentifier(string identifier)
+        public string MakeIdentifierPascalCase(string identifier)
         {
             return _codeProvider.CreateValidIdentifier(identifier).Replace(" ", "");
         }
 
-        public string MakeIdentifierPascalCase(string identifier)
+        public string MakeIdentifierCamelCase(string identifier)
         {
-            string camelCase = MakeIdentifier(identifier);
+            string camelCase = MakeIdentifierPascalCase(identifier);
             char[] chars = camelCase.ToCharArray();
             chars[0] = char.ToLowerInvariant(chars[0]);
             return new string(chars);

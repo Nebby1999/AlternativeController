@@ -75,6 +75,7 @@ namespace AC
 
         private void Awake()
         {
+            _mineralCount = new int[ResourceCatalog.resourceCount];
             hingeJoint2D = GetComponent<HingeJoint2D>();
             rigidbody2D = GetComponent<Rigidbody2D>();
             isConnected = false;
@@ -88,12 +89,17 @@ namespace AC
 
         private void OnVehicleConnectedChange()
         {
-            rigidbody2D.bodyType = isConnected ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
+            rigidbody2D.bodyType = isConnected ? RigidbodyType2D.Dynamic : RigidbodyType2D.Kinematic;
             hingeJoint2D.enabled = isConnected;
             hingeJoint2D.connectedBody = isConnected ? connectedVehicle.GetComponent<Rigidbody2D>() : null;
 
             if (isConnected)
                 connectedVehicle.connectedCargo = this;
+            else
+            {
+                rigidbody2D.velocity = Vector2.zero; 
+                rigidbody2D.angularVelocity = 0;
+            }
         }
 
         public void DetachCargo()
@@ -107,7 +113,7 @@ namespace AC
             DetachCargo();
         }
 
-        private void OnTriggerStay2D(Collider2D collision)
+        public void OnConnectionRadiusStay(Collider2D collision)
         {
             if (isConnected)
                 return;
@@ -118,17 +124,17 @@ namespace AC
             if (dotProduct < 0.75)
                 return;
 
-            if(collision.TryGetComponent<Vehicle>(out var vehicle) && !vehicle.isInCombatMode)
+            if (collision.TryGetComponent<Vehicle>(out var vehicle) && !vehicle.isInCombatMode)
             {
                 connectedVehicle = vehicle;
             }
         }
 
-        private void OnTriggerExit2D(Collider2D collision)
+        public void OnConnectionRadiusExit(Collider2D collision)
         {
-            if(collision.TryGetComponent<Vehicle>(out var vehicle))
+            if (collision.TryGetComponent<Vehicle>(out var vehicle))
             {
-                if(!connectedVehicle && vehicle == _lastConnectedVehicle)
+                if (!connectedVehicle && vehicle == _lastConnectedVehicle)
                 {
                     _lastConnectedVehicle = null;
                 }

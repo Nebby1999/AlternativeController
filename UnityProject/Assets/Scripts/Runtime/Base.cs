@@ -5,24 +5,36 @@ using UnityEngine;
 namespace AC
 {
     [RequireComponent(typeof(ResourcesManager))]
-    [RequireComponent(typeof(SpriteRenderer))]
     public class Base : MonoBehaviour
     {
         [SerializeField] private ResourceDef _type;
         private SpriteRenderer _sprite;
         private ResourcesManager _resources;
+
+        private Vector3 _origScale;
         private void Awake()
         {
-            _sprite = GetComponent<SpriteRenderer>();
+            _sprite = GetComponentInChildren<SpriteRenderer>();
             _resources = GetComponent<ResourcesManager>();
         }
+
+        private void Start()
+        {
+            _origScale = transform.localScale;
+        }
+
         private void OnEnable()
         {
             _sprite.color = _type.resourceColor;
         }
 
-        public void TryLoadMineral(ResourceDef resourceDef, int amount) => TryLoadMineral(resourceDef.resourceIndex, amount);
-        public void TryLoadMineral(ResourceIndex resourceIndex, int amount)
+        private void Update()
+        {
+            transform.localScale = _origScale * (1 + _resources.totalResourcesCont / 5);
+        }
+
+        public void TryLoadMineral(ResourceDef resourceDef, float amount) => TryLoadMineral(resourceDef.resourceIndex, amount);
+        public void TryLoadMineral(ResourceIndex resourceIndex, float amount)
         {
             _resources.LoadResource(resourceIndex, amount);
         }

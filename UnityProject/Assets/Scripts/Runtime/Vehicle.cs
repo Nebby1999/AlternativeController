@@ -60,12 +60,6 @@ namespace AC
             characterBody = GetComponent<CharacterBody>();
             skillManager = GetComponent<SkillManager>();
             _maxHeat = _maxHeat == 0 ? 10 : _maxHeat;
-#if DEBUG
-            _cachedGUIStyle = new GUIStyle
-            {
-                fontSize = 30
-            };
-#endif
         }
 
         private void Start()
@@ -169,26 +163,20 @@ namespace AC
         [Header("DEBUG")]
         public bool printHeatOnScreen = false;
         public bool printCargoContentsOnScreen = false;
-        private GUIStyle _cachedGUIStyle;
 
-        [ContextMenu("Switch Combat Mode")]
-        private void SwitchToCombatMode()
-        {
-            isInCombatMode = !isInCombatMode;
-        }
         private void OnGUI()
         {
             if(printHeatOnScreen)
             {
-                GUILayout.Label("Heat: " + heat, _cachedGUIStyle);
+                GUILayout.Label("Heat: " + heat, Util.debugGUIStyle);
             }
 
-            if(printCargoContentsOnScreen)
+            if(printCargoContentsOnScreen && connectedCargo)
             {
-                GUILayout.Label("Total Cargo: " + connectedCargo.totalCargoHeld, _cachedGUIStyle);
+                GUILayout.Label("Total Cargo: " + connectedCargo.totalCargoHeld, Util.debugGUIStyle);
                 foreach(ResourceDef def in ResourceCatalog.resourceDefs)
                 {
-                    GUILayout.Label($"{def.cachedName} count: " + connectedCargo.GetResourceCount(def), _cachedGUIStyle);
+                    GUILayout.Label($"{def.cachedName} count: " + connectedCargo.GetResourceCount(def), Util.debugGUIStyle);
                 }
             }
         }

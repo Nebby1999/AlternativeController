@@ -11,15 +11,20 @@
                     <ui:VisualElement name="LayerIndexContents" style="flex-grow: 1;">
                         <ui:Toggle label="Use Physics2D" name="Is2D" binding-path="layerIndexData.is2D" class="nebula-override_style" />
                         <uie:PropertyField name="CommonMaskSelector" binding-path="layerIndexData.commonMaskSelector" />
-                        <ui:VisualElement name="FilePathContainer" style="flex-grow: 1; flex-direction: row;">
-                            <ui:TextField picking-mode="Ignore" label="File Path" name="FilePath" auto-correction="false" binding-path="layerIndexData.filePath" value="NOT BOUND" style="flex-grow: 1; flex-wrap: wrap;" />
-                            <ui:Button text="..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="SelectFolderButton" />
-                        </ui:VisualElement>
-                        <ui:TextField picking-mode="Ignore" label="Namespace" name="Namespace" binding-path="layerIndexData.nameSpace" />
+                        <uie:PropertyField name="FilePath" binding-path="layerIndexData.filePath" />
+                        <ui:TextField picking-mode="Ignore" label="namespace" name="Namespace" binding-path="layerIndexData.nameSpace" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:Foldout>
-            <ui:Button text="Re-Generate Struct" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RegenerateLayerIndexStructButton" style="flex-shrink: 0; max-width: 150px; flex-grow: 1; align-items: auto; justify-content: flex-start; align-self: flex-start;" />
+            <ui:Button text="Re-Generate Struct" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RegenerateLayerIndexStructButton" class="RegenerateButton" style="justify-content: flex-start; align-self: flex-start;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="InputGUIDGeneratorRoot" style="flex-grow: 0; flex-direction: row; -unity-font-style: bold-and-italic;">
+            <ui:Foldout text="Input GUID Generation" name="InputGUIDFoldout" style="flex-grow: 1;">
+                <ui:VisualElement name="InputGUIDContainer" style="flex-grow: 1; -unity-font-style: normal;">
+                    <uie:PropertyField name="InputActionGUIDSPropertyField" binding-path="inputActionGuidDatas" style="background-color: rgba(0, 0, 0, 0.05);" />
+                </ui:VisualElement>
+            </ui:Foldout>
+            <ui:Button text="Re-Generate Class" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RegenerateInputGUIDClassButton" class="nebularegenerate_button" style="flex-grow: 0; -unity-font-style: normal; align-self: flex-start;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

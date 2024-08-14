@@ -12,8 +12,6 @@ namespace Nebula.Editor
         private NebulaSettings _settings;
         private SerializedObject _serializedObject;
 
-        private SerializedProperty _filePathProperty;
-        private TextField _filePathField;
         [SettingsProvider]
         public static SettingsProvider CreateProvider()
         {
@@ -30,7 +28,6 @@ namespace Nebula.Editor
 
         public override void OnActivate(string searchContext, VisualElement rootElement)
         {
-            _filePathProperty = _serializedObject.FindProperty(nameof(NebulaSettings.layerIndexData) + "." + (nameof(NebulaSettings.LayerIndexData.filePath)));
             var templateRoot = VisualElementTemplateFinder.GetTemplateInstance("NebulaSettingsElement", rootElement);
             rootElement.Bind(_serializedObject);
             InitializeElement(templateRoot);
@@ -38,35 +35,27 @@ namespace Nebula.Editor
 
         private void InitializeElement(VisualElement templateRoot)
         {
-            _filePathField = templateRoot.Q<TextField>("FilePath");
-            var enableLauyerIndexGenerationToggle = templateRoot.Q<Toggle>("EnableLayerIndexGeneration");
+            var enableLayerIndexGenerationToggle = templateRoot.Q<Toggle>("EnableLayerIndexGeneration");
             var regenerateLayerIndexButton = templateRoot.Q<Button>("RegenerateLayerIndexStructButton");
             var layerIndexContents = templateRoot.Q<VisualElement>("LayerIndexContents");
-            enableLauyerIndexGenerationToggle.RegisterValueChangedCallback((evt) =>
+            enableLayerIndexGenerationToggle.RegisterValueChangedCallback((evt) =>
             {
                 var val = evt.newValue;
                 regenerateLayerIndexButton.SetEnabled(val);
                 layerIndexContents.SetEnabled(val);
             });
-            regenerateLayerIndexButton.SetEnabled(enableLauyerIndexGenerationToggle.value);
+            regenerateLayerIndexButton.SetEnabled(enableLayerIndexGenerationToggle.value);
             regenerateLayerIndexButton.clicked += RegenerateLayerIndexButton_clicked;
 
-            layerIndexContents.SetEnabled(enableLauyerIndexGenerationToggle.value);
-            var selectFolderbutton = templateRoot.Q<Button>("SelectFolderButton");
-            selectFolderbutton.clicked += SelectFolderbutton_clicked;
+            layerIndexContents.SetEnabled(enableLayerIndexGenerationToggle.value);
+
+            var regenerateInputGUIDClassButton = templateRoot.Q<Button>("RegenerateInputGUIDClassButton");
+            regenerateInputGUIDClassButton.clicked += RegenerateInputGUIDClassButton_clicked;
         }
 
-        private void SelectFolderbutton_clicked()
+        private void RegenerateInputGUIDClassButton_clicked()
         {
-            var fileName = EditorUtility.SaveFilePanel("Location for generated C# file", Application.dataPath, "LayerIndex", "cs");
-            if(!string.IsNullOrEmpty(fileName))
-            {
-                if(fileName.StartsWith(Application.dataPath))
-                {
-                    fileName = "Assets/" + fileName.Substring(Application.dataPath.Length + 1);
-                }
-                _filePathField.value = fileName;
-            }
+            _settings.GenerateInputActionGUIDClasses();
         }
 
         private void RegenerateLayerIndexButton_clicked()
