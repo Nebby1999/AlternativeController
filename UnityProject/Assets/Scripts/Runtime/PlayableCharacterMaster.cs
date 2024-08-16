@@ -20,7 +20,7 @@ namespace AC
         private bool _rawSecondaryInput;
         private void Update()
         {
-            movementVector = new Vector2(Mathf.RoundToInt(_rawLeftTrackInput), Mathf.RoundToInt(_rawRightTrackInput));
+            movementVector = new Vector2(_rawLeftTrackInput, _rawRightTrackInput);
         }
 
         public void OnRightTrack(InputAction.CallbackContext context)
