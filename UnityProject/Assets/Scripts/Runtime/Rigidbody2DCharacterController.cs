@@ -40,7 +40,7 @@ namespace AC
             rotation += tuple.rotation;
             rotation %= 360;
 
-            velocity = Quaternion.AngleAxis(rotation, Vector3.forward) * vector * tuple.finalMovementSpeed;
+            velocity = Quaternion.AngleAxis(rotation, Vector3.forward) * (vector * movementSpeed);
 
         }
 

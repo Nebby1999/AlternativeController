@@ -41,7 +41,6 @@ namespace AC
                 speed = movementSpeed / 2;
             }
             result.rotation = angle * Time.fixedDeltaTime * speed;
-            result.finalMovementSpeed = speed;
             return result;
         }
 

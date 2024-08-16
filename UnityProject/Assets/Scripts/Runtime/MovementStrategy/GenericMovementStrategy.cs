@@ -10,8 +10,7 @@ namespace AC
             return new MovementStrategyOutput
             {
                 movement = rawMovementInput,
-                rotation = rawRotationInput,
-                finalMovementSpeed = movementSpeed
+                rotation = rawRotationInput
             };
         }
     }

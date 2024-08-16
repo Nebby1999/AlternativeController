@@ -10,7 +10,6 @@ namespace AC
 
     public struct MovementStrategyOutput
     {
-        public float finalMovementSpeed;
         public Vector2 movement;
         public float rotation;
     }
