@@ -43,8 +43,8 @@ namespace Nebula
             }
         }
 
-        public abstract State InstantiateState();
 #endif
+        public abstract State InstantiateState();
 
         public virtual void ApplyStaticConfiguration()
         {
