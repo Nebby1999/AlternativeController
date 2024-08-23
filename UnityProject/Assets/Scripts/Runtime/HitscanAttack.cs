@@ -106,6 +106,9 @@ namespace EntityStates
             if (hit.entityObject && hit.entityObject == attack.attacker)
                 return false;
 
+            if (hit.entityObject.CompareTag(attack.attacker.tag))
+                return false;
+
             if (!hit.hurtBox || !hit.hurtBox.healthComponent)
                 return false;
 

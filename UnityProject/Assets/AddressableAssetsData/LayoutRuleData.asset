@@ -60,6 +60,34 @@ MonoBehaviour:
               - rid: 1946304407566286852
         _addressProviderInternal:
           rid: 1946304407566286851
+      - _id: 591036d0-6f11-46a8-818e-f0b28b84bf9e
+        _addressableGroup: {fileID: 11400000, guid: f7d7ae9dadda0a24991c5e50548d5700, type: 2}
+        _control:
+          _value: 1
+        _assetGroups:
+          _internalList:
+          - _id: 1dbcf7df-f691-498b-801f-64ebeec7a98b
+            _name:
+              _value: Default Asset Group
+            _filters:
+              _internalList:
+              - rid: 4578961789259350017
+        _addressProviderInternal:
+          rid: 4578961789259350018
+      - _id: 5d64eba2-0fb9-4603-8316-ae6e057183b0
+        _addressableGroup: {fileID: 11400000, guid: f9ea0f2a5cd49e14cb5c92d3ee291288, type: 2}
+        _control:
+          _value: 1
+        _assetGroups:
+          _internalList:
+          - _id: 1750f670-ea35-4ce0-b0bb-05aa53985824
+            _name:
+              _value: Default Asset Group
+            _filters:
+              _internalList:
+              - rid: 4578961789259350020
+        _addressProviderInternal:
+          rid: 4578961789259350021
       - _id: fa66a660-ba61-4a37-8c4e-67bbbd91cb6c
         _addressableGroup: {fileID: 11400000, guid: 4a7546b73dc43a149af217cb920a57d0, type: 2}
         _control:
@@ -88,6 +116,20 @@ MonoBehaviour:
               - rid: 1946303938783346694
         _addressProviderInternal:
           rid: 3701319378813059073
+      - _id: e38fb74e-1626-49d4-bcd8-ea5cf068e81c
+        _addressableGroup: {fileID: 11400000, guid: a7d500eed7857fa45b197ffd0ba50e65, type: 2}
+        _control:
+          _value: 1
+        _assetGroups:
+          _internalList:
+          - _id: 6ce2358f-a617-4d22-ae40-f7e4e75df47a
+            _name:
+              _value: Default Asset Group
+            _filters:
+              _internalList:
+              - rid: 4578961789259350023
+        _addressProviderInternal:
+          rid: 4578961789259350024
       - _id: 3025dc91-ffc6-455d-a87f-b66bc7e6c32e
         _addressableGroup: {fileID: 11400000, guid: 99b00eccad32b034786326247ae2518a, type: 2}
         _control:
@@ -255,3 +297,35 @@ MonoBehaviour:
           _isListMode: 0
           _values:
           - {fileID: 102900000, guid: aba5dbe8596c944449cfe7721efcf809, type: 3}
+    - rid: 4578961789259350017
+      type: {class: ObjectBasedAssetFilter, ns: SmartAddresser.Editor.Core.Models.Shared.AssetGroups.AssetFilterImpl, asm: SmartAddresser.Editor}
+      data:
+        _id: 6cde9172-a417-4b21-a10a-7f8e5f89d2ed
+        _folderTargetingMode: 0
+        _object:
+          _isListMode: 0
+          _values:
+          - {fileID: 102900000, guid: ae1b22537cc175e46a337991b0b3f0e0, type: 3}
+    - rid: 4578961789259350018
+      type: {class: SimplifiedAssetPath, ns: Nebula.Editor.SmartAddresser.AddressProviders, asm: Nebula.Editor.SmartAddresser}
+      data: 
+    - rid: 4578961789259350020
+      type: {class: NonFolderAssetsInFolder, ns: Nebula.Editor.SmartAddresser.AssetFilters, asm: Nebula.Editor.SmartAddresser}
+      data:
+        _id: fa017bca-8cae-43c4-ac76-c9662d0fdabd
+        _folderAsset: {fileID: 102900000, guid: 86d0170ad862a074987e0b3c6da27ae4, type: 3}
+    - rid: 4578961789259350021
+      type: {class: SimplifiedAssetPath, ns: Nebula.Editor.SmartAddresser.AddressProviders, asm: Nebula.Editor.SmartAddresser}
+      data: 
+    - rid: 4578961789259350023
+      type: {class: ObjectBasedAssetFilter, ns: SmartAddresser.Editor.Core.Models.Shared.AssetGroups.AssetFilterImpl, asm: SmartAddresser.Editor}
+      data:
+        _id: 39b1c319-4f27-420f-993b-6d839fcad5d2
+        _folderTargetingMode: 0
+        _object:
+          _isListMode: 0
+          _values:
+          - {fileID: 102900000, guid: 32acdc6f023d5f547b0568026cd4cdfb, type: 3}
+    - rid: 4578961789259350024
+      type: {class: SimplifiedAssetPath, ns: Nebula.Editor.SmartAddresser.AddressProviders, asm: Nebula.Editor.SmartAddresser}
+      data: 

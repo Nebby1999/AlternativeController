@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Characters-Bug
+  m_EditorClassIdentifier: 
+  m_GroupName: Characters-Bug
+  m_Data:
+    m_SerializedData: []
+  m_GUID: d90beb0c0e872094faacfc97c85e86b5
+  m_SerializeEntries:
+  - m_GUID: 5614456a85e3cb549800b73b41434ad4
+    m_Address: GameAssets/Base/Characters/Bug/SkillDefs/sdBite.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c6860b12e145af04bb52744ada0987cd
+    m_Address: GameAssets/Base/Characters/Bug/BugBody.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0a26be7f40cde3440a688d26cd27a5cd
+    m_Address: GameAssets/Base/Characters/Bug/SK_bug_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fc1d06ea94b44004dae8f80d9f14d2a4
+    m_Address: GameAssets/Base/Characters/Bug/SkillDefs/Bite.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EntityStateConfigurations
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 6477d9c2a480c854da50689a56322cfa, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1dd1ad1594e27d349ae2926dd7e78248, type: 2}
+    - {fileID: 11400000, guid: c7235d32ac19e5a459e649f8557c3ecf, type: 2}

@@ -18,6 +18,18 @@
             </ui:Foldout>
             <ui:Button text="Re-Generate Struct" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RegenerateLayerIndexStructButton" class="RegenerateButton" style="justify-content: flex-start; align-self: flex-start;" />
         </ui:VisualElement>
+        <ui:VisualElement name="GameTagsGeneratorRoot" style="flex-grow: 0; flex-direction: row; align-items: center; justify-content: space-between;">
+            <ui:Foldout text="Game Tags Code Generator" name="GameTagsFoldout" value="true" style="-unity-font-style: bold-and-italic; flex-grow: 1;">
+                <ui:VisualElement name="GameTagsFoldoutContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.05); -unity-font-style: normal;">
+                    <ui:Toggle label="Enable Game Tags Generation" name="EnableGameTagsGeneration" binding-path="createGameTagsStruct" class="nebula-override_style" />
+                    <ui:VisualElement name="GameTagsContent" style="flex-grow: 1;">
+                        <uie:PropertyField name="FilePath" binding-path="gameTagsData.filePath" />
+                        <ui:TextField picking-mode="Ignore" label="namespace" name="Namespace" binding-path="gameTagsData.nameSpace" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:Foldout>
+            <ui:Button text="Re-Generate Struct" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RegenerateGameTagsStructButton" class="RegenerateButton" style="justify-content: flex-start; align-self: flex-start;" />
+        </ui:VisualElement>
         <ui:VisualElement name="InputGUIDGeneratorRoot" style="flex-grow: 0; flex-direction: row; -unity-font-style: bold-and-italic;">
             <ui:Foldout text="Input GUID Generation" name="InputGUIDFoldout" style="flex-grow: 1;">
                 <ui:VisualElement name="InputGUIDContainer" style="flex-grow: 1; -unity-font-style: normal;">

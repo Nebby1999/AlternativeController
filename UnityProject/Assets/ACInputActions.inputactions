@@ -226,7 +226,7 @@
                     "name": "LeftTrack",
                     "type": "Value",
                     "id": "aa958129-960e-4cda-bb06-415a9c6f74ea",
-                    "expectedControlType": "Integer",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -235,7 +235,7 @@
                     "name": "RightTrack",
                     "type": "Value",
                     "id": "b38a3d55-e717-42a6-98d0-aa63192b8c33",
-                    "expectedControlType": "Integer",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

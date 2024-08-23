@@ -14,13 +14,43 @@ namespace AC
 
         public bool secondaryInput => _rawSecondaryInput;
 
+        [SerializeField]
+        private bool _doMovementInputSmoothing;
+
+        [SerializeField]
+        private float _movementInputSmoothingTime;
+
+        private float _leftTrackInputSpeed;
+        private float _currentLeftTrackInput;
         private float _rawLeftTrackInput;
+
+        private float _rightTrackInputSpeed;
+        private float _currentRightTrackInput;
         private float _rawRightTrackInput;
+
         private bool _rawPrimaryInput;
         private bool _rawSecondaryInput;
         private void Update()
         {
-            movementVector = new Vector2(_rawLeftTrackInput, _rawRightTrackInput);
+            _currentLeftTrackInput = SmoothInput(_currentLeftTrackInput, _rawLeftTrackInput, ref _leftTrackInputSpeed, _movementInputSmoothingTime);
+            _currentRightTrackInput = SmoothInput(_currentRightTrackInput, _rawRightTrackInput, ref _rightTrackInputSpeed, _movementInputSmoothingTime);
+            movementVector = new Vector2(_currentLeftTrackInput, _currentRightTrackInput);
+        }
+
+        private float SmoothInput(float current, float target, ref float currentVelocity, float smoothTime)
+        {
+            if(!_doMovementInputSmoothing)
+            {
+                return target;
+            }
+
+            var result = Mathf.SmoothDamp(current, target, ref currentVelocity, smoothTime);
+
+            if(Mathf.Abs(result - target) < 0.0001f)
+            {
+                result = target;
+            }
+            return result;
         }
 
         public void OnRightTrack(InputAction.CallbackContext context)

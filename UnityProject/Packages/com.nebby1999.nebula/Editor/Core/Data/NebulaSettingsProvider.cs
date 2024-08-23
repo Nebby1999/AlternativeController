@@ -49,8 +49,24 @@ namespace Nebula.Editor
 
             layerIndexContents.SetEnabled(enableLayerIndexGenerationToggle.value);
 
+            var enableGameTagsGenerationToggle = templateRoot.Q<Toggle>("EnableGameTagsGeneration");
+            var regenerateGameTagsButton = templateRoot.Q<Button>("RegenerateGameTagsStructButton");
+            var gameTagsContents = templateRoot.Q<VisualElement>("GameTagsContents");
+            enableGameTagsGenerationToggle.RegisterValueChangedCallback((evt) =>
+            {
+                var val = evt.newValue;
+                regenerateGameTagsButton.SetEnabled(val);
+                gameTagsContents.SetEnabled(val);
+            });
+            regenerateGameTagsButton.SetEnabled(enableLayerIndexGenerationToggle.value);
+            regenerateGameTagsButton.clicked += RegenerateGameTagsButton_clicked;
             var regenerateInputGUIDClassButton = templateRoot.Q<Button>("RegenerateInputGUIDClassButton");
             regenerateInputGUIDClassButton.clicked += RegenerateInputGUIDClassButton_clicked;
+        }
+
+        private void RegenerateGameTagsButton_clicked()
+        {
+            _settings.GenerateGameTagsStruct();
         }
 
         private void RegenerateInputGUIDClassButton_clicked()

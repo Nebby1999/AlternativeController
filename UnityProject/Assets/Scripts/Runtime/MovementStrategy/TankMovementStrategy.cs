@@ -6,14 +6,12 @@ namespace AC
     public class TankMovementStrategy : IMovementStrategy
     {
         public Vehicle vehicle;
-        public Transform centerTransform;
         public Transform leftPivot;
         public Transform rightPivot;
         public void Initialize(object sender)
         {
             if(sender is MonoBehaviour behaviour && behaviour.TryGetComponent<Vehicle>(out vehicle))
             {
-                centerTransform = vehicle.transform;
                 leftPivot = vehicle.leftTrackTransformPoint;
                 rightPivot = vehicle.rightTrackTransformPoint;
             }
@@ -27,7 +25,7 @@ namespace AC
             var rightTrack = rawMovementInput.y;
 
             var normalizedTrack = (leftTrack + rightTrack) / 2;
-            var v1 = GetPivot(leftTrack, rightTrack).position - transform.position;
+            var v1 = GetPivot(leftTrack, rightTrack) - transform.position;
             v1.Normalize();
             var v2 = transform.up;
             var angle = Vector2.SignedAngle(v1, v2);
@@ -44,15 +42,13 @@ namespace AC
             return result;
         }
 
-        private Transform GetPivot(float leftTrackInput, float rightTrackInput)
+        private Vector3 GetPivot(float leftTrackInput, float rightTrackInput)
         {
-            if (leftTrackInput != 0 && rightTrackInput == 0)
-                return leftPivot;
+            var t = 0.5f;
+            t -= Mathf.Abs(leftTrackInput) / 2;
+            t += Mathf.Abs(rightTrackInput) / 2;
 
-            if (rightTrackInput != 0 && leftTrackInput == 0)
-                return rightPivot;
-
-            return centerTransform;
+            return Vector3.Lerp(leftPivot.position, rightPivot.position, t);
         }
     }
 }

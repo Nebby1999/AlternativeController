@@ -32,12 +32,14 @@ namespace AC
             Physics2D.OverlapCircle(origin, radius, contactFilter, _colliders);
             foreach (var collider in _colliders)
             {
+                var hb = collider.GetComponent<HurtBox>();
                 _candidates.Add(new Candidate
                 {
                     collider = collider,
                     distanceSqr = (origin - collider.transform.position).sqrMagnitude,
                     position = collider.transform.position,
-                    colliderHurtbox = collider.GetComponent<HurtBox>()
+                    colliderHurtbox = hb,
+                    entityObject = hb ? hb.healthComponent ? hb.healthComponent.gameObject : collider.gameObject : collider.gameObject
                 });
             }
             return this;
@@ -60,8 +62,7 @@ namespace AC
 
         public CircleSearch FilterCandidatesByDistinctHealthComponent()
         {
-            if (_candidates == null)
-                throw new NullReferenceException("Candidate List not made, call FindCandidates first.");
+            ThrowIfCandidateListNull();
 
             List<HealthComponent> distinct = new List<HealthComponent>();
             for (int i = _candidates.Count - 1; i >= 0; i--)
@@ -86,6 +87,21 @@ namespace AC
                     continue;
                 }
                 distinct.Add(healthComponent);
+            }
+            return this;
+        }
+
+        public CircleSearch FilterCandidatesByTeam(string teamName)
+        {
+            ThrowIfCandidateListNull();
+
+            for (int i = _candidates.Count - 1; i >= 0; i--)
+            {
+                var candidate = _candidates[i];
+                if (!candidate.entityObject.CompareTag(teamName))
+                {
+                    _candidates.RemoveAt(i);
+                }
             }
             return this;
         }
@@ -117,7 +133,7 @@ namespace AC
             for(int i = _candidates.Count - 1; i >= 0; i--)
             {
                 var candidate = _candidates[i];
-                if(candidate.colliderHurtbox && candidate.colliderHurtbox.healthComponent.gameObject == searcher)
+                if(candidate.entityObject  == searcher)
                 {
                     _candidates.RemoveAt(i);
                 }
@@ -145,6 +161,7 @@ namespace AC
 
         public CircleSearch FirstOrDefault(out Candidate candidate)
         {
+            ThrowIfCandidateListNull();
             candidate = _candidates.FirstOrDefault();
             return this;
         }
@@ -152,6 +169,7 @@ namespace AC
         public struct Candidate
         {
             public Collider2D collider;
+            public GameObject entityObject;
             public Vector3 position;
             public float distanceSqr;
             public HurtBox colliderHurtbox;

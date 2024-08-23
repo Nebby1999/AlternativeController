@@ -15,6 +15,12 @@ namespace AC
             rigidbody2D = GetComponent<Rigidbody2D>();
             controller = GetComponent<IRigidbody2DMotorController>();
         }
+
+        private void Start()
+        {
+            rigidbody2D.gravityScale = 0;
+        }
+
         private void FixedUpdate()
         {
             _rigidbodyVelocity = rigidbody2D.velocity;
@@ -29,6 +35,11 @@ namespace AC
             controller.UpdateRotation(ref _rigidbodyRotation);
             rigidbody2D.velocity = _rigidbodyVelocity;
             rigidbody2D.rotation = _rigidbodyRotation;
+        }
+
+        private void OnValidate()
+        {
+            GetComponent<Rigidbody2D>().gravityScale = 0;
         }
     }
 

@@ -41,7 +41,7 @@ namespace AC
 
         private void DoRender(IVectorRendererDataProvider provider)
         {
-            if (true)
+            if (provider.renderer.isVisible)
             {
                 GL.MultMatrix(provider.localToWorldMatrix);
 

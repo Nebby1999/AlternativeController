@@ -12,6 +12,8 @@ namespace Nebula.Editor
         public InputActionGUIDData[] inputActionGuidDatas = Array.Empty<InputActionGUIDData>();
         public bool createLayerIndexStruct = true;
         public LayerIndexData layerIndexData;
+        public bool createGameTagsStruct = true;
+        public GameTagsData gameTagsData;
 
 
         internal void DoSave()
@@ -29,6 +31,18 @@ namespace Nebula.Editor
         private static bool MenuItemValidate_GenerateLayerIndexStruct()
         {
             return instance.createLayerIndexStruct;
+        }
+
+        [MenuItem("Tools/Nebula/Generate Game Tags Struct")]
+        private static void MenuItem_GenerateGameTagsStruct()
+        {
+            instance.GenerateGameTagsStruct();
+        }
+
+        [MenuItem("Tools/Nebula/Generate Game Tags Struct", true)]
+        private static bool MenuItemValidate_GenerateGameTagsStruct()
+        {
+            return instance.createGameTagsStruct;
         }
 
 
@@ -60,6 +74,14 @@ namespace Nebula.Editor
             }
         }
 
+        internal void GenerateGameTagsStruct()
+        {
+            if(createGameTagsStruct)
+            {
+                GameTagsCodeGenerator.GenerateCode(gameTagsData);
+            }
+        }
+
         [Serializable]
         public struct LayerIndexData
         {
@@ -76,6 +98,14 @@ namespace Nebula.Editor
                 public string maskName;
                 public LayerMask layerMask;
             }
+        }
+
+        [Serializable]
+        public struct GameTagsData
+        {
+            [FilePickerPath(defaultName = "GameTags", extension = "cs", title = "Location for generated C# file")]
+            public string filePath;
+            public string nameSpace;
         }
 
         [Serializable]

@@ -1,6 +1,7 @@
 using Microsoft.CSharp;
 using System;
 using System.Linq;
+using System.Text;
 
 namespace Nebula.Editor
 {
@@ -23,6 +24,36 @@ namespace Nebula.Editor
                 + "//------------------------------------------------------------------------------\n";
         }
 
+        public string MakeIdentifierConstant(string identifier)
+        {
+            var pascalCase = MakeIdentifierPascalCase(identifier);
+            char[] chars = pascalCase.ToCharArray();
+            StringBuilder builder = new StringBuilder();
+
+            for(int i = 0; i < chars.Length; i++)
+            {
+                var chr = chars[i];
+
+                if(char.IsUpper(chr))
+                {
+                    if(i != 0)
+                    {
+                        builder.Append("_");
+                    }
+                    builder.Append(chr);
+                }
+                else if(char.IsLower(chr))
+                {
+                    builder.Append(char.ToUpperInvariant(chr));
+                }
+                else
+                {
+                    builder.Append(chr);
+                }
+            }
+
+            return builder.ToString();
+        }
         public string MakeIdentifierPascalCase(string identifier)
         {
             return _codeProvider.CreateValidIdentifier(identifier).Replace(" ", "");

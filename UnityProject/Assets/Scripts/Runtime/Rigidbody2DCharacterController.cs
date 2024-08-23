@@ -37,10 +37,11 @@ namespace AC
             var tuple = _movementStrategy.PerformStrategy(_transform, movementDirection, rotationInput, movementSpeed);
 
             var vector = tuple.movement;
-            rotation += tuple.rotation;
-            rotation %= 360;
+            rotation = Mathf.MoveTowardsAngle(rotation, rotation += tuple.rotation, movementSpeed);
 
-            velocity = Quaternion.AngleAxis(rotation, Vector3.forward) * (vector * movementSpeed);
+            var desiredVelocity = Quaternion.AngleAxis(rotation, Vector3.forward) * (vector * movementSpeed);
+
+            velocity = Vector3.MoveTowards(velocity, desiredVelocity, movementSpeed * 0.05f);
 
         }
 
