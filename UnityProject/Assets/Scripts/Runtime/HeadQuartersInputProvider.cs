@@ -39,7 +39,7 @@ namespace AC
 #if DEBUG
         private void OnGUI()
         {
-            _isInBattleState1 = GUILayout.Toggle(_isInBattleState1, "Is in Battle State 1");
+            /*_isInBattleState1 = GUILayout.Toggle(_isInBattleState1, "Is in Battle State 1");
             _isInBattleState2 = GUILayout.Toggle(_isInBattleState2, "Is in Battle State 2 (UNUSED)");
             GUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
             GUILayout.Label("Black Resource Routing: " + _blackResourceRouting);
@@ -49,7 +49,7 @@ namespace AC
             GUILayout.BeginHorizontal();
             GUILayout.Label("Red Resource Routing: " + _redResourceRouting);
             _redResourceRouting = Mathf.RoundToInt(GUILayout.HorizontalScrollbar(_redResourceRouting, 0.25f, -1, 1));
-            GUILayout.EndHorizontal();
+            GUILayout.EndHorizontal();*/
         }
 #endif
 

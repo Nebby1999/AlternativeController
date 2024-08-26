@@ -410,6 +410,10 @@ PrefabInstance:
       propertyPath: _defaultBodyPrefab
       value: 
       objectReference: {fileID: 764791405643980591, guid: ce5d995e97313e54ebb37b64883f1703, type: 3}
+    - target: {fileID: 711768046402884347, guid: ae0871b31ace31a4493e501981e1fd36, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: AlternativeController
+      objectReference: {fileID: 0}
     - target: {fileID: 6266302408291034359, guid: ae0871b31ace31a4493e501981e1fd36, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.55366534

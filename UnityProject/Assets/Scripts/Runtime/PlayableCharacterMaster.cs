@@ -55,11 +55,13 @@ namespace AC
 
         public void OnRightTrack(InputAction.CallbackContext context)
         {
+            Debug.Log(context);
             _rawRightTrackInput = context.ReadValue<float>();
         }
 
         public void OnLeftTrack(InputAction.CallbackContext context)
         {
+            Debug.Log(context);
             _rawLeftTrackInput = context.ReadValue<float>();
         }
 

@@ -8,6 +8,7 @@ namespace AC
     public class Base : MonoBehaviour
     {
         [SerializeField] private ResourceDef _type;
+        [SerializeField] private float resourceLossPerSecond;
         private SpriteRenderer _sprite;
         private ResourcesManager _resources;
 
@@ -31,6 +32,11 @@ namespace AC
         private void Update()
         {
             transform.localScale = _origScale * (1 + _resources.totalResourcesCont / 5);
+        }
+
+        private void FixedUpdate()
+        {
+            _resources.UnloadResource(_type, resourceLossPerSecond * Time.fixedDeltaTime);
         }
 
         public void TryLoadMineral(ResourceDef resourceDef, float amount) => TryLoadMineral(resourceDef.resourceIndex, amount);

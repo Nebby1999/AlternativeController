@@ -60,6 +60,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8898a247eeaa8a14abce5110db69801a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doMovementInputSmoothing: 0
+  _movementInputSmoothingTime: 0
 --- !u!114 &711768046402884347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,8 +187,8 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b38a3d55-e717-42a6-98d0-aa63192b8c33
     m_ActionName: VehicleMap/Rotate[/Keyboard/a,/Keyboard/d]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: AlternativeController
   m_DefaultActionMap: VehicleMap
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

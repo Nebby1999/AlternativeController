@@ -559,7 +559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseHp: 10
-  _baseMovementSpeed: 7
+  _baseMovementSpeed: 2.3
   _baseAttackSpeed: 1
   _baseDamage: 2
 --- !u!114 &-3408229559311716181
@@ -576,6 +576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftTrackTransformPoint: {fileID: 1012000568634970355}
   rightTrackTransformPoint: {fileID: 175262947001310262}
+  _accelerationTime: 1
   _skillReplacements:
   - slotToReplace: 1
     skillNameWhenSlotIsNone: 

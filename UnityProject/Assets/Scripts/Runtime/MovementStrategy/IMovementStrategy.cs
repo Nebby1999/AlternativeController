@@ -12,5 +12,6 @@ namespace AC
     {
         public Vector2 movement;
         public float rotation;
+        public float movementSpeed;
     }
 }

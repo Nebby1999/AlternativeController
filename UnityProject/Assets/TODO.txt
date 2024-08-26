@@ -1,0 +1,10 @@
+* Stunning from overheat is not working
+* Movimiento tanque:
+	* Velocidad retroceso
+	* Aceleracion avance y retroceso
+	* Delay para empezar a moverse
+	* Velocidad de Rotación //Rotacion en un track debe ser mas lento que la rotacion central
+* Inspector nivel runtime
+* Ciudades consumiendo recursos
+* Implementacion de Enemigo
+	* Implementar hitbox attacks

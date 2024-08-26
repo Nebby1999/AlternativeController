@@ -196,7 +196,7 @@
             "id": "50dd9d08-ff15-48b7-8b42-1f89518d302e",
             "actions": [
                 {
-                    "name": "DissipateHeat",
+                    "name": "Special",
                     "type": "Button",
                     "id": "cadc9f28-2ea5-4aea-842a-82e5b9667888",
                     "expectedControlType": "Button",
@@ -214,7 +214,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Decoy_Stun",
+                    "name": "Decoy_Defend",
                     "type": "Button",
                     "id": "27d93b74-46df-4424-a6b5-a8309b36a5c9",
                     "expectedControlType": "Button",
@@ -249,7 +249,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "DissipateHeat",
+                    "action": "Special",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "528a2413-efb6-4e25-966a-c7684d395682",
+                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "AlternativeController",
+                    "action": "Special",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -265,7 +276,18 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
+                    "name": "",
+                    "id": "80f00965-37e7-492d-9527-f59c96c17147",
+                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "AlternativeController",
+                    "action": "Harvest_Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis - KB",
                     "id": "e1c48eb7-6c9d-4098-9ba8-7e4bc341ba07",
                     "path": "1DAxis",
                     "interactions": "",
@@ -304,12 +326,23 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Decoy_Stun",
+                    "action": "Decoy_Defend",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
+                    "name": "",
+                    "id": "bf00684c-8d4b-4e9b-ab2a-7548eb64b0e2",
+                    "path": "<HID::DragonRise Inc.   Generic   USB  Joystick  >/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "AlternativeController",
+                    "action": "Decoy_Defend",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis - KB",
                     "id": "011d42ba-f6e3-4a68-aea2-6c21eee6aae7",
                     "path": "1DAxis",
                     "interactions": "",
@@ -340,6 +373,72 @@
                     "action": "LeftTrack",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis - AC",
+                    "id": "0e3b5c66-e7da-4824-9985-288ea69248d7",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftTrack",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "daece153-a1db-4ed7-ae67-d209f7deec88",
+                    "path": "<Joystick>/stick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "AlternativeController",
+                    "action": "LeftTrack",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "d10da1ab-d778-499a-8ffe-b0c1fbc5789a",
+                    "path": "<Joystick>/stick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "AlternativeController",
+                    "action": "LeftTrack",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis - AC",
+                    "id": "12754b77-a906-4228-a5e5-5f9e58bf6723",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightTrack",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "7170ae93-c2e4-4062-899f-53208356649f",
+                    "path": "<Joystick>/stick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "AlternativeController",
+                    "action": "RightTrack",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "586d22f3-ff4c-47be-b3e7-9de5acf33b44",
+                    "path": "<Joystick>/stick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "AlternativeController",
+                    "action": "RightTrack",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
@@ -350,7 +449,7 @@
             "bindingGroup": "AlternativeController",
             "devices": [
                 {
-                    "devicePath": "<Gamepad>",
+                    "devicePath": "<Joystick>",
                     "isOptional": false,
                     "isOR": false
                 }
