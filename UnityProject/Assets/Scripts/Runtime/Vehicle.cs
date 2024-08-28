@@ -1,4 +1,5 @@
 using EntityStates;
+using Nebula;
 using System;
 using System.Reflection.Emit;
 using UnityEngine;
@@ -19,6 +20,13 @@ namespace AC
         [SerializeField] private float _maxHeat;
         [SerializeField] private float _passiveHeatDissipation;
         [SerializeField] private EntityStateMachine[] _stateMachinesToStun = Array.Empty<EntityStateMachine>();
+
+        [Header("TEMP: Heat Visuals")]
+        //TODO: Re-emplazar esto por algo que ocupe el mesh del vehiculo. dado que esto solo funciona con 2d
+        [SerializeField] private SpriteRenderer _heatRenderer;
+        [SerializeField] private Gradient _heatGradient;
+        [SerializeField] private float _extremeColorThreshold = 0.9f;
+        [SerializeField] private Color _extremeHeatColor;
         public Cargo connectedCargo
         {
             get => _connectedCargo;
@@ -96,6 +104,17 @@ namespace AC
             return false;
         }
 
+        private void Update()
+        {
+            var heatRemap = NebulaMath.Remap(heat, 0, maxHeat, 0, 1);
+            if (heatRemap > _extremeColorThreshold)
+            {
+                _heatRenderer.color = Time.frameCount % 2 == 1 ? _heatGradient.Evaluate(heatRemap) : _extremeHeatColor;
+                return;
+            }
+            _heatRenderer.color = _heatGradient.Evaluate(heatRemap);
+        }
+
         private void FixedUpdate()
         {
             if (isOverHeated)
@@ -159,32 +178,6 @@ namespace AC
             _stateMachinesToStun = GetComponents<EntityStateMachine>();
             UnityEditor.EditorUtility.SetDirty(this);
         }
-#endif
-
-#if DEBUG
-        [Header("DEBUG")]
-        public bool printHeatOnScreen = false;
-        public bool printCargoContentsOnScreen = false;
-
-        private void OnGUI()
-        {
-            if(printHeatOnScreen)
-            {
-                GUILayout.Label("Heat: " + heat, Util.debugGUIStyle);
-            }
-
-            if(printCargoContentsOnScreen && connectedCargo)
-            {
-                GUILayout.Label("Total Cargo: " + connectedCargo.totalCargoHeld, Util.debugGUIStyle);
-                foreach(ResourceDef def in ResourceCatalog.resourceDefs)
-                {
-                    GUILayout.Label($"{def.cachedName} count: " + connectedCargo.GetResourceCount(def), Util.debugGUIStyle);
-                }
-            }
-        }
-
-        [ContextMenu("Test")]
-        private void Test() => isInCombatMode = !isInCombatMode;
 #endif
 
         [Serializable]

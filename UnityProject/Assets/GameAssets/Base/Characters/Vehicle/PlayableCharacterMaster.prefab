@@ -187,7 +187,47 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b38a3d55-e717-42a6-98d0-aa63192b8c33
     m_ActionName: VehicleMap/Rotate[/Keyboard/a,/Keyboard/d]
-  m_NeverAutoSwitchControlSchemes: 1
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 60ebdc01-2c77-480c-b7e2-60673e5d3c06
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f2658311-f727-4d15-8aff-c67101153699
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 19191745-b87a-44fa-a406-d9e74265881c
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c25f876f-1247-446e-a8f4-91ea6a819614
+    m_ActionName: UI/Point[/Mouse/position,/Pen/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a23b31ff-c19e-4022-8bb0-d033f3317a43
+    m_ActionName: UI/Click[/Mouse/leftButton,/Pen/tip]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e81d7074-cbe3-4489-af8f-39969d928c27
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5d6cbc25-fe42-4b69-bd07-9f39c2ac35ee
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2a803993-9df1-4ba4-a10a-79d4555376ea
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 27025858-f242-4e9d-91db-6f4e09c47bf6
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 518f239a-e0ed-45d9-8be1-b7e3b4939f0d
+    m_ActionName: UI/TrackedDeviceOrientation
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: AlternativeController
   m_DefaultActionMap: VehicleMap
   m_SplitScreenIndex: -1

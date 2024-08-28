@@ -34,6 +34,8 @@ namespace AC
             RecalculateStats();
         }
 
+        [ContextMenu("Recalculate Stats")]
+        [RuntimeInspectorNamespace.RuntimeInspectorButton("Recalculate Stats", false, RuntimeInspectorNamespace.ButtonVisibility.InitializedObjects)]
         private void RecalculateStats()
         {
             var args = new StatModifierArgs();
