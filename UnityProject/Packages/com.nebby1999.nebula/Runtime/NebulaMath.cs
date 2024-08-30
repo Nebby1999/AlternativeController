@@ -14,6 +14,16 @@ namespace Nebula
         {
             return (vector.x + vector.y) / 2;
         }
+        public static Vector3 Absolute(Vector3 a)
+        {
+            return new Vector3(Mathf.Abs(a.x), Mathf.Abs(a.y), Mathf.Abs(a.z));
+        }
+
+        public static Vector2 Absolute(Vector2 a)
+        {
+            return new Vector2(Mathf.Abs(a.x), Mathf.Abs(a.y));
+        }
+
         public static Vector3 MultiplyElementWise(Vector3 a, Vector3 b)
         {
             return new Vector3(a.x * b.x, a.y * b.y, a.z * b.z);
