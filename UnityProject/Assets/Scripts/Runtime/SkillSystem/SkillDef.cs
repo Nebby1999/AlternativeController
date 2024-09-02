@@ -22,11 +22,11 @@ namespace AC
         {
         }
 
-        public void OnUnassign(GenericSkill skillSlot)
+        public virtual void OnUnassign(GenericSkill skillSlot)
         {
         }
 
-        public bool CanExecute(GenericSkill skillSlot)
+        public virtual bool CanExecute(GenericSkill skillSlot)
         {
             if (skillSlot.stock >= requiredStock && skillSlot.cooldownTimer <= 0)
             {
@@ -36,7 +36,7 @@ namespace AC
             return false;
         }
 
-        public void Execute(GenericSkill skillSlot)
+        public virtual void Execute(GenericSkill skillSlot)
         {
             if (!skillSlot)
                 return;
@@ -60,7 +60,7 @@ namespace AC
             skillSlot.cooldownTimer = baseCooldown;
         }
 
-        public void OnFixedUpdate(GenericSkill skillSlot)
+        public virtual void OnFixedUpdate(GenericSkill skillSlot)
         {
             if (beginCooldownOnStateEnd && skillSlot.IsInSkillState())
                 return;

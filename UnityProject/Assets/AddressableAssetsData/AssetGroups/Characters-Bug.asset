@@ -38,6 +38,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - EntityStateConfigurations
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3d8c856113791e41885cf0fbd93da6f
+    m_Address: GameAssets/Base/Characters/Bug/anim_bug.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6477d9c2a480c854da50689a56322cfa, type: 2}
   m_SchemaSet:
