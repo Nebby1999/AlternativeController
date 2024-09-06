@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AC
 {
-    public class TankMovementStrategy : IMovementStrategy
+    /*public class TankMovementStrategy : IMovementStrategy
     {
         public Vehicle vehicle;
         public Transform leftPivot;
@@ -50,5 +50,5 @@ namespace AC
 
             return Vector3.Lerp(leftPivot.position, rightPivot.position, t);
         }
-    }
+    }*/
 }

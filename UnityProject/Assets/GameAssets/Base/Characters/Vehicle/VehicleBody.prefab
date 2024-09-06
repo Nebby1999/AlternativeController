@@ -720,8 +720,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _serializedMovementStrategy:
-    _typeName: AC.TankMovementStrategy, AlternativeController.Runtime, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    _typeName: AC.AcceleratingTankMovementStrategy, AlternativeController.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!58 &3751073749869226778
 CircleCollider2D:
   m_ObjectHideFlags: 0

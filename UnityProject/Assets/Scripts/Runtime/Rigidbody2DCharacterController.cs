@@ -10,7 +10,7 @@ namespace AC
     public class Rigidbody2DCharacterController : MonoBehaviour, IRigidbody2DMotorController
     {
         [SerializeField, SerializableSystemType.RequiredBaseType(typeof(IMovementStrategy))]
-        private SerializableSystemType _serializedMovementStrategy = new SerializableSystemType(typeof(GenericMovementStrategy));
+        private SerializableSystemType _serializedMovementStrategy;
 
         public int rotationInput { get; set; }
         public Vector2 movementDirection { get; set; }
@@ -34,14 +34,18 @@ namespace AC
 
         private void FixedUpdate()
         {
-            var tuple = _movementStrategy.PerformStrategy(_transform, movementDirection, rotationInput, movementSpeed);
+            var tuple = _movementStrategy.PerformStrategy(_transform, movementDirection, rotationInput);
 
-            var vector = tuple.movement;
-            rotation = Mathf.MoveTowardsAngle(rotation, rotation += tuple.rotation, movementSpeed);
+            var vector = tuple.movementUnitsPerSecond;
+            rotation = Mathf.MoveTowardsAngle(rotation, rotation += (tuple.rotationDegreesPerSecond * Time.fixedDeltaTime), Mathf.Infinity);
+
+            var desiredVelocity = Quaternion.AngleAxis(rotation, Vector3.forward) * vector;
+            velocity = desiredVelocity;
+            /*rotation = Mathf.MoveTowardsAngle(rotation, rotation += tuple.rotationDegreesPerSecond, movementSpeed);
 
             var desiredVelocity = Quaternion.AngleAxis(rotation, Vector3.forward) * (vector * movementSpeed);
 
-            velocity = Vector3.MoveTowards(velocity, desiredVelocity, movementSpeed * 0.05f);
+            velocity = Vector3.MoveTowards(velocity, desiredVelocity, movementSpeed * 0.05f);*/
 
         }
 

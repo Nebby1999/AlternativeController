@@ -14,7 +14,7 @@ namespace AC
         public bool isOverHeated { get; private set; } = false;
         public Transform leftTrackTransformPoint;
         public Transform rightTrackTransformPoint;
-        public float accelerationTime => _accelerationTime;
+        public float accelerationStrength => _accelerationTime;
         [SerializeField] private float _accelerationTime;
         [SerializeField] private VehicleSkillReplacement[] _skillReplacements = Array.Empty<VehicleSkillReplacement>();
         [SerializeField] private float _maxHeat;
