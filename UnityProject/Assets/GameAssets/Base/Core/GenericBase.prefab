@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: {fileID: 0}
+  _startingResources: 60
+  _resourceLossPerSecond: 1
 --- !u!114 &5112702002692411922
 MonoBehaviour:
   m_ObjectHideFlags: 0

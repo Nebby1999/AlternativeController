@@ -72,5 +72,21 @@ namespace Nebula
         {
             return mask == (mask | (1 << layerIndex));
         }
+
+        public static Color32 GetBestOutline(this Color32 color32)
+        {
+            Color asColor = (Color)color32;
+            return (Color32)asColor.GetBestOutline();
+        }
+
+        public static Color GetBestOutline(this Color color)
+        {
+            Color.RGBToHSV(color, out float hue, out float saturation, out float brightness);
+
+            float modifier = brightness > 0.5f ? (-0.5f) : 0.5f;
+            float newSaturation = Mathf.Clamp01(saturation + modifier);
+            float newBrightness = Mathf.Clamp01(brightness + modifier);
+            return Color.HSVToRGB(hue, newSaturation, newBrightness);
+        }
     }
 }

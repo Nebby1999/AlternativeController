@@ -1,3 +1,4 @@
+using Nebula;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,15 @@ namespace AC
     [RequireComponent(typeof(ResourcesManager))]
     public class Base : MonoBehaviour
     {
+        [Tooltip("The type of resource the base requires to survive.")]
         [SerializeField] private ResourceDef _type;
-        [SerializeField] private float resourceLossPerSecond;
+        [Tooltip("The base starts with this amount of resources")]
+        [SerializeField] private float _startingResources;
+        [Tooltip("The base consumes this amount of resources per second")]
+        [SerializeField] private float _resourceLossPerSecond;
         private SpriteRenderer _sprite;
+
+        public ResourcesManager resourcesManager => _resources;
         private ResourcesManager _resources;
 
         private Vector3 _origScale;
@@ -21,6 +28,7 @@ namespace AC
 
         private void Start()
         {
+            _resources.LoadResource(_type, _startingResources);
             _origScale = transform.localScale;
         }
 
@@ -31,12 +39,13 @@ namespace AC
 
         private void Update()
         {
-            transform.localScale = _origScale * (1 + _resources.totalResourcesCont / 5);
+            float t = NebulaMath.Remap(_resources.totalResourcesCont, 0, _startingResources * 2, 0, 1);
+            transform.localScale = Vector3.Lerp(Vector3.zero, _origScale, t);
         }
 
         private void FixedUpdate()
         {
-            _resources.UnloadResource(_type, resourceLossPerSecond * Time.fixedDeltaTime);
+            _resources.UnloadResource(_type, _resourceLossPerSecond * Time.fixedDeltaTime);
         }
 
         public void TryLoadMineral(ResourceDef resourceDef, float amount) => TryLoadMineral(resourceDef.resourceIndex, amount);

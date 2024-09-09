@@ -1,4 +1,5 @@
 using Nebula;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,8 @@ namespace AC
             }
         }
         private float[] _resources;
+
+        public event Action onEmpty;
 
         private void Awake()
         {
