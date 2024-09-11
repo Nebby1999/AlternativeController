@@ -74,6 +74,20 @@ MonoBehaviour:
               - rid: 4578961789259350017
         _addressProviderInternal:
           rid: 4578961789259350018
+      - _id: b0e0b177-209a-44b3-9342-11b1879668ca
+        _addressableGroup: {fileID: 11400000, guid: 380a9e850bcd9ea4bba892121c59b313, type: 2}
+        _control:
+          _value: 1
+        _assetGroups:
+          _internalList:
+          - _id: 44389397-1a83-48a4-b44b-7e44109ac73c
+            _name:
+              _value: Default Asset Group
+            _filters:
+              _internalList:
+              - rid: 7890107776636813313
+        _addressProviderInternal:
+          rid: 7890107776636813314
       - _id: 5d64eba2-0fb9-4603-8316-ae6e057183b0
         _addressableGroup: {fileID: 11400000, guid: f9ea0f2a5cd49e14cb5c92d3ee291288, type: 2}
         _control:
@@ -327,5 +341,17 @@ MonoBehaviour:
           _values:
           - {fileID: 102900000, guid: 32acdc6f023d5f547b0568026cd4cdfb, type: 3}
     - rid: 4578961789259350024
+      type: {class: SimplifiedAssetPath, ns: Nebula.Editor.SmartAddresser.AddressProviders, asm: Nebula.Editor.SmartAddresser}
+      data: 
+    - rid: 7890107776636813313
+      type: {class: ObjectBasedAssetFilter, ns: SmartAddresser.Editor.Core.Models.Shared.AssetGroups.AssetFilterImpl, asm: SmartAddresser.Editor}
+      data:
+        _id: 7d1a5ae9-e8b5-4de0-adee-e3d4a49f82f3
+        _folderTargetingMode: 0
+        _object:
+          _isListMode: 0
+          _values:
+          - {fileID: 102900000, guid: fc8750593e7b40d4e8494e706ebe2cb0, type: 3}
+    - rid: 7890107776636813314
       type: {class: SimplifiedAssetPath, ns: Nebula.Editor.SmartAddresser.AddressProviders, asm: Nebula.Editor.SmartAddresser}
       data: 

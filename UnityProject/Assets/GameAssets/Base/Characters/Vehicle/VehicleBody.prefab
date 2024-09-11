@@ -518,6 +518,7 @@ GameObject:
   - component: {fileID: 697716576412428574}
   - component: {fileID: 8161240643958933157}
   - component: {fileID: 2020080388466058219}
+  - component: {fileID: 7063584858279536842}
   - component: {fileID: 8020326324665776954}
   - component: {fileID: 3521817021754544474}
   - component: {fileID: 3751073749869226778}
@@ -582,6 +583,10 @@ MonoBehaviour:
     skillNameWhenSlotIsNone: 
     combatSkillDef: {fileID: 11400000, guid: 52849e528caee184f8b79832e979db90, type: 2}
     harvestSkillDef: {fileID: 11400000, guid: 316ec4b1ba862454d9e2bb4e20cee849, type: 2}
+  - slotToReplace: 2
+    skillNameWhenSlotIsNone: 
+    combatSkillDef: {fileID: 11400000, guid: 7b269582c776cbd45a073e58058bd315, type: 2}
+    harvestSkillDef: {fileID: 11400000, guid: f684a9a2845248144873300f0adf16f4, type: 2}
   _maxHeat: 10
   _passiveHeatDissipation: 1
   _stateMachinesToStun:
@@ -679,6 +684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _primary: {fileID: 2020080388466058219}
   _secondary: {fileID: 8020326324665776954}
+  _special: {fileID: 8020326324665776954}
 --- !u!114 &2020080388466058219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,8 +697,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd3756f5f7f42314996ffdcd34618b1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  genericSkillName: Laser
+  genericSkillName: Mine/Laser
   _defaultSkill: {fileID: 11400000, guid: 316ec4b1ba862454d9e2bb4e20cee849, type: 2}
+--- !u!114 &7063584858279536842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088358815382963849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd3756f5f7f42314996ffdcd34618b1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  genericSkillName: Decoy/Defend
+  _defaultSkill: {fileID: 11400000, guid: f684a9a2845248144873300f0adf16f4, type: 2}
 --- !u!114 &8020326324665776954
 MonoBehaviour:
   m_ObjectHideFlags: 0

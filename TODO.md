@@ -6,7 +6,7 @@
 ## LLEGAR CON BUILD
 
 * Player
-    * Feedback visual de vapor del especial
+    * ~~Feedback visual de vapor del especial~~
     * Asegurar que unload y shield funcionen.
 
 * Implementacion enemigo
@@ -16,12 +16,11 @@
     * IA
         * Prioridad de IA se encuentra en el google slides
 
-*UI:
-
-  * Header con los recursos de la ciudades y HQ
-  * No mostrar informacion inecesaria (Red resources from black city)
+* UI:
+  * ~~Header con los recursos de la ciudades y HQ~~
+  * ~~No mostrar informacion inecesaria (Red resources from black city)~~
   * Optional: Indicador visual del Cargo de Vehiculo.
-  * Runtime Inspector no debe esconder/obfuscar informacion.
+  * ~~Runtime Inspector no debe esconder/obfuscar informacion.~~
 
 * Fix this shit:
 

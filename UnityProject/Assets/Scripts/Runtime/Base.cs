@@ -7,6 +7,8 @@ namespace AC
     [RequireComponent(typeof(ResourcesManager))]
     public class Base : MonoBehaviour
     {
+        [Tooltip("The name of this base, used for UI.")]
+        public string baseName;
         [SerializeField] private ResourceDef _type;
         [SerializeField] private float resourceLossPerSecond;
         private SpriteRenderer _sprite;

@@ -71,6 +71,26 @@ MonoBehaviour:
     m_SerializedLabels:
     - EntityStateConfigurations
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e062147bb8cc5643b5b4a48d042e72d
+    m_Address: GameAssets/Base/Characters/Vehicle/Skills/VFXSteamRelease.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ebc063466cc4a58479d3ae99846b3aff
+    m_Address: GameAssets/Base/Characters/Vehicle/Skills/VFXSteamOverheat.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f684a9a2845248144873300f0adf16f4
+    m_Address: GameAssets/Base/Characters/Vehicle/Skills/sdDecoy.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b269582c776cbd45a073e58058bd315
+    m_Address: GameAssets/Base/Characters/Vehicle/Skills/sdDefend.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6477d9c2a480c854da50689a56322cfa, type: 2}
   m_SchemaSet:

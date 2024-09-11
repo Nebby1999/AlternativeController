@@ -10,20 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: ResourceDefs
+  m_Name: UI
   m_EditorClassIdentifier: 
-  m_GroupName: ResourceDefs
+  m_GroupName: UI
   m_Data:
     m_SerializedData: []
-  m_GUID: 9b651bb1e456eb048a818e7ed4e61bdd
+  m_GUID: 86892e687b1b56f459606ab939eeda9f
   m_SerializeEntries:
-  - m_GUID: 4f4efab52de5d6d45bc0d6fb9fd6c1fe
-    m_Address: GameAssets/Base/ResourceDefs/ResourceOreDeposit.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 80bc8521ec0965f4b8237ac2bc7e5cdf
-    m_Address: GameAssets/Base/ResourceDefs/ResourceChunk.prefab
+  - m_GUID: c136eacb2cb92d7409a50a6a1f1883cf
+    m_Address: GameAssets/Base/UI/ResourcesUI.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -31,5 +26,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 6477d9c2a480c854da50689a56322cfa, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 810a4618fc398124e99a3bee4800dff5, type: 2}
-    - {fileID: 11400000, guid: 16d256eb625a80f49be969891e708cd6, type: 2}
+    - {fileID: 11400000, guid: 8655b8f20d4a3064cb7faa7e1b447690, type: 2}
+    - {fileID: 11400000, guid: b6e75a230d08565438723c2404e3fe81, type: 2}

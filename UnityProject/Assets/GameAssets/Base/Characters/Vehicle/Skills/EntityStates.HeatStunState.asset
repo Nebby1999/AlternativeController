@@ -14,10 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldCollection:
     serializedFields:
-    - fieldName: stunDuration
+    - fieldName: heatStunDuration
       serializedValue:
         objectReferenceValue: {fileID: 0}
         stringValue: 3
+    - fieldName: steamVFX
+      serializedValue:
+        objectReferenceValue: {fileID: 8585695604229449246, guid: ebc063466cc4a58479d3ae99846b3aff, type: 3}
+        stringValue: 
   _stateTypeToConfig:
     _typeName: EntityStates.HeatStunState, AlternativeController.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null

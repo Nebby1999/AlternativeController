@@ -14,6 +14,8 @@ namespace AC
 
         public bool secondaryInput => _rawSecondaryInput;
 
+        public bool specialInput => _rawSpecialInput;
+
         [SerializeField]
         private bool _doMovementInputSmoothing;
 
@@ -30,6 +32,7 @@ namespace AC
 
         private bool _rawPrimaryInput;
         private bool _rawSecondaryInput;
+        private bool _rawSpecialInput;
         private void Update()
         {
             _currentLeftTrackInput = SmoothInput(_currentLeftTrackInput, _rawLeftTrackInput, ref _leftTrackInputSpeed, _movementInputSmoothingTime);
@@ -71,6 +74,11 @@ namespace AC
         public void OnSecondary(InputAction.CallbackContext context)
         {
             _rawSecondaryInput = context.ReadValueAsButton();
+        }
+
+        public void OnSpecial(InputAction.CallbackContext context)
+        {
+            _rawSpecialInput = context.ReadValueAsButton();
         }
     }
 }

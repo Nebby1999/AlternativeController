@@ -4,7 +4,7 @@ namespace EntityStates
 {
     public class GenericStunState : EntityState
     {
-        public float stunDuration;
+        protected float stunDuration;
 
         public override void FixedUpdate()
         {

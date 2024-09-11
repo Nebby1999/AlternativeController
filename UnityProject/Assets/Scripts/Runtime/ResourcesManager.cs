@@ -57,7 +57,8 @@ namespace AC
             int index = (int)resourceIndex;
             _resources[index] -= amount;
 
-            if (_resources[index] < 0) _resources[index] = 0;
+            if (_resources[index] < 0) 
+                _resources[index] = 0;
 
             if (resourceTypesStored.Contains(resourceIndex) && _resources[index] == 0)
                 resourceTypesStored.Remove(resourceIndex);
