@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EntityStates.Vehicle
 {
-    public class HeatRelease : VehicleState
+    public class HeatRelease : BaseVehicleState
     {
         public static GameObject vfx;
         public static AnimationCurve burstCountCurve;
@@ -77,6 +77,11 @@ namespace EntityStates.Vehicle
             {
                 outer.SetNextStateToMain();
             }
+        }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.Stun;
         }
     }
 }

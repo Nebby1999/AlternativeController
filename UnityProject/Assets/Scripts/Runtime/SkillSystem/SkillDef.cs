@@ -8,18 +8,21 @@ using UnityEngine;
 
 namespace AC
 {
-    [CreateAssetMenu(fileName = "New SkillDef", menuName = "AC/SkillDef")]
+    [CreateAssetMenu(fileName = "New GenericSkillDef", menuName = "AC/Skills/Generic SkillDef")]
     public class SkillDef : NebulaScriptableObject
     {
         public float baseCooldown;
-        public bool beginCooldownOnStateEnd;
         public uint requiredStock;
         public string entityStateMachineName;
+        public bool beginCooldownOnStateEnd;
+        public bool requireKeyPress;
         [SerializableSystemType.RequiredBaseType(typeof(EntityStates.EntityState))]
         public SerializableSystemType stateType;
         public InterruptPriority interruptStrength = InterruptPriority.Any;
-        public virtual void OnAssign(GenericSkill skillSlot)
+        
+        public virtual BaseSkillInstanceData OnAssign(GenericSkill skillSlot)
         {
+            return null;
         }
 
         public virtual void OnUnassign(GenericSkill skillSlot)
@@ -65,8 +68,12 @@ namespace AC
             if (beginCooldownOnStateEnd && skillSlot.IsInSkillState())
                 return;
 
-            var deltaTime = Time.fixedDeltaTime;
             skillSlot.TickRecharge(Time.fixedDeltaTime);
+        }
+
+        public class BaseSkillInstanceData
+        {
+
         }
     }
 

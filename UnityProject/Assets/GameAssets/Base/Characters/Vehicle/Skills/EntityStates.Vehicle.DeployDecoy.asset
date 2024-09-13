@@ -9,17 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a33c2b3290114424d9e8e531613bd627, type: 3}
-  m_Name: sdDecoy
+  m_Script: {fileID: 11500000, guid: 10c180da40b31674db6b530e04da3d8b, type: 3}
+  m_Name: EntityStates.Vehicle.DeployDecoy
   m_EditorClassIdentifier: 
-  baseCooldown: 0
-  requiredStock: 0
-  entityStateMachineName: Body
-  beginCooldownOnStateEnd: 0
-  requireKeyPress: 0
-  stateType:
+  fieldCollection:
+    serializedFields:
+    - fieldName: timeBetweenDeploys
+      serializedValue:
+        objectReferenceValue: {fileID: 0}
+        stringValue: 0.7
+  _stateTypeToConfig:
     _typeName: EntityStates.Vehicle.DeployDecoy, AlternativeController.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  interruptStrength: 1
-  requiresConnectedCargo: 1
-  minHeatRequired: 0

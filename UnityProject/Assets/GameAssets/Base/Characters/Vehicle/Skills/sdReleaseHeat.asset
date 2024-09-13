@@ -9,14 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ff6203aca13ad1499e2e46f504c1b98, type: 3}
+  m_Script: {fileID: 11500000, guid: a33c2b3290114424d9e8e531613bd627, type: 3}
   m_Name: sdReleaseHeat
   m_EditorClassIdentifier: 
   baseCooldown: 0
-  beginCooldownOnStateEnd: 0
   requiredStock: 0
   entityStateMachineName: Body
+  beginCooldownOnStateEnd: 0
+  requireKeyPress: 1
   stateType:
     _typeName: EntityStates.Vehicle.HeatRelease, AlternativeController.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  interruptStrength: 3
+  interruptStrength: 2
+  requiresConnectedCargo: 0
+  minHeatRequired: 0.01

@@ -47,11 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb0aa4b6d2ebd048bd4461a4b138945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameLoadingSceneName:
-    m_AssetGUID: 4d717b8b1669d7b43a7a3408c5213c27
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
+  _loadingSceneName: LoadingScene
   _loadingFinishedScene:
     m_AssetGUID: 8c9cfa26abfee488c85f1582747f6a02
     m_SubObjectName: 

@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: sdDefend
   m_EditorClassIdentifier: 
   baseCooldown: 0
-  beginCooldownOnStateEnd: 0
   requiredStock: 0
   entityStateMachineName: Body
+  beginCooldownOnStateEnd: 0
+  requireKeyPress: 0
   stateType:
-    _typeName: 
-  interruptStrength: 0
+    _typeName: EntityStates.Vehicle.Defend, AlternativeController.Runtime, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  interruptStrength: 1

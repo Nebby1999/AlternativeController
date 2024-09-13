@@ -7,7 +7,7 @@
 
 * Player
     * ~~Feedback visual de vapor del especial~~
-    * Asegurar que unload y shield funcionen.
+    * ~~Asegurar que unload y shield funcionen.~~
 
 * Implementacion enemigo
     * Movimiento

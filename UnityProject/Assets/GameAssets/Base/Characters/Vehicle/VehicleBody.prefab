@@ -563,6 +563,7 @@ MonoBehaviour:
   _baseMovementSpeed: 2.3
   _baseAttackSpeed: 1
   _baseDamage: 2
+  _baseArmor: 0
 --- !u!114 &-3408229559311716181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,6 +638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultMaxHealth: 10
+  _defaultArmor: 0
 --- !u!114 &4209377387247550763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,7 +685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _primary: {fileID: 2020080388466058219}
-  _secondary: {fileID: 8020326324665776954}
+  _secondary: {fileID: 7063584858279536842}
   _special: {fileID: 8020326324665776954}
 --- !u!114 &2020080388466058219
 MonoBehaviour:
@@ -726,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   genericSkillName: ReleaseHeat
-  _defaultSkill: {fileID: 11400000, guid: fffbdf82148331740b3aeab3a7443450, type: 2}
+  _defaultSkill: {fileID: 11400000, guid: ae87f7d8fa74e0f4fb9dd91c0e57ff46, type: 2}
 --- !u!114 &3521817021754544474
 MonoBehaviour:
   m_ObjectHideFlags: 0

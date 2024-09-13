@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AC
 {
-    public class CharacterBody : MonoBehaviour, IMaxHealthProvider
+    public class CharacterBody : MonoBehaviour, IHealthComponentInfoProvider
     {
         public float maxHp { get; private set; }
         [SerializeField] private float _baseHp;
@@ -16,6 +16,9 @@ namespace AC
 
         public float damage { get; private set; }
         [SerializeField] private float _baseDamage;
+
+        public int armor { get; private set; }
+        [SerializeField] private int _baseArmor;
 
         public HealthComponent healthComponent { get; private set; }
         public InputBank inputBank { get; private set; }
@@ -62,6 +65,10 @@ namespace AC
             finalStat = baseStat * args.damageMultAdd;
             damage = finalStat;
 
+            baseStat = _baseArmor + args.baseArmorAdd;
+            finalStat = baseStat * args.armorMultAdd;
+            damage = finalStat;
+
             for(int i = 0; i < _statModifiers.Length; i++)
             {
                 _statModifiers[i].PostStatRecalculation(this);
@@ -71,7 +78,8 @@ namespace AC
                 $"maxHP={maxHp}\n" +
                 $"movementSpeed={movementSpeed}\n" +
                 $"attackSpeed={attackSpeed}\n" +
-                $"damage={damage}");
+                $"damage={damage}\n" +
+                $"armor={armor}");
         }
 
         public void SetStatsDirty() => _statsDirty = true;
@@ -108,5 +116,8 @@ namespace AC
 
         public float baseDamageAdd = 0;
         public float damageMultAdd = 1;
+
+        public int baseArmorAdd = 0;
+        public float armorMultAdd = 1;
     }
 }

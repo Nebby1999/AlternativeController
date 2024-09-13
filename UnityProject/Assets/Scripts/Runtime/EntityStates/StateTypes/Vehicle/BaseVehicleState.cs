@@ -1,6 +1,6 @@
 namespace EntityStates.Vehicle
 {
-    public class VehicleState : BaseCharacterState
+    public class BaseVehicleState : BaseCharacterState
     {
         public AC.Vehicle vehicle { get; private set; }
         public bool hasVehicle { get; private set; }

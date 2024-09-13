@@ -7,6 +7,8 @@ namespace AC
     {
         public string genericSkillName;
         [SerializeField] private SkillDef _defaultSkill;
+
+        public bool mustKeyPress => skillDef ? skillDef.requireKeyPress : false;
         public SkillDef skillDef
         {
             get
@@ -20,12 +22,13 @@ namespace AC
 
                 if(_skillDef)
                 {
+                    instanceData = null;
                     _skillDef.OnUnassign(this);
                 }
                 _skillDef = value;
                 if(_skillDef)
                 {
-                    _skillDef.OnAssign(this);
+                    instanceData = _skillDef.OnAssign(this);
                 }
                 OnSkillChanged();
             }
@@ -35,6 +38,7 @@ namespace AC
         public uint maxStock { get; private set; }
         public uint stock { get; set; }
         public EntityStateMachine cachedStateMachine { get; private set; }
+        public SkillDef.BaseSkillInstanceData instanceData { get; private set; }
 
         private void Awake()
         {

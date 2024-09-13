@@ -45,13 +45,34 @@ namespace AC
             return this;
         }
 
+        public CircleSearch FilterCandidatesByComponent<T>()
+        {
+            return FilterCandidatesByComponent(typeof(T));
+        }
+
+        public CircleSearch FilterCandidatesByComponent(Type componentType)
+        {
+            ThrowIfCandidateListNull();
+            for (int i = _candidates.Count - 1; i >= 0; i--)
+            {
+                var candidate = _candidates[i];
+                if (!candidate.collider.TryGetComponent(componentType, out var component))
+                {
+                    _candidates.RemoveAt(i);
+                    continue;
+                }
+                candidate.componentChosenDuringFilterByComponent = component;
+                _candidates[i] = candidate;
+            }
+            return this;
+        }
         public CircleSearch FilterCandidatesByLOS(LayerMask obstacleMask)
         {
             ThrowIfCandidateListNull();
             for(int i = _candidates.Count - 1; i >= 0; i--)
             {
                 var candidate = _candidates[i];
-                var hit = Physics2D.Raycast(origin, (origin - candidate.position).normalized, Mathf.Sqrt(candidate.distanceSqr));
+                var hit = Physics2D.Raycast(origin, (origin - candidate.position).normalized, Mathf.Sqrt(candidate.distanceSqr), obstacleMask);
                 if(hit.collider != candidate.collider)
                 {
                     _candidates.RemoveAt(i);
@@ -173,6 +194,10 @@ namespace AC
             public Vector3 position;
             public float distanceSqr;
             public HurtBox colliderHurtbox;
+
+#nullable enable
+            public Component? componentChosenDuringFilterByComponent;
+#nullable disable
         }
     }
 }

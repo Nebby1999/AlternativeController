@@ -18,8 +18,8 @@ namespace Nebula
         public static event Action OnLateUpdate;
         public static event Action OnShutdown;
 
+        [SerializeField] private string _loadingSceneName;
 #if ADDRESSABLES
-        [SerializeField] private AssetReferenceScene _gameLoadingSceneName;
         [SerializeField] private AssetReferenceScene _loadingFinishedScene;
         [SerializeField] private AssetReferenceScene _inbetweenScenesLoadingScene;
 #endif
@@ -62,11 +62,20 @@ namespace Nebula
             var address = sceneName + ".unity";
 #endif
 
-            var asyncOp = _gameLoadingSceneName.LoadSceneAsync();
-            while (!asyncOp.IsDone)
+            //Inside the editor, load the loading scene ourselves.
+#if UNITY_EDITOR
+            var asyncOp0 = SceneManager.LoadSceneAsync(_loadingSceneName);
+            while (!asyncOp0.isDone)
             {
                 yield return new WaitForEndOfFrame();
             }
+            //Outside of the editor, wait until the loading scene (index 0) is loaded.
+#else
+            while(SceneManager.GetActiveScene().name != _loadingSceneName)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+#endif
 
             yield return new WaitForEndOfFrame();
 
@@ -85,12 +94,12 @@ namespace Nebula
             //Special loading logic should happen only on runtime, so we're ommiting this when loading from the editor.
             //By ommiting this, we can load any scene and theoretically have entity states and the like running properly. 
 #if UNITY_EDITOR
-            asyncOp = Addressables.LoadSceneAsync(address);
-            while (!asyncOp.IsDone)
+            var asyncOp1 = Addressables.LoadSceneAsync(address);
+            while (!asyncOp1.IsDone)
                 yield return new WaitForEndOfFrame();
 #else
-            asyncOp = _loadingFinishedScene.LoadSceneAsync();
-            while(!asyncOp.IsDone)
+            var asyncOp1 = _loadingFinishedScene.LoadSceneAsync();
+            while(!asyncOp1.IsDone)
             {
                 yield return new WaitForEndOfFrame();
             }

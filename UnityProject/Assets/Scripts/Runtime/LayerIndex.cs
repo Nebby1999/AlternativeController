@@ -24,6 +24,7 @@ namespace AC
         public static readonly LayerIndex water = GetLayerIndex("Water");
         public static readonly LayerIndex uI = GetLayerIndex("UI");
         public static readonly LayerIndex entityPrecise = GetLayerIndex("EntityPrecise");
+        public static readonly LayerIndex pickups = GetLayerIndex("Pickups");
         private static readonly LayerMask[] _collisionMasks = CalculateCollisionMasks();
         public int intVal { get; private set; }
         public LayerMask mask => (intVal >= 0) ? (1 << intVal) : intVal;
