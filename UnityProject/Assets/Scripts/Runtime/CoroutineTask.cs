@@ -9,7 +9,7 @@ namespace AC
 {
     public class CoroutineTask : IEnumerator
     {
-        public bool IsDone => !_internalCoroutine.MoveNext();
+        public bool isDone => !_internalCoroutine.MoveNext();
         private IEnumerator _internalCoroutine;
         object IEnumerator.Current => _internalCoroutine?.Current;
 
@@ -32,7 +32,7 @@ namespace AC
 
     public class ParallelCoroutineTask : IEnumerator
     {
-        public bool IsDone => !_internalCoroutine.MoveNext();
+        public bool isDone => !_internalCoroutine.MoveNext();
 
         private readonly List<IEnumerator> _coroutinesList = new List<IEnumerator>();
         private IEnumerator _internalCoroutine;

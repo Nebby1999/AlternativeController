@@ -597,9 +597,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseHp: 10
-  _baseMovementSpeed: 5
+  _baseMovementSpeed: 50
   _baseAttackSpeed: 1
   _baseDamage: 7
+  _baseArmor: 0
 --- !u!114 &8061665484972215717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -613,6 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultMaxHealth: 10
+  _defaultArmor: 0
 --- !u!114 &7993645368705724623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,6 +662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _primary: {fileID: -2044602420960352313}
   _secondary: {fileID: 0}
+  _special: {fileID: 0}
 --- !u!114 &-2044602420960352313
 MonoBehaviour:
   m_ObjectHideFlags: 0
