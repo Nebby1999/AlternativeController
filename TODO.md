@@ -1,33 +1,25 @@
-# TODO Monday 23
+# TODO Thursday 3 (Or Friday 4)
 
 ## Rollback movimiento
 ### No more modifications on that front
 
 ## LLEGAR CON BUILD
 
-* Player
-    * ~~Feedback visual de vapor del especial~~
-    * ~~Asegurar que unload y shield funcionen.~~
-
-* Implementacion enemigo
+* **__Implementacion enemigo__**
     * Movimiento
     * Ataque
     * Comer
     * IA
         * Prioridad de IA se encuentra en el google slides
 
-* UI:
-  * ~~Header con los recursos de la ciudades y HQ~~
-  * ~~No mostrar informacion inecesaria (Red resources from black city)~~
-  * Optional: Indicador visual del Cargo de Vehiculo.
-  * ~~Runtime Inspector no debe esconder/obfuscar informacion.~~
+* Simplificar y remover sistema de guardado de metadata de CharacterMaster
 
-* Fix this shit:
+* Revamp de Ciudades
+  * Mineral Rojo = Energia
+  * Mineral negro = Cooling
+  * Ciudades pueden ser targeteadas por enemigos
+  * ciudades tienen escudos los cuales funcionan a traves de consumir energia
+  * Consumir energia aumenta calor
+  * Si se sobrecalienta o se vacia la energia, los escudos bajan.
 
-      IndexOutOfRangeException: Index was outside the bounds of the array.at AC.ResourcesManager.UnloadResource (AC.ResourceIndex resourceIndex, System.Single amount) [0x0000f] in D:\UnityProjects\PabloProject\UnityProject\Assets\Scripts\Runtime\ResourcesManager.cs:61 
-      at AC.ResourcesManager.UnloadResource (AC.ResourceDef resourceDef, System.Single amount) [0x00000] in D:\UnityProjects\PabloProject\UnityProject\Assets\Scripts\Runtime\ResourcesManager.cs:53 
-      at AC.Base.FixedUpdate () [0x00001] in D:\UnityProjects\PabloProject\UnityProject\Assets\Scripts\Runtime\Base.cs:48 
-
-# To do post 18
-
-* Ciclo de juego
+* Organizar los Scripts en carpetas.
