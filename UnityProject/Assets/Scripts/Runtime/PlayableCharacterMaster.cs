@@ -1,3 +1,4 @@
+using Nebula;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -54,6 +55,16 @@ namespace AC
                 result = target;
             }
             return result;
+        }
+
+        private void OnEnable()
+        {
+            InstanceTracker.Add(this);
+        }
+
+        private void OnDisable()
+        {
+            InstanceTracker.Remove(this);
         }
 
         public void OnRightTrack(InputAction.CallbackContext context)

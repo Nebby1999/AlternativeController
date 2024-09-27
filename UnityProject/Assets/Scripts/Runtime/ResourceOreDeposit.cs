@@ -1,3 +1,4 @@
+using Nebula;
 using UnityEngine;
 
 namespace AC
@@ -22,6 +23,16 @@ namespace AC
                 _spriteRenderer.color = resourceType.resourceColor;
 
             _originalSize = transform.localScale;
+        }
+
+        private void OnEnable()
+        {
+            InstanceTracker.Add(this);
+        }
+
+        private void OnDisable()
+        {
+            InstanceTracker.Remove(this);
         }
 
         private void Update()

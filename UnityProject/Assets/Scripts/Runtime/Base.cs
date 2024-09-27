@@ -1,3 +1,4 @@
+using Nebula;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,7 +29,13 @@ namespace AC
 
         private void OnEnable()
         {
+            InstanceTracker.Add(this);
             _sprite.color = _type.resourceColor;
+        }
+
+        private void OnDisable()
+        {
+            InstanceTracker.Remove(this);
         }
 
         private void Update()

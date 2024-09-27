@@ -68,6 +68,10 @@ namespace AC
             if(bodyInstance)
             {
                 bodyInputBank = bodyInstance.inputBank;
+                if(bodyInstance.TryGetComponent<ResourceDefPreference>(out var dest) && TryGetComponent<ResourceDefPreference>(out var src))
+                {
+                    dest.resourcePreference = src.resourcePreference;
+                }
             }
         }
 
