@@ -9,7 +9,7 @@ namespace AC
     {
         public HurtBox[] hurtBoxes => _hurtBoxes;
         [SerializeField] private HurtBox[] _hurtBoxes = Array.Empty<HurtBox>();
-        public HurtBox MainHurtBox => _mainHurtBox;
+        public HurtBox mainHurtBox => _mainHurtBox;
 
         [SerializeField] private HurtBox _mainHurtBox;
 

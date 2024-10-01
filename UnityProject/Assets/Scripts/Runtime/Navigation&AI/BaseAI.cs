@@ -34,20 +34,23 @@ namespace AC
                 if(_currentTarget != value)
                 {
                     _currentTarget = value;
-                    SetNewTargetPosition();
                 }
             }
         }
         public Target _currentTarget;
-        public EntityStateMachine aiStateMachine { get; private set; }
         public Xoroshiro128Plus aiRNG { get; private set; }
-
+        public EntityStateMachine stateMachine { get; private set; }
         public ResourceDefPreference? resourceDefPreference { get; private set; }
 
-        [SerializableSystemType.RequiredBaseType(typeof(BaseAIState))]
-        public SerializableSystemType searchState;
-        public bool searchOnStart;
+        [Tooltip("How far this AI can see, this is used for LOS checks.")]
+        public float visionRange;
+        [Tooltip("If this value is false, the los check will return true as long as there's nothing between us and the enemy.")]
+        public bool losCheckRequiresDirectContactWithTarget;
+        [Tooltip("The maximum DOT product between a potential new target and the AI's body. This basically governs the angle the AI can look for targets and LOS checks. set to -1 to have a complete 360° vision range")]
+        [Range(-1, 1)]
+        public float maxDot;
 #if DEBUG
+        public GameObject testGameObject;
         [Nebula.DisabledField]
         public Vector3 currentTargetPosition;
         [Nebula.DisabledField]
@@ -58,7 +61,7 @@ namespace AC
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             characterMaster = GetComponent<CharacterMaster>();
-            aiStateMachine = GetComponent<EntityStateMachine>();
+            stateMachine = GetComponent<EntityStateMachine>();
             resourceDefPreference = GetComponent<ResourceDefPreference>();
         }
 
@@ -69,66 +72,133 @@ namespace AC
             navMeshAgent.updateRotation = false;
             navMeshAgent.updateUpAxis = false;
             aiRNG = new Xoroshiro128Plus(ACApplication.instance.applicationRNG.nextULong);
-            if(searchOnStart)
-            {
-                aiStateMachine.SetNextState(EntityStateCatalog.InstantiateState(searchState));
-            }
         }
 
         private void FixedUpdate()
         {
-            if (currentTarget == null)
+            if(!characterMaster.bodyInstance)
             {
                 return;
             }
-
-#if DEBUG
-            currentTargetPosition = currentTarget?.targetPosition ?? new Vector3(float.NaN, float.NaN);
-            currentTargetObject = currentTarget?.targetObject ?? null;
-#endif
             navMeshAgent.nextPosition = characterMaster.bodyInstance.transform.position;
             navMeshAgent.speed = characterMaster.bodyInstance.movementSpeed;
 
             if (!navMeshAgent.hasPath)
                 return;
 
-            if (!characterMaster.bodyInstance)
-                return;
-
             movementVector = navMeshAgent.desiredVelocity.normalized;
         }
 
-        private void SetNewTargetPosition()
+#if DEBUG
+        private void OnDrawGizmos()
         {
-            if(currentTarget == null)
+            Transform t = transform;
+
+            if (Application.isPlaying && characterMaster.bodyInstance)
             {
-                if (navMeshAgent.hasPath) //Let it finish its current path.
-                    return;
+                t = characterMaster.bodyInstance.transform;
             }
 
-            var path = new NavMeshPath();
-            navMeshAgent.CalculatePath(currentTarget.targetPosition, path);
-            if (path.status == NavMeshPathStatus.PathInvalid)
-                return;
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(t.position, visionRange);
 
-            navMeshAgent.SetPath(path);
+            var up = t.up;
+            float angle = Mathf.Acos(maxDot);
+            Vector3 axis = Vector3.Cross(up, Vector3.right);
+            if (axis.magnitude < 0.01f)
+            {
+                axis = Vector3.Cross(up, Vector3.forward);
+            }
+            Quaternion rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, axis);
+            Vector3 rotatedVector = rotation * up;
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(t.position, t.position + rotatedVector * visionRange);
+
+            rotation = Quaternion.AngleAxis(-angle * Mathf.Rad2Deg, axis);
+            rotatedVector = rotation * up;
+            Gizmos.DrawLine(t.position, t.position + rotatedVector * visionRange);
         }
+#endif
 
         public class Target
         {
-            public Vector3 targetPosition;
-            public bool targetHasObject { get; }
+            public Vector3 targetPosition => targetIsObject ? targetTransform.position : _targetPosition;
+            private Vector3 _targetPosition;
+            public bool targetIsObject { get; }
             public GameObject targetObject { get;}
+            public Transform targetTransform { get; }
+            public bool hasMainHurtBox { get; }
+            public HurtBox mainHurtBox { get; }
+
+            public bool TestLineOfSight(BaseAI baseAI)
+            {
+                var charMaster = baseAI.characterMaster;
+                if (!charMaster.bodyInstance)
+                    return false;
+
+                Transform bodyInstanceTransform = charMaster.bodyInstance.transform;
+                Vector2 raycastDir = Vector2.zero;
+                if(baseAI.maxDot > -1) //Check for dot before LOS
+                {
+                    var generalDirection = bodyInstanceTransform.up;
+                    var directionForTarget = (hasMainHurtBox ? mainHurtBox.transform.position : targetPosition) - bodyInstanceTransform.position;
+                    directionForTarget.Normalize();
+
+                    var dotProduct = Vector3.Dot(generalDirection, directionForTarget);
+                    if(dotProduct < baseAI.maxDot)
+                    {
+                        return false;
+                    }
+                    raycastDir = directionForTarget;
+                }
+                else
+                {
+                    raycastDir = Vector3.Normalize((hasMainHurtBox ? mainHurtBox.transform.position : targetPosition) - bodyInstanceTransform.position);
+                }
+                Ray ray = new Ray(bodyInstanceTransform.position, raycastDir);
+                float distance = Mathf.Min(baseAI.visionRange, Vector3.Distance(bodyInstanceTransform.position, targetPosition));
+                //Target is not an object OR if the target is an object but DOES NOT have a hurtbox., we should check if there's a wall not letting us look
+                if(!targetIsObject || (targetIsObject && !mainHurtBox))
+                {
+                    if(Util.CharacterRaycast(bodyInstanceTransform.gameObject, ray, distance, LayerIndex.world.mask, out _))
+                    {
+                        //We've hit something on the world layer, we cant see it.
+                        return false;
+                    }
+                    //We've hit nothing, path is clear
+                    return true;
+                }
+                //We should raycast to see if we have direct LOS to our target's hurtbox.
+                if(mainHurtBox && Util.CharacterRaycast(bodyInstanceTransform.gameObject, ray, distance, LayerIndex.CommonMasks.bullet, out var hit))
+                {
+                    if(!hit.collider.TryGetComponent<HurtBox>(out var hitHurtbox)) //We didnt hit a hurtbox
+                    {
+                        return false;
+                    }
+
+                    //Check if the hurtbox we've hit is either the main hurtbox, or if both hurtboxes point to the same health component.
+                    return hitHurtbox == mainHurtBox || hitHurtbox.healthComponent == mainHurtBox.healthComponent;
+                }
+                return !baseAI.losCheckRequiresDirectContactWithTarget;
+            }
 
             public Target(GameObject targetObject)
             {
-                targetHasObject = targetObject;
-                targetPosition = targetObject.transform.position;
+                targetIsObject = targetObject;
+                targetTransform = targetObject.transform;
+                if (targetObject.TryGetComponent<HurtBoxGroup>(out var group))
+                {
+                    mainHurtBox = group.mainHurtBox;
+                }
+                else
+                {
+                    mainHurtBox = targetObject.GetComponent<HurtBox>();
+                }
             }
 
             public Target(Vector3 position)
             {
-                targetPosition = position;
+                _targetPosition = position;
             }
         }
     }

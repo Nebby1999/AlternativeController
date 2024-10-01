@@ -59,5 +59,13 @@ namespace AC
         {
             intVal = val;
         }
+        public static class CommonMasks
+        {
+            private const string BULLET_COMMENT = @"Combination of EntityPrecise and World";
+            ///<summary>
+            ///Combination of EntityPrecise and World
+            ///</summary>
+            public static readonly LayerMask bullet = 320;
+        }
     }
 }

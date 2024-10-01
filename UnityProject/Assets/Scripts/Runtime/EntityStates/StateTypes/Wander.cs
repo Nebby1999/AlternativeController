@@ -1,4 +1,5 @@
 using AC;
+using Nebula;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,15 +44,31 @@ namespace EntityStates
 
         private void SetWanderTarget()
         {
-            Vector3 randomDirection = Random.insideUnitSphere * 3f;
-            randomDirection += characterBody.transform.position;
+            Vector3 randomDirection = Random.insideUnitSphere;
+            Vector3 position = randomDirection * aiRNG.RangeFloat(baseAI.visionRange / 2, baseAI.visionRange);
+            position += characterBody.transform.position;
+
             NavMeshHit hit;
-            Vector3 finalPosition = Vector3.zero;
-            if (NavMesh.SamplePosition(randomDirection, out hit, 3f, NavMesh.AllAreas))
+            if(NavMesh.SamplePosition(position, out hit, baseAI.visionRange, NavMesh.AllAreas))
             {
-                baseAI.currentTarget = new BaseAI.Target(hit.position);
+#if UNITY_EDITOR
+                GlobalGizmos.EnqueueGizmoDrawing(() => Gizmos.DrawSphere(hit.position, 0.5f));
+#endif
+                NavMeshPath path = new NavMeshPath();
+                baseAI.navMeshAgent.CalculatePath(hit.position, path);
+                baseAI.navMeshAgent.SetPath(path);
             }
             _waitTime /= 2;
+            /*randomDirection += characterBody.transform.position;
+            NavMeshHit hit;
+            Vector3 finalPosition = Vector3.zero;
+            if (NavMesh.SamplePosition(randomDirection, out hit, baseAI.visionRange, NavMesh.AllAreas))
+            {
+                NavMeshPath path = new NavMeshPath();
+                baseAI.navMeshAgent.CalculatePath(hit.position, path);
+                baseAI.navMeshAgent.SetPath(path);
+            }
+            _waitTime /= 2;*/
             return;
         }
     }
