@@ -62,6 +62,19 @@ namespace AC
             }
         }
         private bool _isInCombatMode;
+        public bool isDefending
+        {
+            get => _isDefending;
+            set
+            {
+                if(_isDefending != value)
+                {
+                    _isDefending = true;
+                    characterBody.SetStatsDirty();
+                }
+            }
+        }
+        private bool _isDefending;
 
         private float overheatHeatDissipation => maxHeat / HeatStunState.heatStunDuration;
 
@@ -161,6 +174,8 @@ namespace AC
 
         public void GetStatCoefficients(StatModifierArgs args, CharacterBody body)
         {
+            if (isDefending)
+                args.baseArmorAdd += 50;
             if (!isInCombatMode)
             {
                 args.movementSpeedMultAdd -= 0.2f;

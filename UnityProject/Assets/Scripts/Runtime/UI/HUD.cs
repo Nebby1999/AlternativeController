@@ -1,27 +1,35 @@
-using Nebula;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-namespace AC.UI
+namespace AC
 {
-    public class HUD : SingletonMonoBehaviour<HUD>
+    [RequireComponent(typeof(Canvas))]
+    public class HUD : UIBehaviour
     {
-        [Header("Infos")]
-        public HeadQuarters headQuarters;
-        public Base redBase;
-        public Base blackBase;
+        public IHUDElement[] hudElements { get; private set; }
 
-        [Header("Elements")]
-        public ResourcesManagerUI hqUI;
-        public ResourcesManagerUI blackBaseUI;
-        public ResourcesManagerUI redBaseUI;
-
-        public void Start()
+        protected override void Awake()
         {
-            hqUI.tiedManager = headQuarters.resourcesManager;
-            blackBaseUI.tiedManager = blackBase.resourcesManager;
-            redBaseUI.tiedManager = redBase.resourcesManager;
+            base.Awake();
+            hudElements = GetComponentsInChildren<IHUDElement>();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            foreach(var hudElement in hudElements)
+            {
+                hudElement.parentHud = this;
+            }
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            foreach(var hudElement in hudElements)
+            {
+                hudElement.parentHud = null;
+            }
         }
     }
 }

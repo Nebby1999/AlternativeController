@@ -26,6 +26,14 @@ MonoBehaviour:
       serializedValue:
         objectReferenceValue: {fileID: 0}
         stringValue: 0.5
+    - fieldName: vfx
+      serializedValue:
+        objectReferenceValue: {fileID: 8585695604229449246, guid: 1e062147bb8cc5643b5b4a48d042e72d, type: 3}
+        stringValue: 
+    - fieldName: burstCountCurve
+      serializedValue:
+        objectReferenceValue: {fileID: 0}
+        stringValue: '{"preWrapMode":8,"postWrapMode":8,"keys":[{"time":0.0,"value":0.0,"inTangent":0.0,"outTangent":0.0,"inWeight":0.0,"outWeight":0.0,"weightedMode":0,"tangentMode":0},{"time":1.0,"value":50.0,"inTangent":2.0,"outTangent":2.0,"inWeight":0.0,"outWeight":0.0,"weightedMode":0,"tangentMode":0}]}'
   _stateTypeToConfig:
     _typeName: EntityStates.Vehicle.HeatRelease, AlternativeController.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null

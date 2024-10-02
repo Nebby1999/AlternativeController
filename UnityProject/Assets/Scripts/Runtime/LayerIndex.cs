@@ -24,6 +24,8 @@ namespace AC
         public static readonly LayerIndex water = GetLayerIndex("Water");
         public static readonly LayerIndex uI = GetLayerIndex("UI");
         public static readonly LayerIndex entityPrecise = GetLayerIndex("EntityPrecise");
+        public static readonly LayerIndex pickups = GetLayerIndex("Pickups");
+        public static readonly LayerIndex world = GetLayerIndex("World");
         private static readonly LayerMask[] _collisionMasks = CalculateCollisionMasks();
         public int intVal { get; private set; }
         public LayerMask mask => (intVal >= 0) ? (1 << intVal) : intVal;
@@ -56,6 +58,14 @@ namespace AC
         private LayerIndex(int val)
         {
             intVal = val;
+        }
+        public static class CommonMasks
+        {
+            private const string BULLET_COMMENT = @"Combination of EntityPrecise and World";
+            ///<summary>
+            ///Combination of EntityPrecise and World
+            ///</summary>
+            public static readonly LayerMask bullet = 320;
         }
     }
 }

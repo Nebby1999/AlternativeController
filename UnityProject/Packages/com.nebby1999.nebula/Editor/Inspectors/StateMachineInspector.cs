@@ -142,5 +142,10 @@ namespace Nebula.Editor.Inspectors
 
             _filteredTypeInstanceFields = _inspectedTypeInstanceFields.Where(f => f.Name.Contains(searchBar, StringComparison.OrdinalIgnoreCase)).ToArray();
         }
+
+        public override bool RequiresConstantRepaint()
+        {
+            return _foldout;
+        }
     }
 }

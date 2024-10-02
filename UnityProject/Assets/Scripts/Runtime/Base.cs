@@ -8,7 +8,8 @@ namespace AC
     [RequireComponent(typeof(ResourcesManager))]
     public class Base : MonoBehaviour
     {
-        [Tooltip("The type of resource the base requires to survive.")]
+        [Tooltip("The name of this base, used for UI.")]
+        public string baseName;
         [SerializeField] private ResourceDef _type;
         [Tooltip("The base starts with this amount of resources")]
         [SerializeField] private float _startingResources;
@@ -34,7 +35,13 @@ namespace AC
 
         private void OnEnable()
         {
+            InstanceTracker.Add(this);
             _sprite.color = _type.resourceColor;
+        }
+
+        private void OnDisable()
+        {
+            InstanceTracker.Remove(this);
         }
 
         private void Update()

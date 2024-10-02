@@ -2,7 +2,7 @@ using AC;
 
 namespace EntityStates
 {
-    public class BaseSkillState : BaseCharacterState
+    public class BaseSkillState : BaseCharacterState, ISkillState
     {
         public GenericSkill activatorSkillSlot { get; set; }
 
@@ -23,6 +23,10 @@ namespace EntityStates
             {
                 case SkillSlot.Primary:
                     return inputBank.primaryButton.down;
+                case SkillSlot.Secondary:
+                    return inputBank.secondaryButton.down;
+                case SkillSlot.Special:
+                    return inputBank.specialButton.down;
                 default:
                     return false;
             }

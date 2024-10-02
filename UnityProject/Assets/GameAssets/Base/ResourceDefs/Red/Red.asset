@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 789d258aa1e6f0b4cb601fc05b32d7e5, type: 3}
   m_Name: Red
   m_EditorClassIdentifier: 
-  resourceName: 
+  resourceName: Red
   resourceDescription: 
   resourceSprite: {fileID: 0}
   resourceColor:

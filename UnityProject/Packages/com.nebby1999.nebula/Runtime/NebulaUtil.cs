@@ -129,5 +129,26 @@ namespace Nebula
             }
             return false;
         }
+
+        public static Color32 GetBestOutline(this Color32 color32)
+        {
+            var asColor = (Color)color32;
+            return (Color32)asColor.GetBestOutline();
+        }
+
+        public static Color GetBestOutline(this Color color)
+        {
+            var alpha = color.a;
+            Color.RGBToHSV(color, out float hue, out float saturation, out float light);
+
+            var modifier = light > 0.5f ? -0.5f : 0.5f;
+
+            var newSaturation = Mathf.Clamp01(saturation + modifier);
+            var newLight = Mathf.Clamp01(light + modifier);
+
+            var outlineColor = Color.HSVToRGB(hue, newSaturation, newLight);
+            outlineColor.a = alpha;
+            return outlineColor;
+        }
     }
 }

@@ -88,5 +88,10 @@ namespace EntityStates.Vehicle.Weapon
             if (_laserEffectInstance)
                 Destroy(_laserEffectInstance);
         }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.Skill;
+        }
     }
 }

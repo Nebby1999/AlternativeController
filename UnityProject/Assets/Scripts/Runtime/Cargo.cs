@@ -31,6 +31,7 @@ namespace AC
 
         public int maxCapacity => _maxCapacity;
         [SerializeField] private int _maxCapacity;
+        [SerializeField] private ResourceChunk _chunkPrefab;
         private int[] _mineralCount;
 
         public Queue<ResourceIndex> resourceCollectionOrder { get; private set; }
@@ -40,6 +41,25 @@ namespace AC
         public bool isEmpty => totalCargoHeld <= 0;
 
         private Vehicle _lastConnectedVehicle;
+        private Transform _transform;
+
+        public bool DropResource(int amount)
+        {
+            if (isEmpty)
+                return false;
+
+            for(int i = 0; i < amount; i++)
+            {
+                lastUnloadedResource = resourceCollectionOrder.Dequeue();
+                _mineralCount[(int)lastUnloadedResource]--;
+                var instance = Instantiate(_chunkPrefab, _transform.position, _transform.rotation);
+                instance.resourceDef = ResourceCatalog.GetResourceDef(lastUnloadedResource);
+                instance.resourceValue = 1;
+                instance.rigidbody2D.velocity = -(_transform.up) * 15;
+            }
+            return true;
+        }
+        
         public bool LoadResource(ResourceDef resource, int amount) => LoadResource(resource.resourceIndex, amount);
 
         public bool LoadResource(ResourceIndex index, int amount)
@@ -80,6 +100,7 @@ namespace AC
             rigidbody2D = GetComponent<Rigidbody2D>();
             isConnected = false;
             resourceCollectionOrder = new Queue<ResourceIndex>(_maxCapacity);
+            _transform = transform;
         }
 
         private void Start()

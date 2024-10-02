@@ -17,7 +17,7 @@ namespace AC
         public Base[] bases { get; private set; }
         [SerializeField] private Base _redBase;
         [SerializeField] private Base _blackBase;
-        [SerializeField] private float _timeBetweenCargoUnloads;
+        [SerializeField] private float _timeBetweenResourceLoads;
 
         public HeadQuartersInputProvider inputProvider { get; private set; }
         public HeadQuartersInputProvider.HQInput inputStruct { get; private set; }
@@ -27,7 +27,8 @@ namespace AC
         private CharacterMaster[] _vehicleMasters = new CharacterMaster[TOTAL_VEHICLE_COUNT];
         private Vehicle[] _cachedVehicleComponents = new Vehicle[TOTAL_VEHICLE_COUNT];
         private ResourceIndex _blackIndex;
-        private float _cargoUnloadStopwatch;
+        private float _resourceObtainStopwatch;
+        private CircleSearch _chunkSearch = new CircleSearch();
         private void Awake()
         {
             resourcesManager = GetComponent<ResourcesManager>();
@@ -36,6 +37,14 @@ namespace AC
             {
                 _blackBase,
                 _redBase
+            };
+            _chunkSearch = new CircleSearch
+            {
+                candidateMask = LayerIndex.pickups.mask,
+                origin = transform.position,
+                radius = 1 * transform.localScale.magnitude,
+                searcher = gameObject,
+                useTriggers = false,
             };
         }
 
@@ -89,11 +98,12 @@ namespace AC
                 }
             }
 
-            _cargoUnloadStopwatch += Time.fixedDeltaTime;
-            if(_cargoUnloadStopwatch > _timeBetweenCargoUnloads)
+            _resourceObtainStopwatch += Time.fixedDeltaTime;
+            if(_resourceObtainStopwatch > _timeBetweenResourceLoads)
             {
-                _cargoUnloadStopwatch -= _timeBetweenCargoUnloads;
+                _resourceObtainStopwatch -= _timeBetweenResourceLoads;
                 TryUnloadCargos();
+                TryLoadChunks();
             }
             foreach(var resourceIndex in resourcesManager.resourceTypesStored)
             {
@@ -111,6 +121,22 @@ namespace AC
                 if (cargo.UnloadResource(1))
                 {
                     TryLoadResource(cargo.lastUnloadedResource, 1);
+                }
+            }
+        }
+
+        private void TryLoadChunks()
+        {
+            _chunkSearch.FindCandidates()
+                .FilterCandidatesByComponent<ResourceChunk>()
+                .GetResults(out var results);
+
+            foreach(var result in results)
+            {
+                ResourceChunk chunk = (ResourceChunk)result.componentChosenDuringFilterByComponent;
+                if(TryLoadResource(chunk.resourceDef, chunk.resourceValue))
+                {
+                    Destroy(chunk.gameObject);
                 }
             }
         }
@@ -172,19 +198,5 @@ namespace AC
                 _cargosOnTrigger.Remove(cargo);
             }
         }
-
-
-#if DEBUG
-        [Header("DEBUG")]
-        public bool printResources;
-
-        private void OnGUI()
-        {
-            foreach(var resource in resourcesManager.resourceTypesStored)
-            {
-                GUILayout.Label($"{ResourceCatalog.GetResourceDef(resource).cachedName}: {resourcesManager.GetResourceCount(resource)}", Util.debugGUIStyle);
-            }
-        }
-#endif
     }
 }

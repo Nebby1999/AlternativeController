@@ -60,13 +60,39 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fffbdf82148331740b3aeab3a7443450
+  - m_GUID: 4307208e9c201d343a90502140e30da6
+    m_Address: GameAssets/Base/Characters/Vehicle/Skills/EntityStates.Vehicle.HeatRelease.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EntityStateConfigurations
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e062147bb8cc5643b5b4a48d042e72d
+    m_Address: GameAssets/Base/Characters/Vehicle/Skills/VFXSteamRelease.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ebc063466cc4a58479d3ae99846b3aff
+    m_Address: GameAssets/Base/Characters/Vehicle/Skills/VFXSteamOverheat.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f684a9a2845248144873300f0adf16f4
+    m_Address: GameAssets/Base/Characters/Vehicle/Skills/sdDecoy.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b269582c776cbd45a073e58058bd315
+    m_Address: GameAssets/Base/Characters/Vehicle/Skills/sdDefend.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae87f7d8fa74e0f4fb9dd91c0e57ff46
     m_Address: GameAssets/Base/Characters/Vehicle/Skills/sdReleaseHeat.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4307208e9c201d343a90502140e30da6
-    m_Address: GameAssets/Base/Characters/Vehicle/Skills/EntityStates.Vehicle.HeatRelease.asset
+  - m_GUID: b190a7c95e6cc964795293971f7e6be9
+    m_Address: GameAssets/Base/Characters/Vehicle/Skills/EntityStates.Vehicle.DeployDecoy.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - EntityStateConfigurations

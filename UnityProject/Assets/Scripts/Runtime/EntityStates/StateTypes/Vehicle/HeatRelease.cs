@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace EntityStates.Vehicle
 {
-    public class HeatRelease : VehicleState
+    public class HeatRelease : BaseVehicleState
     {
+        public static GameObject vfx;
+        public static AnimationCurve burstCountCurve;
         public static float minStunRange;
         public static float maxStunRange;
         public static float baseDuration;
@@ -19,7 +21,12 @@ namespace EntityStates.Vehicle
             _duration = baseDuration;
             _radius = NebulaMath.Remap(vehicle.heat, 0, vehicle.maxHeat, minStunRange, maxStunRange);
 
-            //Spawn VFX if any
+            var instance = Instantiate(vfx, transform.position, Quaternion.identity);
+            var particleSystem = instance.GetComponent<ParticleSystem>();
+            var emission = particleSystem.emission;
+            var burst = emission.GetBurst(0);
+            burst.count = new ParticleSystem.MinMaxCurve(burstCountCurve.Evaluate(NebulaMath.Remap(vehicle.heat, 0, vehicle.maxHeat, 0, 1)));
+            emission.SetBurst(0, burst);
 #if UNITY_EDITOR
             GlobalGizmos.EnqueueGizmoDrawing(() =>
             {
@@ -70,6 +77,11 @@ namespace EntityStates.Vehicle
             {
                 outer.SetNextStateToMain();
             }
+        }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.Stun;
         }
     }
 }

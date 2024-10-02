@@ -31,15 +31,16 @@ namespace EntityStates
             {
                 HandleSkill(skillManager.Primary, ref inputBank.primaryButton);
                 HandleSkill(skillManager.Secondary, ref inputBank.secondaryButton);
+                HandleSkill(skillManager.Special, ref inputBank.specialButton);
             }
             moveVector = Vector2.zero;
         }
 
         private void HandleSkill(GenericSkill skill, ref InputBank.Button button)
         {
-            if(button.down && skill)
+            if(button.down && skill && (!skill.mustKeyPress || !button.hasPressBeenClaimed) && skill.ExecuteSkillIfReady())
             {
-                skill.ExecuteSkillIfReady();
+                button.hasPressBeenClaimed = true;
             }
         }
     }

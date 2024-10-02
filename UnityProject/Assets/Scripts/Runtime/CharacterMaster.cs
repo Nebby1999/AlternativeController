@@ -68,6 +68,10 @@ namespace AC
             if(bodyInstance)
             {
                 bodyInputBank = bodyInstance.inputBank;
+                if(bodyInstance.TryGetComponent<ResourceDefPreference>(out var dest) && TryGetComponent<ResourceDefPreference>(out var src))
+                {
+                    dest.resourcePreference = src.resourcePreference;
+                }
             }
         }
 
@@ -79,6 +83,7 @@ namespace AC
                 bodyInputBank.rotationInput = characterInputProvider.rotationInput;
                 bodyInputBank.primaryButton.PushState(characterInputProvider.primaryInput);
                 bodyInputBank.secondaryButton.PushState(characterInputProvider.secondaryInput);
+                bodyInputBank.specialButton.PushState(characterInputProvider.specialInput);
             }
         }
     }
@@ -92,5 +97,7 @@ namespace AC
         bool primaryInput { get; }
 
         bool secondaryInput { get; }
+
+        bool specialInput { get; }
     }
 }

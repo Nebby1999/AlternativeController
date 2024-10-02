@@ -8,6 +8,7 @@ namespace AC
         public int rotationInput;
         public Button primaryButton;
         public Button secondaryButton;
+        public Button specialButton;
 
         public struct Button
         {

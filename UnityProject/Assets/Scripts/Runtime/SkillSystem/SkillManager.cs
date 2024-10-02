@@ -11,7 +11,8 @@ namespace AC
     {
         None,
         Primary,
-        Secondary
+        Secondary,
+        Special
     }
     public class SkillManager : MonoBehaviour
     {
@@ -19,6 +20,9 @@ namespace AC
         [SerializeField, ValueLabel("genericSkillName")] private GenericSkill _primary;
         public GenericSkill Secondary => _secondary;
         [SerializeField, ValueLabel("genericSkillName")] private GenericSkill _secondary;
+
+        public GenericSkill Special => _special;
+        [SerializeField, ValueLabel("genericSkillName")] private GenericSkill _special;
 
         private GenericSkill[] _allSkills = Array.Empty<GenericSkill>();
 
@@ -37,6 +41,9 @@ namespace AC
 
             if (genericSkill == _secondary)
                 return SkillSlot.Secondary;
+
+            if (genericSkill == _special)
+                return SkillSlot.Special;
 
             return SkillSlot.None;
         }
@@ -57,6 +64,7 @@ namespace AC
             {
                 case SkillSlot.Primary: return Primary;
                 case SkillSlot.Secondary: return Secondary;
+                case SkillSlot.Special: return Special;
             }
             return null;
         }

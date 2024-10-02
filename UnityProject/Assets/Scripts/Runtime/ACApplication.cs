@@ -24,7 +24,7 @@ namespace AC
             parallelCoroutineTask.Add(EntityStateCatalog.Initialize());
             parallelCoroutineTask.Add(ResourceCatalog.Initialize());
 
-            while (!parallelCoroutineTask.IsDone)
+            while (!parallelCoroutineTask.isDone)
                 yield return null;
         }
     }
