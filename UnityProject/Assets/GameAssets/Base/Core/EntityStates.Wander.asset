@@ -23,5 +23,5 @@ MonoBehaviour:
         objectReferenceValue: {fileID: 0}
         stringValue: 15
   _stateTypeToConfig:
-    _typeName: EntityStates.Wander, AlternativeController.Runtime, Version=0.0.0.0,
+    _typeName: EntityStates.AI.Wander, AlternativeController.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null

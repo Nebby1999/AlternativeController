@@ -1,6 +1,7 @@
 using EntityStates;
 using Nebula;
 using Nebula.Serialization;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,7 +42,24 @@ namespace AC
         public Xoroshiro128Plus aiRNG { get; private set; }
         public EntityStateMachine stateMachine { get; private set; }
         public ResourceDefPreference? resourceDefPreference { get; private set; }
+        public Vector3 currentBodyPosition
+        {
+            get
+            {
+                if (!characterMaster.bodyInstance)
+                    return Vector3.zero;
 
+                return characterMaster.bodyInstance.transform.position;
+            }
+        }
+
+        public AIDriver currentDriver { get; private set; }
+        public AIDriver[] aiDrivers { get; private set; }
+
+        [Header("AI Driver Settings")]
+        public float aiStopwatch;
+
+        [Header("Vision Settings")]
         [Tooltip("How far this AI can see, this is used for LOS checks.")]
         public float visionRange;
         [Tooltip("If this value is false, the los check will return true as long as there's nothing between us and the enemy.")]
@@ -49,6 +67,7 @@ namespace AC
         [Tooltip("The maximum DOT product between a potential new target and the AI's body. This basically governs the angle the AI can look for targets and LOS checks. set to -1 to have a complete 360° vision range")]
         [Range(-1, 1)]
         public float maxDot;
+
 #if DEBUG
         public GameObject testGameObject;
         [Nebula.DisabledField]
@@ -56,6 +75,7 @@ namespace AC
         [Nebula.DisabledField]
         public GameObject currentTargetObject;
 #endif
+        private float _aiStopwatch;
 
         private void Awake()
         {
@@ -63,6 +83,7 @@ namespace AC
             characterMaster = GetComponent<CharacterMaster>();
             stateMachine = GetComponent<EntityStateMachine>();
             resourceDefPreference = GetComponent<ResourceDefPreference>();
+            aiDrivers = GetComponents<AIDriver>();
         }
 
         // Start is called before the first frame update
@@ -80,11 +101,92 @@ namespace AC
             {
                 return;
             }
+
+            _aiStopwatch += Time.fixedDeltaTime;
+            if(_aiStopwatch > aiStopwatch)
+            {
+                _aiStopwatch -= aiStopwatch;
+                BeginAIDriver(EvaluateAIDrivers());
+            }
+
+            HandleNavigation();
+        }
+
+        private AIDriver EvaluateAIDrivers()
+        {
+            for(int i = 0; i < aiDrivers.Length; i++)
+            {
+                var driver = aiDrivers[i];
+                if (!driver.enabled)
+                    continue;
+
+                if(EvaluateSingleDriver(driver))
+                {
+                    return driver;
+                }
+            }
+            return null;
+        }
+
+        private bool EvaluateSingleDriver(AIDriver driver)
+        {
+            Target target = null;
+            if (driver.requiresTarget)
+            {
+                if(driver.targetSelector != null)
+                {
+                    target = driver.targetSelector.GetTarget(this, driver);
+                }
+
+                //If the target selector failed to find a target, return.
+                if (target == null)
+                    return false;
+            }
+
+            //Use current target if no target is available.
+            target ??= currentTarget;
+
+            //We should test if we have LOS to the target if required.
+            if(driver.selectionRequiresLOSToTarget)
+            {
+                if (target == null)
+                    return false;
+
+                if (!target.TestLineOfSight(this))
+                    return false;
+            }
+
+            var distSquared = target.GetDistanceSquared(this);
+
+            //If we need to check for distance, check for it.
+            if (distSquared < driver.minDistanceSqr || distSquared > driver.maxDistanceSqr)
+                return false;
+
+            currentTarget = target;
+            return true;
+        }
+
+        private void BeginAIDriver(AIDriver selectedDriver)
+        {
+            currentDriver = selectedDriver;
+        }
+
+        private void HandleNavigation()
+        {
+            if(currentDriver && !currentDriver.useNavMeshForPathing)
+            {
+                movementVector = (currentBodyPosition - currentTarget.targetPosition).normalized;
+            }
+
+
             navMeshAgent.nextPosition = characterMaster.bodyInstance.transform.position;
             navMeshAgent.speed = characterMaster.bodyInstance.movementSpeed;
 
             if (!navMeshAgent.hasPath)
+            {
+                movementVector = Vector3.zero;
                 return;
+            }
 
             movementVector = navMeshAgent.desiredVelocity.normalized;
         }
@@ -122,7 +224,7 @@ namespace AC
 
         public class Target
         {
-            public Vector3 targetPosition => targetIsObject ? targetTransform.position : _targetPosition;
+            public Vector3 targetPosition => targetIsObject ? targetTransform ? targetTransform.position : _targetPosition : Vector3.zero;
             private Vector3 _targetPosition;
             public bool targetIsObject { get; }
             public GameObject targetObject { get;}
@@ -180,6 +282,11 @@ namespace AC
                     return hitHurtbox == mainHurtBox || hitHurtbox.healthComponent == mainHurtBox.healthComponent;
                 }
                 return !baseAI.losCheckRequiresDirectContactWithTarget;
+            }
+
+            public float GetDistanceSquared(BaseAI baseAI)
+            {
+                return (targetPosition - baseAI.currentBodyPosition).sqrMagnitude;
             }
 
             public Target(GameObject targetObject)

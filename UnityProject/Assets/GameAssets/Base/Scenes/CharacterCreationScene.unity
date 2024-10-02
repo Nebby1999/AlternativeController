@@ -731,7 +731,6 @@ GameObject:
   - component: {fileID: 956842990}
   - component: {fileID: 956842988}
   - component: {fileID: 956842993}
-  - component: {fileID: 956842992}
   - component: {fileID: 956842989}
   m_Layer: 0
   m_Name: BugMaster
@@ -752,7 +751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c7323694fcb13b4180a84ad3577940e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRange: 7
+  visionRange: 10
   losCheckRequiresDirectContactWithTarget: 0
   maxDot: 0.304
   testGameObject: {fileID: 0}
@@ -809,28 +808,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &956842992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 956842987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c621a28143ced204596f958d1fc9506b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  driverName: Wander
-  requiresTarget: 0
-  requiredSlot: 0
-  selectionRequiresLOSToTarget: 0
-  minDistance: 0
-  maxDistance: Infinity
-  _targetType:
-    _typeName: 
-  useNavMeshForPathing: 1
-  buttonPressType: 0
 --- !u!114 &956842993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,10 +822,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateMachineName: AI
   _initialStateType:
-    _typeName: EntityStates.Wander, AlternativeController.Runtime, Version=0.0.0.0,
+    _typeName: EntityStates.AI.Wander, AlternativeController.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   _mainStateType:
-    _typeName: EntityStates.Wander, AlternativeController.Runtime, Version=0.0.0.0,
+    _typeName: EntityStates.AI.Wander, AlternativeController.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1429344844
 GameObject:
@@ -910,7 +887,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.33333334
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 23800000, guid: a657f6b227151894c885ab9028305daa, type: 2}

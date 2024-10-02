@@ -4,9 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Experimental.AI;
 
-namespace EntityStates
+namespace EntityStates.AI
 {
     public class Wander : BaseAIState
     {
@@ -27,6 +26,11 @@ namespace EntityStates
             base.FixedUpdate();
             if (!hasBody)
                 return;
+
+            if(/*baseAI.driverEvaluation.driver*/ false)
+            {
+                outer.SetNextState(new Combat());
+            }
 
             _wanderStopwatch += Time.fixedDeltaTime;
             if (_wanderStopwatch > _waitTime)
@@ -59,16 +63,6 @@ namespace EntityStates
                 baseAI.navMeshAgent.SetPath(path);
             }
             _waitTime /= 2;
-            /*randomDirection += characterBody.transform.position;
-            NavMeshHit hit;
-            Vector3 finalPosition = Vector3.zero;
-            if (NavMesh.SamplePosition(randomDirection, out hit, baseAI.visionRange, NavMesh.AllAreas))
-            {
-                NavMeshPath path = new NavMeshPath();
-                baseAI.navMeshAgent.CalculatePath(hit.position, path);
-                baseAI.navMeshAgent.SetPath(path);
-            }
-            _waitTime /= 2;*/
             return;
         }
     }
