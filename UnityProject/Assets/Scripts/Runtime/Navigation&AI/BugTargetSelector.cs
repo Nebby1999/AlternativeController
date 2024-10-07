@@ -18,6 +18,7 @@ namespace AC
 
         public BaseAI.Target GetTarget(BaseAI baseAI, AIDriver driver)
         {
+            return null;
         }
     }
 }

@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace AC
 {
-    /*public class TankMovementStrategy : IMovementStrategy
+    public class TankMovementStrategy : IMovementStrategy
     {
         public Vehicle vehicle;
         public Transform leftPivot;
         public Transform rightPivot;
         public void Initialize(object sender)
         {
-            if(sender is MonoBehaviour behaviour && behaviour.TryGetComponent<Vehicle>(out vehicle))
+            if (sender is MonoBehaviour behaviour && behaviour.TryGetComponent<Vehicle>(out vehicle))
             {
                 leftPivot = vehicle.leftTrackTransformPoint;
                 rightPivot = vehicle.rightTrackTransformPoint;
@@ -50,5 +50,5 @@ namespace AC
 
             return Vector3.Lerp(leftPivot.position, rightPivot.position, t);
         }
-    }*/
+    }
 }

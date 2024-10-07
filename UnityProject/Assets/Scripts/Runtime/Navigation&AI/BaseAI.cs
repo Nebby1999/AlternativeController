@@ -84,6 +84,7 @@ namespace AC
             stateMachine = GetComponent<EntityStateMachine>();
             resourceDefPreference = GetComponent<ResourceDefPreference>();
             aiDrivers = GetComponents<AIDriver>();
+            aiRNG = new Xoroshiro128Plus(ACApplication.instance.applicationRNG.nextULong);
         }
 
         // Start is called before the first frame update
@@ -92,7 +93,6 @@ namespace AC
             navMeshAgent.updatePosition = false;
             navMeshAgent.updateRotation = false;
             navMeshAgent.updateUpAxis = false;
-            aiRNG = new Xoroshiro128Plus(ACApplication.instance.applicationRNG.nextULong);
         }
 
         private void FixedUpdate()
