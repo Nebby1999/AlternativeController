@@ -40,6 +40,7 @@ namespace AC
         private void Awake()
         {
             targetSelector = (IAITargetSelector)Activator.CreateInstance((Type)_targetType);
+            targetSelector.Initialize(this);
         }
 
         public enum ButtonPressType
