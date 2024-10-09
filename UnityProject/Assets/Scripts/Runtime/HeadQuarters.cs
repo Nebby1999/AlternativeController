@@ -5,22 +5,50 @@ using UnityEngine;
 
 namespace AC
 {
-    //Could be a singleton?
+    /// <summary>
+    /// Representa los Headquarters de los jugadores, uno de los tres jugadores maneja el HQ. y su mision es tener que controlar los recursos de las bases y los estados de los jugadores.
+    /// </summary>
+    //TODO: Pudiera ser un singleton?
     [RequireComponent(typeof(ResourcesManager))]
     [RequireComponent(typeof(HeadQuartersInputProvider))]
     public class HeadQuarters : MonoBehaviour
     {
+        //La cantidad total de vehiculos.
         private const int TOTAL_VEHICLE_COUNT = 1;
+        [Tooltip("Los vehiculos de los jugadores deberian aparecer en Start?")]
         [SerializeField] private bool _spawnVehicleMasterOnStart;
+        [Tooltip("El prefab maestro de los vehiculos")]
         [SerializeField] private PlayableCharacterMaster _vehicleMasterPrefab;
+        [Tooltip("El transform donde los vehiculos aparecen.")]
         [SerializeField] private Transform _vehicleSpawnPosition;
+
+        /// <summary>
+        /// Las bases manejadas por el Headquarters
+        /// </summary>
         public Base[] bases { get; private set; }
+        [Tooltip("La base roja")]
         [SerializeField] private Base _redBase;
+
+        [Tooltip("La base negra")]
         [SerializeField] private Base _blackBase;
+
+        [Tooltip("El tiempo entre intentos de descarga de recursos.")]
         [SerializeField] private float _timeBetweenResourceLoads;
 
+        /// <summary>
+        /// El <see cref="HeadQuartersInputProvider"/> de headquarters
+        /// 
+        /// </summary>
         public HeadQuartersInputProvider inputProvider { get; private set; }
+
+        /// <summary>
+        /// El input actual de headquarters
+        /// </summary>
         public HeadQuartersInputProvider.HQInput inputStruct { get; private set; }
+
+        /// <summary>
+        /// El <see cref="ResourcesManager"/> del HQ
+        /// </summary>
         public ResourcesManager resourcesManager { get; private set; }
 
         private HashSet<Cargo> _cargosOnTrigger = new HashSet<Cargo>();
@@ -80,7 +108,7 @@ namespace AC
             {
                 var vehicleMaster = _vehicleMasters[i];
                 Vehicle vehicleComponent = _cachedVehicleComponents[i];
-                if (!vehicleComponent)
+                if (!vehicleComponent) //Consigue el vehiculo actual del jugador
                 {
                     vehicleComponent = vehicleMaster.bodyInstance ? vehicleMaster.bodyInstance.GetComponent<Vehicle>() : null;
                     _cachedVehicleComponents[i] = vehicleComponent;
@@ -89,6 +117,7 @@ namespace AC
                 if (!vehicleComponent)
                     continue;
 
+                //Cambiar modo de combate del vehiculo
                 switch(i)
                 {
                     case 0:
@@ -113,6 +142,7 @@ namespace AC
 
         private void TryUnloadCargos()
         {
+            //Descarga cualquier cargo que no esta conectado y se encuentra en el trigger
             foreach(var cargo in _cargosOnTrigger)
             {
                 if (cargo.isConnected)
@@ -127,6 +157,7 @@ namespace AC
 
         private void TryLoadChunks()
         {
+            //Ocupa el ChunkSearch para encontrar los ResourceChunks cercanos
             _chunkSearch.FindCandidates()
                 .FilterCandidatesByComponent<ResourceChunk>()
                 .GetResults(out var results);
@@ -171,13 +202,19 @@ namespace AC
 
                 if (input && resourcesManager.UnloadResource(index, 0.04f))
                 {
-                    bases[i].TryLoadMineral(index, 0.04f);
+                    bases[i].TryLoadResource(index, 0.04f);
                 }
             }
         }
 
+        /// <summary>
+        /// <inheritdoc cref="ResourcesManager.LoadResource(ResourceDef, float)"/>
+        /// </summary>
         public bool TryLoadResource(ResourceDef resource, float amount) => TryLoadResource(resource ? resource.resourceIndex : ResourceIndex.None, amount);
 
+        /// <summary>
+        /// <inheritdoc cref="ResourcesManager.LoadResource(ResourceIndex, float)"/>
+        /// </summary>
         public bool TryLoadResource(ResourceIndex index, float amount)
         {
             return resourcesManager.LoadResource(index, amount);

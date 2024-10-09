@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 
 namespace AC
 {
+    /// <summary>
+    /// Un <see cref="PlayableCharacterMaster"/> representa un <see cref="CharacterMaster"/> el cual es controlado por un jugador. Revisa <see cref="CharacterMaster"/> para mas informacion sobre el sistema de Maestros y Cuerpos.
+    /// </summary>
     [RequireComponent(typeof(CharacterMaster))]
     public class PlayableCharacterMaster : MonoBehaviour, ICharacterInputProvider
     {
@@ -17,10 +20,10 @@ namespace AC
 
         public bool specialInput => _rawSpecialInput;
 
-        [SerializeField]
+        [SerializeField, Tooltip("Deberiamos dampear el input del jugador?")]
         private bool _doMovementInputSmoothing;
 
-        [SerializeField]
+        [SerializeField, Tooltip("El tiempo de Dampening que tiene el input del jugador.")]
         private float _movementInputSmoothingTime;
 
         private float _leftTrackInputSpeed;

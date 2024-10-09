@@ -4,6 +4,7 @@ using System;
 namespace States
 {
 
+    [Obsolete]
     public abstract class State<TState, TContext> where TState : Enum where TContext : StateManager<TState, TContext>
     {
         protected TContext Context {get; private set;}

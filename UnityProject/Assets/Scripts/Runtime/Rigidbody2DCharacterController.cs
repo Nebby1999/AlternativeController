@@ -6,18 +6,49 @@ using UnityEngine;
 
 namespace AC
 {
+    /// <summary>
+    /// Una implementacion de <see cref="IRigidbody2DMotorController"/> el cual es usado para controlar un <see cref="Rigidbody2DMotor"/>
+    /// </summary>
     [RequireComponent(typeof(Rigidbody2DMotor), typeof(CharacterBody))]
     public class Rigidbody2DCharacterController : MonoBehaviour, IRigidbody2DMotorController
     {
+        [Tooltip("Que tecnica te movimiento usa este controlador para controlar el motor.")]
         [SerializeField, SerializableSystemType.RequiredBaseType(typeof(IMovementStrategy))]
         private SerializableSystemType _serializedMovementStrategy;
 
+        /// <summary>
+        /// El input actual de rotacion, donde -1 es rotar contra las manillas del reloj, y 1 es rotar con las manillas del reloj
+        /// </summary>
         public int rotationInput { get; set; }
+
+        /// <summary>
+        /// La direccion de movimiento deseada
+        /// </summary>
         public Vector2 movementDirection { get; set; }
+
+        /// <summary>
+        /// La velocidad actual del controlador
+        /// </summary>
         public Vector2 velocity { get; set; }
+
+        /// <summary>
+        /// La rotacion actual del controlador.
+        /// </summary>
         public float rotation { get; set; }
+
+        /// <summary>
+        /// El motor que este controlador esta controlando.
+        /// </summary>
         public Rigidbody2DMotor rigidbody2DMotor { get; private set; }
+
+        /// <summary>
+        /// El <see cref="CharacterBody"/> asociado con este controlador.
+        /// </summary>
         public CharacterBody characterBody { get; private set; }
+
+        /// <summary>
+        /// La velocidad de movimiento de este controlador.
+        /// </summary>
         public float movementSpeed => characterBody.movementSpeed;
 
         private IMovementStrategy _movementStrategy;

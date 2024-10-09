@@ -7,8 +7,14 @@ using System.Threading.Tasks;
 
 namespace AC
 {
+    /// <summary>
+    /// Una clase que representa un trabajo que usa una Coroutina
+    /// </summary>
     public class CoroutineTask : IEnumerator
     {
+        /// <summary>
+        /// Retorna true si la coroutina termino de ejecutarse
+        /// </summary>
         public bool isDone => !_internalCoroutine.MoveNext();
         private IEnumerator _internalCoroutine;
         object IEnumerator.Current => _internalCoroutine?.Current;
@@ -23,26 +29,43 @@ namespace AC
             _internalCoroutine?.Reset();
         }
 
-
+        /// <summary>
+        /// Constructor de Coroutine Task
+        /// </summary>
+        /// <param name="internalCoroutine">La coroutina usada en esta clase</param>
         public CoroutineTask(IEnumerator internalCoroutine)
         {
             _internalCoroutine = internalCoroutine;
         }
     }
 
+    /// <summary>
+    /// Una clase que epresenta una cantidad X de trabajos usando una Coroutina.
+    /// <br>Las coroutinas agregadas a esto son ejecutadas en paralelo</br>
+    /// </summary>
     public class ParallelCoroutineTask : IEnumerator
     {
+        /// <summary>
+        /// Retorna true si todas las sub-rutinas estan completas
+        /// </summary>
         public bool isDone => !_internalCoroutine.MoveNext();
 
         private readonly List<IEnumerator> _coroutinesList = new List<IEnumerator>();
         private IEnumerator _internalCoroutine;
         object IEnumerator.Current => _internalCoroutine.Current;
 
+        /// <summary>
+        /// Constructor de Parallel Coroutine Task
+        /// </summary>
         public ParallelCoroutineTask()
         {
             _internalCoroutine = InternalCoroutine();
         }
 
+        /// <summary>
+        /// Agrega una nueva coroutina para ejecutar en paralelo
+        /// </summary>
+        /// <param name="coroutine">La coroutina a ejecutar</param>
         public void Add(IEnumerator coroutine)
         {
             _coroutinesList.Add(coroutine);

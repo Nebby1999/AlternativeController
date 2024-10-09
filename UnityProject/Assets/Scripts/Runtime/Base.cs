@@ -5,18 +5,25 @@ using UnityEngine;
 
 namespace AC
 {
+    /// <summary>
+    /// Representa una Base dentro de la escena, el cual consume recursos y el <see cref="HeadQuarters"/> junto con los jugadores en <see cref="Vehicle"/> deben mantener vivos dandoles recursos.
+    /// </summary>
     [RequireComponent(typeof(ResourcesManager))]
     public class Base : MonoBehaviour
     {
-        [Tooltip("The name of this base, used for UI.")]
+        [Tooltip("El nombre de la base, se usa en la UI")]
         public string baseName;
+        [Tooltip("El tipo de recurso que la base ocupa")]
         [SerializeField] private ResourceDef _type;
-        [Tooltip("The base starts with this amount of resources")]
+        [Tooltip("La base empieza con esta cantidad de recursos al comienzo")]
         [SerializeField] private float _startingResources;
-        [Tooltip("The base consumes this amount of resources per second")]
+        [Tooltip("La base consume esta cantidad de recursos por segundo")]
         [SerializeField] private float _resourceLossPerSecond;
         private SpriteRenderer _sprite;
 
+        /// <summary>
+        /// El <see cref="ResourcesManager"/> relacionado con esta base.
+        /// </summary>
         public ResourcesManager resourcesManager => _resources;
         private ResourcesManager _resources;
 
@@ -55,8 +62,15 @@ namespace AC
             _resources.UnloadResource(_type, _resourceLossPerSecond * Time.fixedDeltaTime);
         }
 
-        public void TryLoadMineral(ResourceDef resourceDef, float amount) => TryLoadMineral(resourceDef.resourceIndex, amount);
-        public void TryLoadMineral(ResourceIndex resourceIndex, float amount)
+        /// <summary>
+        /// <inheritdoc cref="ResourcesManager.LoadResource(ResourceDef, float)"/>
+        /// </summary>
+        public void TryLoadResource(ResourceDef resourceDef, float amount) => TryLoadResource(resourceDef.resourceIndex, amount);
+
+        /// <summary>
+        /// <inheritdoc cref="ResourcesManager.LoadResource(ResourceIndex, float)"/>
+        /// </summary>
+        public void TryLoadResource(ResourceIndex resourceIndex, float amount)
         {
             _resources.LoadResource(resourceIndex, amount);
         }

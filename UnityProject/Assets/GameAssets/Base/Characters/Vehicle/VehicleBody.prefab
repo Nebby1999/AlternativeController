@@ -578,7 +578,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftTrackTransformPoint: {fileID: 1012000568634970355}
   rightTrackTransformPoint: {fileID: 175262947001310262}
-  _accelerationTime: 1
   _skillReplacements:
   - slotToReplace: 1
     skillNameWhenSlotIsNone: 
@@ -592,7 +591,7 @@ MonoBehaviour:
   _passiveHeatDissipation: 1
   _stateMachinesToStun:
   - {fileID: 697716576412428574}
-  _heatRenderer: {fileID: 8445267759746050034}
+  _heatRenderers: []
   _heatGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}

@@ -5,8 +5,8 @@ using UnityEngine;
 namespace AC
 {
     /// <summary>
-    /// Singleton class that manages rendering meshes in a Vector fashion.
-    /// <br>Renderers can be added or removed using <see cref="AddRenderer(VectorRendererManager.IVectorRendererDataProvider)"/> and <see cref="RemoveRenderer(VectorRendererManager.IVectorRendererDataProvider)"/> respectively.</br>
+    /// Clase Singleton que maneja el renderizado de meshes en un estilo Vectorial.
+    /// <br>Renderes se pueden agregar o quitar usando <see cref="AddRenderer(VectorRendererManager.IVectorRendererDataProvider)"/> y <see cref="RemoveRenderer(VectorRendererManager.IVectorRendererDataProvider)"/> respectivamente.</br>
     /// </summary>
     public class VectorRendererManager : SingletonMonoBehaviour<VectorRendererManager>
     {
@@ -15,7 +15,7 @@ namespace AC
         private int _drawQueue;
 
         /// <summary>
-        /// Adds the <paramref name="provider"/> to the List of data providers.
+        /// Añade <paramref name="provider"/> a la lista de proveedores de data.
         /// </summary>
         public void AddRenderer(IVectorRendererDataProvider provider)
         {
@@ -23,14 +23,14 @@ namespace AC
         }
 
         /// <summary>
-        /// Removes the <paramref name="provider"/> from the list of data providers.
+        /// Quita <paramref name="provider"/> de la lista de proveedores de data.
         /// </summary>
         public void RemoveRenderer(IVectorRendererDataProvider provider)
         {
             _dataProvider.Remove(provider);
         }
 
-        //This code, and the method "DoRender" where taken and modified from the code found in this blogpost, which is part of the Design Document's visual references: https://www.indiedb.com/games/paradox-vector/tutorials/making-a-modern-vector-graphics-game
+        //Este codigo y el metodo "DoRender" fueron sacados y modificados del codigo de este blogpost, el cual es parte del DesignDocument.: https://www.indiedb.com/games/paradox-vector/tutorials/making-a-modern-vector-graphics-game
         private void OnRenderObject()
         {
             for(int i = 0; i < _dataProvider.Count; i++)
@@ -80,13 +80,25 @@ namespace AC
         }
 
         /// <summary>
-        /// Interface to declare that a class or a struct provides the necesary metadata for drawing a mesh in a vector style.
+        /// Interfaz que declara que una clase o estructura provee la metadata necesaria para dibujar un Mesh en vectores.
         /// </summary>
         public interface IVectorRendererDataProvider
         {
+            /// <summary>
+            /// La matriz usada para renderizar
+            /// </summary>
             Matrix4x4 localToWorldMatrix { get; }
+            /// <summary>
+            /// El renderer que vamos a renderizar
+            /// </summary>
             Renderer renderer { get; }
+            /// <summary>
+            /// El material que se usara en el mesh en si
+            /// </summary>
             Material meshMaterial { get; }
+            /// <summary>
+            /// El material que se usara para los "cables" de vectores.
+            /// </summary>
             Material wireMaterial { get; }
             Vector3[] renderQueue { get; }
             int drawStart { get; }

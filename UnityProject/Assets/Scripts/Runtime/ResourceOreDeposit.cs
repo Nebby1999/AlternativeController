@@ -3,12 +3,27 @@ using UnityEngine;
 
 namespace AC
 {
+    /// <summary>
+    /// Representa un deposito de minerales.
+    /// </summary>
     public class ResourceOreDeposit : MonoBehaviour, IHarvestable
     {
+        [Tooltip("La cantidad de recursos guardados en este deposito.")]
         [SerializeField] private int _resourcesCount;
+
+        /// <summary>
+        /// Cuantos recursos le quedan al deposito.
+        /// </summary>
         public int resourceRemaining { get; private set; }
+
+        /// <summary>
+        /// El tipo de recurso en este deposito
+        /// </summary>
         public ResourceDef resourceType => _resourceType;
+        [Tooltip("El tipo de recurso de este deposito")]
         [SerializeField] private ResourceDef _resourceType;
+
+        [Tooltip("Renderer para el deposito.")]
         [SerializeField] private SpriteRenderer _spriteRenderer;
         private Vector3 _originalSize;
 

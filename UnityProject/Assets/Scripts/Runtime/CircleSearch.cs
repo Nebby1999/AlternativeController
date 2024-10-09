@@ -9,16 +9,43 @@ using static AC.CircleSearch;
 
 namespace AC
 {
+    /// <summary>
+    /// Clase usada para encontrar objetos varios con colliders dentro del mundo.
+    /// </summary>
     public class CircleSearch
     {
+        /// <summary>
+        /// El radio de busqueda
+        /// </summary>
         public float radius;
+
+        /// <summary>
+        /// El punto de origen de la busqueda
+        /// </summary>
         public Vector3 origin;
+
+        /// <summary>
+        /// Que layers se deberian usar en el proceso de busqueda
+        /// </summary>
         public LayerMask candidateMask;
+
+        /// <summary>
+        /// Si el proceso de busqueda ocupa colliders tipo Trigger.
+        /// </summary>
         public bool useTriggers;
+
+        /// <summary>
+        /// El objeto ejecutando la busqueda
+        /// </summary>
         public GameObject searcher;
 
         private List<Collider2D> _colliders = new List<Collider2D>();
         private List<Candidate> _candidates;
+
+        /// <summary>
+        /// Metodo conectable que encuentra los candidatos base para luego filtrarlos
+        /// </summary>
+        /// <returns>La instancia actual de CircleSearch</returns>
         public CircleSearch FindCandidates()
         {
             _candidates = new List<Candidate>();
@@ -45,11 +72,21 @@ namespace AC
             return this;
         }
 
+        /// <summary>
+        /// Filtra todo <see cref="Candidate"/> que no tenga el componente <typeparamref name="T"/>
+        /// </summary>
+        /// <typeparam name="T">El tipo de componente que los candidatos deberian tener</typeparam>
+        /// <returns>La instancia actual de CircleSearch</returns>
         public CircleSearch FilterCandidatesByComponent<T>()
         {
             return FilterCandidatesByComponent(typeof(T));
         }
 
+        /// <summary>
+        /// Filtra todo <see cref="Candidate"/> que no tenga el componente <paramref name="componentType"/>
+        /// </summary>
+        /// <param name="componentType">El tipo de componente que los candidatos deberian tener</param>
+        /// <returns>La instancia actual de CircleSearch</returns>
         public CircleSearch FilterCandidatesByComponent(Type componentType)
         {
             ThrowIfCandidateListNull();
@@ -66,6 +103,12 @@ namespace AC
             }
             return this;
         }
+
+        /// <summary>
+        /// Filtra todo <see cref="Candidate"/> que no tenga una linea de vision directa entre <see cref="searcher"/> y el candidato
+        /// </summary>
+        /// <param name="obstacleMask">Una mascara que identifica objetos que son obstaculos</param>
+        /// <returns>La instancia actual de CircleSearch</returns>
         public CircleSearch FilterCandidatesByLOS(LayerMask obstacleMask)
         {
             ThrowIfCandidateListNull();
@@ -81,6 +124,10 @@ namespace AC
             return this;
         }
 
+        /// <summary>
+        /// Filtra todo <see cref="Candidate"/> que no tenga un <see cref="HurtBox"/> o un <see cref="HealthComponent"/>
+        /// </summary>
+        /// <returns>La instancia actual de CircleSearch</returns>
         public CircleSearch FilterCandidatesByDistinctHealthComponent()
         {
             ThrowIfCandidateListNull();
@@ -112,14 +159,19 @@ namespace AC
             return this;
         }
 
-        public CircleSearch FilterCandidatesByTeam(string teamName)
+        /// <summary>
+        /// Filtra todo <see cref="Candidate"/> que no tenga el tag <paramref name="tagName"/>
+        /// </summary>
+        /// <param name="tagName">El tag para filtrar</param>
+        /// <returns>La instancia actual de CircleSearch</returns>
+        public CircleSearch FilterCandidatesByTag(string tagName)
         {
             ThrowIfCandidateListNull();
 
             for (int i = _candidates.Count - 1; i >= 0; i--)
             {
                 var candidate = _candidates[i];
-                if (!candidate.entityObject.CompareTag(teamName))
+                if (!candidate.entityObject.CompareTag(tagName))
                 {
                     _candidates.RemoveAt(i);
                 }
@@ -127,6 +179,11 @@ namespace AC
             return this;
         }
 
+        /// <summary>
+        /// Filtra todo <see cref="Candidate"/> que el <paramref name="predicate"/> retorne falso
+        /// </summary>
+        /// <param name="predicate">Una funcion que devuelve True si el candidato para el filtro, o False si no pasa el filtro.</param>
+        /// <returns>La instancia actual de CircleSearch</returns>
         public CircleSearch FilterBy(Func<Candidate, bool> predicate)
         {
             ThrowIfCandidateListNull();
@@ -141,6 +198,10 @@ namespace AC
             return this;
         }
 
+        /// <summary>
+        /// Ordena los <see cref="Candidate"/> por distancia
+        /// </summary>
+        /// <returns>La instancia actual de CircleSearch</returns>
         public CircleSearch OrderByDistance()
         {
             ThrowIfCandidateListNull();
@@ -148,6 +209,10 @@ namespace AC
             return this;
         }
 
+        /// <summary>
+        /// Filtra <see cref="searcher"/> de la lista de <see cref="Candidate"/>
+        /// </summary>
+        /// <returns>La instancia actual de CircleSearch</returns>
         public CircleSearch FilterSearcher()
         {
             ThrowIfCandidateListNull();
@@ -162,6 +227,11 @@ namespace AC
             return this;
         }
 
+        /// <summary>
+        /// Obtiene los resultados actuales del CircleSearch
+        /// </summary>
+        /// <param name="results">Los candidatos actuales</param>
+        /// <returns>La instancia actual de CircleSearch</returns>
         public CircleSearch GetResults(out List<Candidate> results)
         {
             ThrowIfCandidateListNull();
@@ -180,6 +250,11 @@ namespace AC
                 throw new NullReferenceException("Candidate List not made, call FindCandidates first.");
         }
 
+        /// <summary>
+        /// Retorna el primer candidato en la lista
+        /// </summary>
+        /// <param name="candidate">El primer candidato de la lista</param>
+        /// <returns>La instancia actual de CircleSearch</returns>
         public CircleSearch FirstOrDefault(out Candidate candidate)
         {
             ThrowIfCandidateListNull();
@@ -187,15 +262,36 @@ namespace AC
             return this;
         }
 
+        /// <summary>
+        /// Representa un Candidato en la busqueda
+        /// </summary>
         public struct Candidate
         {
+            /// <summary>
+            /// El collider que encontramos
+            /// </summary>
             public Collider2D collider;
+            /// <summary>
+            /// El objeto "Entidad", este tipo de objeto usualmente es el objeto principal del candidato. Por ejemplo, si <see cref="colliderHurtbox"/> no es null, entonces <see cref="entityObject"/> es el GameObject con un <see cref="HealthComponent"/>
+            /// </summary>
             public GameObject entityObject;
+            /// <summary>
+            /// La psoicion del candidato
+            /// </summary>
             public Vector3 position;
+            /// <summary>
+            /// La distancia al cuadrado entre el buscador y el candidato
+            /// </summary>
             public float distanceSqr;
+            /// <summary>
+            /// La hurtbox encontrada en el <see cref="collider"/>, puede ser null
+            /// </summary>
             public HurtBox colliderHurtbox;
 
 #nullable enable
+            /// <summary>
+            /// El componente escojido durante una llamada a <see cref="FilterCandidatesByComponent{T}()"/> o <see cref="FilterCandidatesByComponent(Type)"/>
+            /// </summary>
             public Component? componentChosenDuringFilterByComponent;
 #nullable disable
         }

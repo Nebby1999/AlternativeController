@@ -5,7 +5,8 @@ using UnityEngine;
 namespace States
 {
 
-public abstract class StateManager<TState, TContext> : MonoBehaviour where TState : Enum where TContext : StateManager<TState, TContext>
+    [Obsolete]
+    public abstract class StateManager<TState, TContext> : MonoBehaviour where TState : Enum where TContext : StateManager<TState, TContext>
 {
     protected TContext Context { get; private set; }
     protected Dictionary<TState, State<TState, TContext>> States = new Dictionary<TState, State<TState, TContext>>();

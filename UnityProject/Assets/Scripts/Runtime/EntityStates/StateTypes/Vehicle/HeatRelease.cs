@@ -46,7 +46,7 @@ namespace EntityStates.Vehicle
             search.FindCandidates()
                 .FilterCandidatesByDistinctHealthComponent()
                 .FilterSearcher()
-                .FilterCandidatesByTeam(GameTags.ENEMY_TEAM)
+                .FilterCandidatesByTag(GameTags.ENEMY_TEAM)
                 .GetResults(out var toStun);
 
             vehicle.RemoveHeat(vehicle.heat);

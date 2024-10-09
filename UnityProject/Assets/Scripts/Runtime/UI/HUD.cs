@@ -3,9 +3,15 @@ using UnityEngine.EventSystems;
 
 namespace AC
 {
+    /// <summary>
+    /// Clase que representa un HeadsUpDisplay
+    /// </summary>
     [RequireComponent(typeof(Canvas))]
     public class HUD : UIBehaviour
     {
+        /// <summary>
+        /// Todos los HUDElements que hay en el HUD
+        /// </summary>
         public IHUDElement[] hudElements { get; private set; }
 
         protected override void Awake()

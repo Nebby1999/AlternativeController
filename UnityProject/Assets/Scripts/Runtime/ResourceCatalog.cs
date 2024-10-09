@@ -11,21 +11,23 @@ using UnityEngine.AddressableAssets;
 namespace AC
 {
     /// <summary>
-    /// Catalog which manages and contains all the ResourceDefs of the game
+    /// Catalogo que contiene y maneja todos los recursos del juego.
+    /// 
+    /// <br>Inicializado por <see cref="ACApplication.C_LoadGameContent"/></br>
     /// </summary>
     public static class ResourceCatalog
     {
         /// <summary>
-        /// Obtain the total amount of ResourceDefs currently stored in the catalog.
+        /// Retorna la cantidad total de <see cref="ResourceDef"/>s en el catalogo.
         /// </summary>
         public static int resourceCount => _resourceDefs.Length;
         public static ReadOnlyCollection<ResourceDef> resourceDefs;
         private static ResourceDef[] _resourceDefs = Array.Empty<ResourceDef>();
-        //A dictionary to store the ResourceIndex and to be able to find them using just the name of the resource.
+        //Un diccionario que se usa para conseguir un ResourceIndex a partir del nombre del recurso.
         private static Dictionary<string, ResourceIndex> _resourceNameToIndex = new Dictionary<string, ResourceIndex>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
-        /// Event which can be subscribed so code can run once the Catalog becomes Available.
+        /// Evento el cual uno se puede subscribir para correr codigo cuando el Catalog completa su inicializacion.
         /// </summary>
         public static event Action onAvailable
         {
@@ -46,15 +48,15 @@ namespace AC
         private static event Action _onAvailable;
 
         /// <summary>
-        /// returns wether or not the catalog has been initialized and it's currently available.
+        /// Booleano que representa si el catalogo esta inicializado y esta actualmente disponible.
         /// </summary>
         public static bool initialized { get; private set; }
 
         /// <summary>
-        /// Returns the ResourceDef associated with the specified index. An index can be obtained at the runtime level using <see cref="FindResource(string)"/>
+        /// Retorna el <see cref="ResourceDef"/> asociado con el indice <paramref name="index"/>. Un <see cref="ResourceIndex"/> se puede conseguir usando <see cref="FindResource(string)"/>
         /// </summary>
-        /// <param name="index">The index to use</param>
-        /// <returns>The associated ResourceDef, if ResourceIndex is None, out of range, or the catalog hasn't initialized, it returns null.</returns>
+        /// <param name="index">El indice a usar</param>
+        /// <returns>El ResourceDef asociado al indice, si <paramref name="index"/> es <see cref="ResourceIndex.None"/>, esta fuera del rango aceptable, o el catalogo no esta inicializado, retorna null.</returns>
         public static ResourceDef GetResourceDef(ResourceIndex index)
         {
             if (!initialized)
@@ -68,10 +70,10 @@ namespace AC
         }
 
         /// <summary>
-        /// Finds the Index for a specified resource. The resource's ResourceDef then can be obtained using <see cref="GetResourceDef(ResourceIndex)"/>
+        /// Encuentra el indice de un recurso en especifico, el <see cref="ResourceDef"/> del recurso se puede conseguir usando <see cref="GetResourceDef(ResourceIndex)"/>
         /// </summary>
-        /// <param name="resourceDefName">The name of the resource</param>
-        /// <returns>A valid resource index, or <see cref="ResourceIndex.None"/> if no match was found OR if the catalog is not initialized</returns>
+        /// <param name="resourceDefName">El nombre del recurso</param>
+        /// <returns>Un indice valido, o <see cref="ResourceIndex.None"/> si no se encontro un recurso con el nombre especificado, o si el catalogo no esta inicializado.</returns>
         public static ResourceIndex FindResource(string resourceDefName)
         {
             if (!initialized)
@@ -81,8 +83,9 @@ namespace AC
         }
 
         /// <summary>
-        /// Initializes the ResourceCatalog.
+        /// Inicializa el <see cref="ResourceCatalog"/>
         /// </summary>
+        /// <returns>Un Coroutine el cual se puede procesar.</returns>
         internal static CoroutineTask Initialize()
         {
             if (initialized)
@@ -135,7 +138,5 @@ namespace AC
                 }
             }
         }
-        //TODO: Decide wether to use Resources folder or Addressables.
-        private static ResourceDef[] LoadResourceDefs() => new ResourceDef[0];
     }
 }

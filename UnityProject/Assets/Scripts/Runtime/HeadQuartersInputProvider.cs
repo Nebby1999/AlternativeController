@@ -4,29 +4,39 @@ using UnityEngine.InputSystem;
 
 namespace AC
 {
+    /// <summary>
+    /// Un provider el cual consigue los inputs del <see cref="HeadQuarters"/>
+    /// </summary>
     [RequireComponent(typeof(PlayerInput))]
     public class HeadQuartersInputProvider : MonoBehaviour
     {
+        /// <summary>
+        /// El PlayerInput asociado a este componente
+        /// </summary>
         public PlayerInput playerInput { get; private set; }
 
         private bool _isUsingKeyboardScheme;
         private bool _obtainedActions = false;
 
 #if DEBUG
+        [Tooltip("El vehiculo 1 esta en estado de combate?")]
         [SerializeField]
 #endif
         private bool _isInBattleState1;
 #if DEBUG
+        [Tooltip("El vehiculo 2 esta en estado de combate?")]
         [SerializeField]
 #endif
         private bool _isInBattleState2;
 
 #if DEBUG
+        [Tooltip("Los recursos rojos a que base deben ir?")]
         [SerializeField, Range(-1, 1)]
 #endif
         private int _redResourceRouting;
 
 #if DEBUG
+        [Tooltip("Los recursos negros a que base deben ir?")]
         [SerializeField, Range(-1, 1)]
 #endif
         private int _blackResourceRouting;
@@ -35,24 +45,11 @@ namespace AC
         {
             playerInput = GetComponent<PlayerInput>();
         }
-
-#if DEBUG
-        private void OnGUI()
-        {
-            /*_isInBattleState1 = GUILayout.Toggle(_isInBattleState1, "Is in Battle State 1");
-            _isInBattleState2 = GUILayout.Toggle(_isInBattleState2, "Is in Battle State 2 (UNUSED)");
-            GUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
-            GUILayout.Label("Black Resource Routing: " + _blackResourceRouting);
-            _blackResourceRouting = Mathf.RoundToInt(GUILayout.HorizontalScrollbar(_blackResourceRouting, 0.25f, -1, 1));
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Red Resource Routing: " + _redResourceRouting);
-            _redResourceRouting = Mathf.RoundToInt(GUILayout.HorizontalScrollbar(_redResourceRouting, 0.25f, -1, 1));
-            GUILayout.EndHorizontal();*/
-        }
-#endif
-
+        
+        /// <summary>
+        /// Consigue los input actuales del Headquarters
+        /// </summary>
+        /// <returns><see cref="HQInput"/></returns>
         public HQInput GetInputs()
         {
             return new HQInput()
@@ -64,12 +61,29 @@ namespace AC
             };
         }
 
+        /// <summary>
+        /// Estructura que representa los inputs del Headquarters
+        /// </summary>
         public struct HQInput
         {
+            /// <summary>
+            /// Revisa si el vehiculo 1 esta en modo de combate o no
+            /// </summary>
             public bool vehicle1CombatMode { get; init; }
+
+            /// <summary>
+            /// El vehiculo 2 esta en modo de combate?
+            /// </summary>
             public bool vehicle2CombatMode { get; init; }
 
+            /// <summary>
+            /// A que base el recurso rojo va
+            /// </summary>
             public int redResourceDestination { get; init; }
+
+            /// <summary>
+            /// A que base el recurso negro va
+            /// </summary>
             public int blackResourceDestination { get; init; }
         }
     }

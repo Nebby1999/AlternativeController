@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace AC
 {
+    /// <summary>
+    /// Behaviour que maneja la UI de un REsourcesManager, usado tanto para mostrar los recursos de las bases y del HQ
+    /// </summary>
     public class ResourcesUI : MonoBehaviour, IHUDElement
     {
-        [Tooltip("If this array is empty, then ALL teh resources within the manager are printed.")]
+        [Tooltip("Si este arreglo esta vacio, entonces TODOS los recursos dentro del ResourceManager se mostraran en la UI.")]
         public ResourceDef[] resourcesToPrint;
-        [Tooltip("The resources manager that this behaviour reads")]
+        [Tooltip("El ResourcesManager que este behaviour lee")]
         public ResourcesManager tiedResources;
-        [Tooltip("The Text component that displays the resources")]
+        [Tooltip("El texto en si que muestra la informacion a los jugadores.")]
         public TextMeshProUGUI textMesh;
         public HUD parentHud { get; set; }
 
@@ -29,7 +32,7 @@ namespace AC
             _formattingString += "\n{0}";
         }
 
-        //I dislike working with strings honestly... oh well
+        //Odio trabajar con strings... ya que...
         private void Update()
         {
             if(resourcesToPrint.Length == 0)

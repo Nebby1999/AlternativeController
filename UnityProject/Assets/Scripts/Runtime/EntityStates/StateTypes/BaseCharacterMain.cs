@@ -29,9 +29,9 @@ namespace EntityStates
         {
             if(hasSkillManager)
             {
-                HandleSkill(skillManager.Primary, ref inputBank.primaryButton);
-                HandleSkill(skillManager.Secondary, ref inputBank.secondaryButton);
-                HandleSkill(skillManager.Special, ref inputBank.specialButton);
+                HandleSkill(skillManager.primary, ref inputBank.primaryButton);
+                HandleSkill(skillManager.secondary, ref inputBank.secondaryButton);
+                HandleSkill(skillManager.special, ref inputBank.specialButton);
             }
             moveVector = Vector2.zero;
         }

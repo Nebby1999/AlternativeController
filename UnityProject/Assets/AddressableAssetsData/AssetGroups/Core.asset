@@ -38,16 +38,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - EntityStateConfigurations
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a76607add767513459bb0db046648f1a
-    m_Address: GameAssets/Base/Core/HUD.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e392cb227767e9a49b7974175bb8d1cc
-    m_Address: GameAssets/Base/Core/ResourcesManagerUI.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6477d9c2a480c854da50689a56322cfa, type: 2}
   m_SchemaSet:

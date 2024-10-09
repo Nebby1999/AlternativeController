@@ -5,27 +5,27 @@ using UnityEngine;
 namespace AC
 {
     /// <summary>
-    /// Note: Actual rendering is done inside <see cref="VectorRendererManager.OnRenderObject"/> for optimziation purposes.
+    /// Representa una data de Vectores que es renderizado usando <see cref="VectorRendererManager"/>
+    /// Nota: el renderizado en si se ejecuta en <see cref="VectorRendererManager.OnRenderObject"/> por motivos de optimizacion.
     /// </summary>
     [RequireComponent(typeof(MeshFilter))]
     public class VectorRendererData : MonoBehaviour, VectorRendererManager.IVectorRendererDataProvider
     {
-        //this method allows for two separate colors to be drawn on one model
-        //since different models may have different vertex numbers, I made these public so they
-        //can be assigned in the editor
-        [Tooltip("The first vertex to be drawn in the first color")]
+        [Tooltip("El primer vertice a dibujar con el primer color.")]
         public int drawStart;
-        [Tooltip("The last vertex to be drawn in the first color")]
+        [Tooltip("El ultimo vertex a dibujar con el primer color")]
         public int drawStop;
 
-        [Tooltip("The first vertex to be draw in the second color")]
+        [Tooltip("El primer vertice a dibujar con el segundo color.")]
         public int drawStart2;
-        [Tooltip("The last vertex to be drawin in the second color")]
+        [Tooltip("El ultimo vertex a dibujar con el segundo color")]
         public int drawStop2;//stores the last vertex to be drawn in the second color
 
         private int _drawQueue = 0;
 
-
+        /// <summary>
+        /// El mesh filter el cual contiene el Mesh a renderizar
+        /// </summary>
         public MeshFilter meshFilter { get; private set; }
 
         //This method uses materials to choose the colors
