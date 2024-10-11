@@ -2,8 +2,12 @@ using AC;
 
 namespace EntityStates.Vehicle
 {
+    /// <summary>
+    /// Estado de vehiculo el cual marca que un vehiculo esta defendiendo
+    /// </summary>
     public class Defend : BaseVehicleSkillState
     {
+        //TODO: Deberia aparecer una burbuja que da la idea de un escudo, y esta ser destruida cuando el estado acaba
         public override void OnEnter()
         {
             base.OnEnter();

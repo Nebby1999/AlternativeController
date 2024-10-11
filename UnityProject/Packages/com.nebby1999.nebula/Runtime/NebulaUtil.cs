@@ -5,8 +5,14 @@ using UnityEngine;
 
 namespace Nebula
 {
+    /// <summary>
+    /// Representa metodos de utilidad de unity
+    /// </summary>
     public static class NebulaUtil
     {
+        /// <summary>
+        /// Devleuvle la camara principal que se esta usando en este momento.
+        /// </summary>
         public static Camera mainCamera
         {
             get
@@ -19,6 +25,11 @@ namespace Nebula
         private static Camera _mainCamera;
 
 #if UNITY_EDITOR
+        /// <summary>
+        /// Propiedad exclusiva de modo editor.
+        /// <br></br>
+        /// Devuelve a la camara que esta en el SceneView
+        /// </summary>
         public static Camera sceneCamera
         {
             get
@@ -31,6 +42,13 @@ namespace Nebula
         private static Camera _sceneCamera;
 #endif
 
+        /// <summary>
+        /// Calcula el <see cref="Bounds"/> de un objeto usando sus colliders inmediatos
+        /// </summary>
+        /// <param name="obj">El objeto a calcular sus bounds</param>
+        /// <param name="includeChildren">Si se deberian incluir colliders hijos en la busqueda</param>
+        /// <param name="ignorePredicate">Un predicado para ver si un collider deberia ser ignorado</param>
+        /// <returns>Los <see cref="Bounds"/> del objeto</returns>
         public static Bounds CalculateColliderBounds(GameObject obj, bool includeChildren, Func<Collider, bool> ignorePredicate = null)
         {
             Physics.SyncTransforms();
@@ -49,6 +67,14 @@ namespace Nebula
             return bounds;
         }
 
+
+        /// <summary>
+        /// Calcula el <see cref="Bounds"/> de un objeto usando sus renderers inmediatos
+        /// </summary>
+        /// <param name="obj">El objeto a calcular sus bounds</param>
+        /// <param name="includeChildren">Si se deberian incluir renderers hijos en la busqueda</param>
+        /// <param name="ignorePredicate">Un predicado para ver si un renderers deberia ser ignorado</param>
+        /// <returns>Los <see cref="Bounds"/> del objeto</returns>
         public static Bounds CalculateRendererBounds(GameObject obj, bool includeChildren, Func<Renderer, bool> ignorePredicate = null)
         {
             var renderers = includeChildren ? obj.GetComponentsInChildren<Renderer>(true) : obj.GetComponents<Renderer>();
@@ -66,6 +92,9 @@ namespace Nebula
             return bounds;
         }
 
+        /// <summary>
+        /// Equivalente a <see cref="Quaternion.LookRotation(Vector3)"/>, pero se asegura de no usar un Vector3 de valor insignificante (sqrMagnitude <= Mathf.Epsilon)
+        /// </summary>
         public static Quaternion SafeLookRotation(Vector3 forward)
         {
             Quaternion result = Quaternion.identity;
@@ -76,6 +105,9 @@ namespace Nebula
             return result;
         }
 
+        /// <summary>
+        /// Equivalente a <see cref="Quaternion.LookRotation(Vector3, Vector3)"/>, pero se asegura de no usar un Vector3 <paramref name="forward"/> de valor insignificante (sqrMagnitude <= Mathf.Epsilon)
+        /// </summary>
         public static Quaternion SafeLookRotation(Vector3 forward, Vector3 upwards)
         {
             Quaternion result = Quaternion.identity;
@@ -86,6 +118,12 @@ namespace Nebula
             return result;
         }
 
+        /// <summary>
+        /// Dibuja los bounds de <see cref="Bounds"/> usando la clase Debug
+        /// </summary>
+        /// <param name="bounds">El Bounds a dibujar</param>
+        /// <param name="color">El color de los rayos</param>
+        /// <param name="duration">La duracion de los rayos</param>
         public static void DebugBounds(Bounds bounds, Color color, float duration)
         {
             Vector3 min = bounds.min;
@@ -111,12 +149,26 @@ namespace Nebula
             Debug.DrawLine(vector, end, color, duration);
             Debug.DrawLine(vector3, end2, color, duration);
         }
+        /// <summary>
+        /// Dibuja una cruz en <paramref name="position"/> de radio <paramref name="radius"/>, con el color <paramref name="color"/> y duracion <paramref name="duration"/>
+        /// </summary>
+        /// <param name="position">La posicion de la cruz</param>
+        /// <param name="radius">El radio de la cruz</param>
+        /// <param name="color">El color de la cruz</param>
+        /// <param name="duration">La duracion de la cruz</param>
         public static void DebugCross(Vector3 position, float radius, Color color, float duration)
         {
             Debug.DrawLine(position - Vector3.right * radius, position + Vector3.right * radius, color, duration);
             Debug.DrawLine(position - Vector3.up * radius, position + Vector3.up * radius, color, duration);
             Debug.DrawLine(position - Vector3.forward * radius, position + Vector3.forward * radius, color, duration);
         }
+
+        /// <summary>
+        /// Retorna verdadero si <paramref name="paramHash"/> existe dento de <paramref name="animator"/>
+        /// </summary>
+        /// <param name="paramHash">El hash code del parametro</param>
+        /// <param name="animator">El animador</param>
+        /// <returns>Verdadero si <paramref name="paramHash"/> existe dentro de <paramref name="animator"/></returns>
         public static bool AnimatorParamExists(int paramHash, Animator animator)
         {
             if (!animator)

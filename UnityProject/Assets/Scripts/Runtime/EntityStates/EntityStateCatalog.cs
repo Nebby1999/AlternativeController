@@ -11,12 +11,24 @@ using UnityEngine.AddressableAssets;
 
 namespace AC
 {
+    /// <summary>
+    /// Catalogo que contiene todos los estados registrados dentro del juego.
+    /// 
+    /// <br>Inicializado por <see cref="ACApplication.C_LoadGameContent"/></br>
+    /// </summary>
     public static class EntityStateCatalog
     {
+        /// <summary>
+        /// Booleano que representa si el catalogo esta inicializado y esta actualmente disponible.
+        /// </summary>
         public static bool initialized { get; private set; }
         private static Type[] entityStates = Array.Empty<Type>();
-        private static readonly Dictionary<Type, Action<object>> instanceFieldInitializers = new Dictionary<Type, Action<object>>();
+        private static readonly Dictionary<Type, Action<object>> instanceFieldInitializers = new Dictionary<Type, Action<object>>(); //La accion guardad en este diccionario inicializa los valores por defecto de instancia, serializado por fields marcados con Serializedfield
 
+        /// <summary>
+        /// Inicializa el <see cref="EntityStateCatalog"/>
+        /// </summary>
+        /// <returns>Un Coroutine el cual se puede procesar.</returns>
         internal static CoroutineTask Initialize()
         {
             return new CoroutineTask(C_InitializationCoroutine());
@@ -47,9 +59,10 @@ namespace AC
 
                     entityStates.AddRange(typeStates);
                 }
-                catch (Exception e)
+                catch (ReflectionTypeLoadException e)
                 {
-                    Debug.LogError(e);
+                    Debug.LogWarning(e); //Añade los types que conseguimos.
+                    entityStates.AddRange(e.Types);
                 }
             }
             return entityStates.ToArray();
@@ -76,6 +89,12 @@ namespace AC
             }
         }
 
+        /// <summary>
+        /// Inicializa un nuevo estado guardado por un <see cref="SerializableSystemType"/>
+        /// </summary>
+        /// <param name="serializableSystemType">El estado que vamos a inicializar.</param>
+        /// <returns>El estado inicializado</returns>
+        /// <exception cref="ArgumentException">Cuando el Type guardado por <paramref name="serializableSystemType"/> no es de tipo <see cref="State"/></exception>
         public static EntityState InstantiateState(SerializableSystemType serializableSystemType)
         {
             Type type = (Type)serializableSystemType;
@@ -84,6 +103,11 @@ namespace AC
             return InstantiateState(type);
         }
 
+        /// <summary>
+        /// Inicializa un nuevo estado representado por <paramref name="stateType"/>
+        /// </summary>
+        /// <param name="stateType">El estado que queremos inicializar</param>
+        /// <returns>El estado inicializado</returns>
         public static EntityState InstantiateState(Type stateType)
         {
             if (stateType != null && stateType.IsSubclassOf(typeof(State)))
@@ -94,6 +118,10 @@ namespace AC
             return null;
         }
 
+        /// <summary>
+        /// Inicializa los fields de instancia del estado seleccionado.
+        /// </summary>
+        /// <param name="entityState">El estado el cual deseamos inicializar sus fields de instancia.</param>
         public static void InitializeStateField(EntityState entityState)
         {
             if (instanceFieldInitializers.TryGetValue(entityState.GetType(), out Action<object> initializer))

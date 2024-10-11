@@ -4,9 +4,14 @@ using UnityEngine;
 
 namespace EntityStates
 {
+    /// <summary>
+    /// Estado de un <see cref="AC.Vehicle"/>, utilizado cuando se sobrecalienta.
+    /// </summary>
     public class HeatStunState : GenericStunState
     {
+        [Tooltip("La duracion de stun de este estado.")]
         public static float heatStunDuration;
+        [Tooltip("Un efecto usado cuando este estado comienza.")]
         public static GameObject steamVFX;
 
         private GameObject _steamInstance;

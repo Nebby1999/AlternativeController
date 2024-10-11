@@ -4,12 +4,21 @@ using System.Reflection;
 
 namespace Nebula.Serialization
 {
+    /// <summary>
+    /// Representa un valor serializado
+    /// </summary>
     [Serializable]
     public struct SerializedValue : IEquatable<SerializedValue>
     {
+        [Tooltip("referencia a un objeto de unity")]
         public UnityEngine.Object objectReferenceValue;
+
+        [Tooltip("el valor serializado como un string")]
         public string stringValue;
 
+        /// <summary>
+        /// Revisa si dos Serializedvalues son iguales.
+        /// </summary>
         public bool Equals(SerializedValue other)
         {
             if(string.Equals(stringValue, other.stringValue, StringComparison.OrdinalIgnoreCase))
@@ -19,6 +28,12 @@ namespace Nebula.Serialization
             return false;
         }
 
+        /// <summary>
+        /// Consigue el valor 
+        /// </summary>
+        /// <param name="fieldInfo"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public object GetValue(FieldInfo fieldInfo)
         {
             Type fieldType = fieldInfo.FieldType;

@@ -2,6 +2,9 @@ using AC;
 
 namespace EntityStates.Bug
 {
+    /// <summary>
+    /// Estado base de un bicho, muerde en frente causando daño o consumiendo recursos.
+    /// </summary>
     public class Bite : BaseCharacterState
     {
         public static float biteDuration;

@@ -4,12 +4,20 @@ using UnityEngine;
 
 namespace EntityStates.Vehicle
 {
+    /// <summary>
+    /// Estado de vehiculo base que disipa el calor, causando un stun alrededor y najando el calor.
+    /// </summary>
     public class HeatRelease : BaseVehicleState
     {
+        [Tooltip("El efecto usado cuando se disipa el calor")]
         public static GameObject vfx;
+        [Tooltip("Cuantas particulas se dberian emitir en relacion al calor")]
         public static AnimationCurve burstCountCurve;
+        [Tooltip("El rango minimo del stun")]
         public static float minStunRange;
+        [Tooltip("El rango maximo del stun")]
         public static float maxStunRange;
+        [Tooltip("La duracion base de este estado.")]
         public static float baseDuration;
 
         private float _radius;
@@ -34,7 +42,7 @@ namespace EntityStates.Vehicle
                 Gizmos.DrawWireSphere(transform.position, _radius);
             });
 #endif
-
+            //TODO: esto talvez deberia ser una clase propia, parecido a un HitscanAttack, talvez llamarlo "BlastAttack"? sobre todo si decidimos hacer mas ataques que tienen un radio de efecto.
             CircleSearch search = new CircleSearch()
             {
                 origin = transform.position,
@@ -53,7 +61,7 @@ namespace EntityStates.Vehicle
 
             foreach (var candidate in toStun)
             {
-                //Stun the entity
+                //Stunea a la entidad
                 var healthComponentToStun = candidate.colliderHurtbox.healthComponent;
 
                 if(healthComponent)

@@ -29,7 +29,7 @@ namespace AC
         public bool beginCooldownOnStateEnd;
         [Tooltip("El cuerpo debe accionar el boton para ejecutar la habilidad. mantener presionado el boton no ejecuta la habilidad.")]
         public bool requireKeyPress;
-        [Tooltip("La fuerza de interrupcion para esta habilidad.")]
+        [Tooltip("La fuerza de interrupcion para esta habilidad. Si la habilidad diene una fuerza de interrupcion mayor a la del estado, esta habilidad gana y el estado de la habilidad es usado.")]
         public InterruptPriority interruptStrength = InterruptPriority.Any;
         
         /// <summary>
@@ -113,12 +113,34 @@ namespace AC
         }
     }
 
+    /// <summary>
+    /// Enum que demuestra la prioridad de interrupccion de un estado o de una habilidad
+    /// </summary>
     public enum InterruptPriority
     {
+        /// <summary>
+        /// Puede ser interrumpido por cualquier estado/habilidad
+        /// </summary>
         Any = 0,
+
+        /// <summary>
+        /// Supera de fuerza al valor <see cref="Any"/>
+        /// </summary>
         Skill = 1,
+
+        /// <summary>
+        /// Supera de fuerza al valor <see cref="Skill"/> y <see cref="Any"/>
+        /// </summary>
         PrioritySkill = 2,
+
+        /// <summary>
+        /// Supera de fuerza al valor <see cref="PrioritySkill"/> y <see cref="Skill"/> y <see cref="Any"/>
+        /// </summary>
         Stun = 3,
+
+        /// <summary>
+        /// Supera de fuerza el valor de todo, usualmente un estado de muerte tiene esta prioridad.+
+        /// </summary>
         Death = 4
     }
 }

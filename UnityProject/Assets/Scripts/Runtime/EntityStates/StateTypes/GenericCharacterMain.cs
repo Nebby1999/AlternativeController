@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace EntityStates
 {
+    /// <summary>
+    /// Estado base que controla el "cuerpo" de un personaje, decide que habilidades deben ejecutarse y decide como moverse en el mundo a partir de los inputs del personaje.
+    /// </summary>
     public class GenericCharacterMain : BaseCharacterMain
     {
         public override void FixedUpdate()
@@ -17,6 +20,7 @@ namespace EntityStates
         {
             if(hasCharacterController)
             {
+                //Usemos los inputs directos nomas del personaje.
                 characterController.movementDirection = moveVector;
                 characterController.rotationInput = rotationInput;
             }

@@ -6,30 +6,34 @@ using UnityEngine;
 namespace Nebula
 {
     /// <summary>
-    /// A StateMachine is a custom monobehaviour class that allows you to run classes inheriting from <see cref="State"/>, these classes allows you to have different machines controlling different parts of a GameObject.
+    /// Una <see cref="StateMachine"/> es un componente que te permite correr clases que heredan de <see cref="State"/>, estas clases te permiten tener multiples maquinas controlando distintas partes de un GameObject
+    /// <para></para>
+    /// Esta clase se debe heredar para utilizar correctamente
     /// </summary>
     public abstract class StateMachine : MonoBehaviour
     {
         /// <summary>
-        /// The name for this state machine
+        /// El nombre de esta maquina de estado
         /// </summary>
         public string stateMachineName;
+
         /// <summary>
-        /// When the object is first instantiated, this is it's initial state.
+        /// Cuando la maquina de estado comienza, este estado es su estado inicial
         /// </summary>
         public abstract SerializableSystemType initialStateType { get; }
+
         /// <summary>
-        /// Whenever a state uses SetNextStateToMain, the machine's state is set to this state.
+        /// Cuando <see cref="SetNextStateToMain"/> es llamado, este es el nuevo estado de la maquina.
         /// </summary>
         public abstract SerializableSystemType mainStateType { get; }
 
         /// <summary>
-        /// The new incoming state to change to
+        /// El nuevo estado que deberiamos cambiar
         /// </summary>
         public State newState { get; private set; }
 
         /// <summary>
-        /// The current state that's running
+        /// El estado actual que esta corriendo
         /// </summary>
         public State currentState
         {
@@ -48,19 +52,19 @@ namespace Nebula
         private State _currentState;
 
         /// <summary>
-        /// A unique ID set for this state machine
+        /// Un numero identificador unico dentro del GameObject para esta maquina de estado
         /// </summary>
         public int stateMachineID { get; private set; }
 
         /// <summary>
-        /// Initializes a new State class from the specified <see cref="Type"/>
+        /// Crea un nuevo <see cref="State"/> del <paramref name="stateType"/> especifico
         /// </summary>
-        /// <param name="stateType">The state type that'll be initialized</param>
-        /// <returns>The instance of the state</returns>
+        /// <param name="stateType">El estado que se va a crear</param>
+        /// <returns>La instancia del estado</returns>
         protected abstract State InitializeState(Type stateType);
 
         /// <summary>
-        /// Assigns the <see cref="stateMachineID"/> and <see cref="currentState"/> to <see cref="Uninitialized"/>
+        /// Asigna el valor de <see cref="stateMachineID"/> y coloca <see cref="currentState"/> en <see cref="Uninitialized"/>
         /// </summary>
         protected virtual void Awake()
         {
@@ -70,7 +74,7 @@ namespace Nebula
         }
 
         /// <summary>
-        /// Sets the current state to <see cref="initialStateType"/> IF <see cref="currentState"/> is <see cref="Uninitialized"/>
+        /// Asigna el valor de <see cref="currentState"/> a <see cref="initialStateType"/> SI <see cref="currentState"/> es de valor <see cref="Uninitialized"/>
         /// </summary>
         protected virtual void Start()
         {
@@ -82,10 +86,10 @@ namespace Nebula
         }
 
         /// <summary>
-        /// Sets a new state for this StateMachine.
+        /// Asigna un nuevo estado a esta maquina de estado
         /// </summary>
-        /// <param name="newState">The new state for this state machine</param>
-        /// <exception cref="NullReferenceException"><paramref name="newState"/> is null</exception>
+        /// <param name="newState">El nuevo estado para esta maquina</param>
+        /// <exception cref="NullReferenceException">Cuando <paramref name="newState"/> es null</exception>
         protected virtual void SetState(State newState)
         {
             if (newState == null)
@@ -97,18 +101,21 @@ namespace Nebula
         }
 
         /// <summary>
-        /// Sets a new state for this StateMachine.
+        /// Asigna un nuevo estado a ejectuar en el siguiente frame
         /// </summary>
-        /// <param name="newState">The new state for this state machine</param>
-        /// <exception cref="NullReferenceException"><paramref name="newState"/> is null</exception>
+        /// <param name="newNextState">El nuevo estado a usar a partir del siguiente frame</param>
+        /// <exception cref="NullReferenceException">Cuando <paramref name="newNextState"/> es null</exception>
         public virtual void SetNextState(State newNextState)
         {
+            if (newNextState == null)
+                throw new NullReferenceException("newNextState is null");
+
             newNextState.outer = this;
             newState = newNextState;
         }
 
         /// <summary>
-        /// Sets the StateMachine's state to its mainStateType
+        /// Coloca el estado de esta maquina a <see cref="mainStateType"/>
         /// </summary>
         public virtual void SetNextStateToMain()
         {
@@ -116,7 +123,7 @@ namespace Nebula
         }
 
         /// <summary>
-        /// Runs <see cref="currentState"/>'s Update method
+        /// Corre el metodo <see cref="State.Update"/> de <see cref="currentState"/>
         /// </summary>
         protected virtual void Update()
         {
@@ -124,7 +131,7 @@ namespace Nebula
         }
 
         /// <summary>
-        /// Runs <see cref="currentState"/>'s FixedUpdate method, if <see cref="newState"/> has a value, the newState is set.
+        /// Corre el metodo <see cref="State.FixedUpdate"/> de <see cref="currentState"/>, si <see cref="newState"/> tiene un valor, se cambia el estado actual de la maquina.
         /// </summary>
         protected virtual void FixedUpdate()
         {
@@ -135,18 +142,33 @@ namespace Nebula
         }
 
         /// <summary>
-        /// Runs <see cref="currentState"/>'s OnExit method.
+        /// Corre el metodo <see cref="State.OnExit"/> de <see cref="currentState"/>
         /// </summary>
         protected virtual void OnDestroy()
         {
             currentState?.OnExit();
         }
 
+        /// <summary>
+        /// Encuentra una maquina de estado dentro de <paramref name="obj"/> del nombre <paramref name="name"/>
+        /// </summary>
+        /// <typeparam name="TSM">La sub-clase de maquina a retornar</typeparam>
+        /// <param name="obj">El GameObject el cual vamos a buscar la maquina</param>
+        /// <param name="name">El nombre de la maquina</param>
+        /// <returns>La maquina de estado, o null si no se encuentra</returns>
         public static TSM FindStateMachineByName<TSM>(GameObject obj, string name) where TSM : StateMachine
         {
             int hashCode = name.GetHashCode();
             return FindStateMachineByHashCode<TSM>(obj, hashCode);
         }
+
+        /// <summary>
+        /// Encuentra una maquina de estado dentro de <paramref name="obj"/> cuyo <see cref="stateMachineID"/> es igual a <paramref name="hashCode"/>
+        /// </summary>
+        /// <typeparam name="TSM">La sub-clase de maquina a retornar</typeparam>
+        /// <param name="obj">El GameObject el cual vamos a buscar la maquina</param>
+        /// <param name="hashCode">El identificador unico de la maquina</param>
+        /// <returns>La maquina de estado, o null si no se encuentra</returns>
         public static TSM FindStateMachineByHashCode<TSM>(GameObject obj, int hashCode) where TSM : StateMachine
         {
             var stateMachines = obj.GetComponents<TSM>();

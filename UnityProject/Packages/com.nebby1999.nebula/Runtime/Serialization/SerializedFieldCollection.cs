@@ -1,12 +1,20 @@
 using System;
+using UnityEngine;
 
 namespace Nebula.Serialization
 {
+    /// <summary>
+    /// Representa una coleccion de <see cref="SerializedField"/>
+    /// </summary>
     [Serializable]
     public struct SerializedFieldCollection
     {
+        [Tooltip("Los Serializedfield siendo serializados.")]
         public SerializedField[] serializedFields;
 
+        /// <summary>
+        /// Consigue o crea un <see cref="SerializedField"/> de nombre <paramref name="fieldName"/>
+        /// </summary>
         public ref SerializedField GetOrCreateField(string fieldName)
         {
             if(serializedFields == null)
@@ -30,6 +38,9 @@ namespace Nebula.Serialization
             return ref reference;
         }
 
+        /// <summary>
+        /// Purga cualquier valor de un <see cref="SerializedField"/> cuyo <see cref="SerializedValue.objectReferenceValue"/> sea un null de c++, pero no un null de C#
+        /// </summary>
         public void PurgeUnityPseudoNull()
         {
             if (serializedFields == null)

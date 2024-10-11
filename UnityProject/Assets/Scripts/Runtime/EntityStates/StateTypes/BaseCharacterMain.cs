@@ -3,11 +3,24 @@ using UnityEngine;
 
 namespace EntityStates
 {
+    /// <summary>
+    /// Estado base para manejar el movimiento y acciones de un <see cref="CharacterBody"/>
+    /// </summary>
     public class BaseCharacterMain : BaseCharacterState
     {
+        /// <summary>
+        /// Verdadero si la maquina tiene un <see cref="AC.Rigidbody2DCharacterController"/>
+        /// </summary>
         public bool hasCharacterController { get; private set; }
 
+        /// <summary>
+        /// El input de movimiento sacado del InputBank del personaje.
+        /// </summary>
         protected Vector2 moveVector;
+
+        /// <summary>
+        /// Input de rotacion sacado del InputBank del personaje
+        /// </summary>
         protected int rotationInput;
 
         public override void OnEnter()

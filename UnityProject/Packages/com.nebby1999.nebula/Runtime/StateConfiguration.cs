@@ -7,11 +7,24 @@ using UnityEngine;
 
 namespace Nebula
 {
+    /// <summary>
+    /// Un <see cref="StateConfiguration"/> es un ScriptableObject el cual se utiliza para serializar los valores dentro de una clase <see cref="State"/>. Valores publicos y estacicos serian serializados, mientras que valores publicos de instancia con el attributo <see cref="SerializeField"/> tambien seran serializados.
+    /// </summary>
     public abstract class StateConfiguration : NebulaScriptableObject
     {
+        /// <summary>
+        /// El <see cref="Type"/> de tipo <see cref="State"/> a Configurar
+        /// </summary>
         public abstract SerializableSystemType stateTypeToConfig { get; }
+
+        /// <summary>
+        /// La coleccion de fields del estado
+        /// </summary>
         public SerializedFieldCollection fieldCollection;
 
+        /// <summary>
+        /// Asigna el nombre de este objeto al nombre completo del estado que se esta configurando
+        /// </summary>
         [ContextMenu("Set name to targetType name")]
         public virtual void SetNameToTargetTypeName()
         {
@@ -25,27 +38,15 @@ namespace Nebula
 #endif
         }
 
-#if UNITY_EDITOR
-        [ContextMenu("Editor PlayMode-Test serialized values")]
-        public virtual void RuntimeTestSerializedValues()
-        {
-            if (!Application.isPlaying)
-                return;
-
-            Type targetType = (Type)stateTypeToConfig;
-            if (targetType == null)
-                return;
-
-            State state = InstantiateState();
-            foreach (FieldInfo field in state.GetType().GetFields())
-            {
-                Debug.Log($"{field.Name} ({field.FieldType.Name}): {field.GetValue(state)}");
-            }
-        }
-
-#endif
+        /// <summary>
+        /// Crea el estado guardado en <see cref="stateTypeToConfig"/>
+        /// </summary>
+        /// <returns>El estado</returns>
         public abstract State InstantiateState();
 
+        /// <summary>
+        /// Aplica los valores estaticos guardados en esta configuracion a <see cref="stateTypeToConfig"/>
+        /// </summary>
         public virtual void ApplyStaticConfiguration()
         {
             if (!Application.isPlaying)
@@ -81,6 +82,10 @@ namespace Nebula
             }
         }
 
+        /// <summary>
+        /// Crea un metodo el cual asigna valores a los fields de instancia de <see cref="stateTypeToConfig"/>
+        /// </summary>
+        /// <returns>Una accion el cual asigna los valores de instancia, el objeto a darle a la accion deberia ser una instancia de <see cref="stateTypeToConfig"/></returns>
         public virtual Action<object> CreateInstanceInitializer()
         {
             if (!Application.isPlaying)
@@ -130,6 +135,9 @@ namespace Nebula
             }
         }
 
+        /// <summary>
+        /// Purga fields dento de <see cref="fieldCollection"/> que son "PseudoNull", osease, su valor en C# no es null pero su valor en C++ si lo es.
+        /// </summary>
         protected override void Awake()
         {
             base.Awake();

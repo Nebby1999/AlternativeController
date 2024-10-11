@@ -4,13 +4,22 @@ using UnityEngine;
 
 namespace Nebula
 {
+#if UNITY_EDITOR
+    /// <summary>
+    /// Clase exlcusiva del editor, te permite dibujar <see cref="Gizmos"/> desde cualquier clase, sin necesidad de usar un componente
+    /// </summary>
     public class GlobalGizmos : SingletonMonoBehaviour<GlobalGizmos>
     {
         protected override bool destroyIfDuplicate => true;
         private static List<DrawRequest> _drawRequests = new List<DrawRequest>();
         private static List<int> _finishedRequests = new List<int>();
 
-        public static void EnqueueGizmoDrawing(Action action, int drawCalls = 60)
+        /// <summary>
+        /// Llama <paramref name="action"/> durante los segundos especificados en <paramref name="duration"/>.
+        /// </summary>
+        /// <param name="action">La accion en si, deberia llamar a metodos dentro de <see cref="Gizmos"/></param>
+        /// <param name="duration">La duracion de los dibujos.</param>
+        public static void EnqueueGizmoDrawing(Action action, float duration = 60)
         {
             if(!instance)
             {
@@ -33,7 +42,7 @@ namespace Nebula
             _drawRequests.Add(new DrawRequest
             {
                 gizmoDrawingMethod = action,
-                remainingDrawCalls = drawCalls
+                remainingDrawCalls = Mathf.RoundToInt(duration * 60)
             });
         }
 
@@ -63,4 +72,5 @@ namespace Nebula
             public int remainingDrawCalls;
         }
     }
+#endif
 }

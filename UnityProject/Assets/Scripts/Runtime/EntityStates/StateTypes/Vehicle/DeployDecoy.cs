@@ -3,8 +3,12 @@ using UnityEngine;
 
 namespace EntityStates.Vehicle
 {
+    /// <summary>
+    /// Estado de Vehiculo el cual suelta un Decoy de su Cargo actual.
+    /// </summary>
     public class DeployDecoy : BaseVehicleSkillState
     {
+        [Tooltip("Tiempo base entre soltar decoys")]
         public static float timeBetweenDeploys;
 
         private static float _stopwatch;

@@ -12,13 +12,15 @@ using UnityEngine.SceneManagement;
 
 namespace Nebula
 {
+    /// <summary>
+    /// Una clase de tipo <see cref="AssetReference"/> que se usa para referenciar una Escena.
+    /// </summary>
     [System.Serializable]
     public class AssetReferenceScene : AssetReference
     {
         /// <summary>
-        /// Construct a new AssetReference object.
+        /// Crea un nuevo AssetReference usando el guid <paramref name="guid"/>
         /// </summary>
-        /// <param name="guid">The guid of the asset.</param>
         public AssetReferenceScene(string guid) : base(guid)
         {
         }
@@ -47,7 +49,7 @@ namespace Nebula
 
 #if UNITY_EDITOR
         /// <summary>
-        /// Type-specific override of parent editorAsset.  Used by the editor to represent the asset referenced.
+        /// override especifico del parent editor asset, usado por el editor para representar la escena siendo referenciada.
         /// </summary>
         public new UnityEditor.SceneAsset editorAsset => (UnityEditor.SceneAsset)base.editorAsset;
 #endif

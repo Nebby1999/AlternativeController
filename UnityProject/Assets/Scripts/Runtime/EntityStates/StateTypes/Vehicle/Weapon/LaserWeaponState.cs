@@ -5,12 +5,20 @@ using UnityEngine;
 
 namespace EntityStates.Vehicle.Weapon
 {
+    /// <summary>
+    /// Estado de vehiculo el cual lanza un laser de calor, haciendo daño al enemigo en frente
+    /// </summary>
     public class LaserWeaponState : BaseVehicleWeaponState, ISkillState
     {
+        [Tooltip("El efecto de laser usado cuando este estado esta activo")]
         public static GameObject laserEffect;
+        [Tooltip("El tiempo entre instancias de daño causado por el laser")]
         public static float timeBetweenTicks;
+        [Tooltip("El radio que tiene el laser al ser disparado")]
         public static float laserRadius;
+        [Tooltip("La distancia que tiene el laser")]
         public static float laserDistance;
+        [Tooltip("Coeficiente de daño que el laser usa, a partir del daño base del personaje")]
         public static float damageCoefficient;
 
         private float _tickStopwatch;

@@ -27,6 +27,11 @@ namespace AC
             applicationRNG = new Xoroshiro128Plus((ulong)DateTime.Now.Ticks);
         }
 
+        protected override IEnumerator C_BeforeLoadingContent()
+        {
+            yield break;
+        }
+
         protected override IEnumerator C_LoadGameContent()
         {
             var parallelCoroutineTask = new ParallelCoroutineTask();
@@ -35,6 +40,11 @@ namespace AC
 
             while (!parallelCoroutineTask.isDone)
                 yield return null;
+        }
+
+        protected override IEnumerator C_OnFinishedLoading()
+        {
+            yield break;
         }
     }
 }
